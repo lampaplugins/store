@@ -1,0 +1,174 @@
+{
+  "secuses": true,
+  "results": [
+    {
+      "title": "Популярные",
+      "results": [
+        {
+		  "name": "Онлайн Мод",
+		  "author": "@t_anton",
+		  "link": "https://nb557.github.io/plugins/online_mod.js",
+		  "descr": "Фильмы и сериалы в онлайн, больше 10 балансеров для просмотра.",
+		  "available_lampa": 1
+		},
+        {
+		  "name": "Телевидение by Skaz ",
+		  "author": "@helpiptv",
+		  "link": "http://skaztv.online/tv.js",
+		  "descr": "IPTV телевидения. Представлены в основном Эфирные, Развлекательные, Детские и спортивные каналы. Приятного просмотра!",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "MODS's",
+		  "author": "@modss_group",
+		  "link": "http://lampa.stream/modss",
+		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
+		  "available_lampa": 1
+		}
+      ],
+      "hpu": "best"
+    },
+    {
+      "title": "Видео",
+      "results": [
+        {
+		  "name": "Онлайн Мод",
+		  "author": "@t_anton",
+		  "link": "https://nb557.github.io/plugins/online_mod.js",
+		  "descr": "Фильмы и сериалы в онлайн, больше 10 балансеров для просмотра.",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "MODS's",
+		  "author": "@modss_group",
+		  "link": "http://lampa.stream/modss",
+		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Онлайн Prestige",
+		  "author": "",
+		  "link": "https://bwa.to/plugins/prestige.js",
+		  "descr": "Старый, но еще рабочий плагин для онлайн просмотра, 3 балансера",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "BwaJS",
+		  "author": "@bwato",
+		  "link": "https://bwa.to/o",
+		  "descr": "Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "available_lampa": 1
+		}
+      ],
+      "hpu": "video"
+    },
+    {
+      "title": "Управление",
+      "results": [
+		{
+		  "name": "Добавляет пункт \"Парсер\" в меню",
+		  "author": "@lampa",
+		  "link": "http://cub.red/plugin/etor",
+		  "descr": "Плагин для ТВ, на которых Lampa установлена через официальные магазины LG Store и Tizen App Store. Включает в настройках отображение пунктов Парсер и Torrserver",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Тип управления",
+		  "author": "@nemiroff",
+		  "link": "https://nemiroff.github.io/lampa/select_weapon.js",
+		  "descr": "Позволяет выбрать тип управления (Пульт без мышки, Пульт с мышью, Тачскрин), а так же сбросить тип управления выбранный ранее",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Старый стиль (Закладки, Нравится, Позже)",
+		  "author": "@VitalikPVA",
+		  "link": "http://github.freebie.tom.ru/want.js",
+		  "descr": "Возвращает в главное меню старый стиль отображения пунктов (Закладки, Нравится, Позже)",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Сброс настроек субтитров",
+		  "author": "@t_anton",
+		  "link": "https://nb557.github.io/plugins/reset_subs.js",
+		  "descr": "Сбрасывает настройки субтитров по умолчанию",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Мультфильмы",
+		  "author": "@AndreyURL54",
+		  "link": "http://95.215.8.180/plugins/mult.js",
+		  "descr": "Заменяет пункт Аниме на Мульт",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Выключение тача",
+		  "author": "@t_anton",
+		  "link": "https://nb557.github.io/plugins/not_mobile.js",
+		  "descr": "Выключает сенсорное управление, если оно было включено по ошибке",
+		  "available_lampa": 1
+		}
+      ],
+      "hpu": "control"
+    },
+    {
+      "title": "Телевидение",
+      "results": [
+		 {
+		  "name": "ТВ by skaz",
+		  "author": "@helpiptv",
+		  "link": "http://skaztv.online/tv.js",
+		  "descr": "Бесплатные каналы и 1400+ каналов по подписке",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Kulik",
+		  "author": "@SawamuraRen",
+		  "link": "http://cdn.kulik.uz/cors",
+		  "descr": "Просмотр IPTV каналов, отсортированных по различным категориям. Есть возможность поменять стиль плагина, сервер вещания, а также добавить каналы в избранное",
+		  "available_lampa": 1
+		},{
+		  "name": "ТВ by skaz 2.0",
+		  "author": "@helpiptv",
+		  "link": "http://skaztv.online/tv2.js",
+		  "descr": "Версия ТВ by skaz плагина на основе IPTV",
+		  "available_lampa": 1
+		},
+        {
+		  "name": "Клубничка 18+",
+		  "author": "@sisi",
+		  "link": "https://sisi.am/nyam.js",
+		  "descr": "Онлайн просмотр контента для взрослых, больше 30 сайтов",
+		  "available_lampa": 1
+		}
+      ],
+      "hpu": "tv"
+    },
+    {
+      "title": "Разное",
+      "results": [		 
+		{
+		  "name": "Предзагрузка ts",
+		  "author": "@rootu",
+		  "link": "https://plugin.rootu.top/ts-preload.js",
+		  "descr": "Плагин визуализации предзагрузки торрентов для встроенного клиента TorrServer",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Приятные мелочи",
+		  "author": "@AndreyURL54",
+		  "link": "https://skaztv.online/js/tricks.js",
+		  "descr": "Дополнение некоторых востребованных функций и дизайна, которых вам не хватало. (mod. Без проверки на MSX)",
+		  "available_lampa": 1
+		},
+		{
+		  "name": "Отключение Websocket",
+		  "author": "@rootu",
+		  "link": "http://plugin.rootu.top/wsoff.js",
+		  "descr": "Плагин отключает протокол Websocket, помогает при ошибках на некоторых устройствах",
+		  "available_lampa": 1
+		}
+      ],
+      "hpu": "other"
+    }
+  ]
+}
