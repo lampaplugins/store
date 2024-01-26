@@ -14,7 +14,7 @@
         {
 		  "name": "Телевидение by Skaz ",
 		  "author": "@helpiptv",
-		  "link": "http://skaztv.online/tv.js",
+		  "link": "http://skaz.tv/tv.js",
 		  "descr": "IPTV телевидения. Представлены в основном Эфирные, Развлекательные, Детские и спортивные каналы. Приятного просмотра!",
 		  "available_lampa": 1
 		},
@@ -116,7 +116,7 @@
 		 {
 		  "name": "ТВ by skaz",
 		  "author": "@helpiptv",
-		  "link": "http://skaztv.online/tv.js",
+		  "link": "http://skaz.tv/tv.js",
 		  "descr": "Бесплатные каналы и 1400+ каналов по подписке",
 		  "available_lampa": 1
 		},
@@ -129,7 +129,7 @@
 		},{
 		  "name": "ТВ by skaz 2.0",
 		  "author": "@helpiptv",
-		  "link": "http://skaztv.online/tv2.js",
+		  "link": "http://skaz.tv/tv2.js",
 		  "descr": "Версия ТВ by skaz плагина на основе IPTV",
 		  "available_lampa": 1
 		},
@@ -145,7 +145,14 @@
     },
     {
       "title": "Разное",
-      "results": [		 
+      "results": [	
+	      	{
+		  "name": "Отзывы и рецензии",
+		  "author": "@elenatv99",
+		  "link": "https://skaz.tv/o.js",
+		  "descr": "Добавляет кнопку чтения отзывов с КиноПоиск в карточку фильма или сериала",
+		  "available_lampa": 1
+		},
 		{
 		  "name": "Предзагрузка ts",
 		  "author": "@rootu",
