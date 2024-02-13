@@ -79,6 +79,20 @@
 		  "descr": "Позволяет выбрать тип управления (Пульт без мышки, Пульт с мышью, Тачскрин), а так же сбросить тип управления выбранный ранее",
 		  "available_lampa": 1
 		},
+	       {
+		  "name": "Публичные парсеры",
+		  "author": "@lme",
+		  "link": "https://lampame.github.io/main/parser.js",
+		  "descr": "Сборник публичных парсеров (Jackett) с отображением статуса доступности.",
+		  "available_lampa": 1
+		},
+	        {
+		  "name": "Дополнительные категории",
+		  "author": "@lme",
+		  "link": "https://lampame.github.io/main/newcategory.js",
+		  "descr": "Добавление категорий Мультфильмы, Концерты (только с TMDB)",
+		  "available_lampa": 1
+		},
 		{
 		  "name": "Старый стиль (Закладки, Нравится, Позже)",
 		  "author": "@VitalikPVA",
