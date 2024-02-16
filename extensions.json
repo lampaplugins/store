@@ -82,8 +82,8 @@
 	       {
 		  "name": "Публичные парсеры",
 		  "author": "@lme",
-		  "link": "https://lampame.github.io/main/parser.js",
-		  "descr": "Сборник публичных парсеров (Jackett) с отображением статуса доступности.",
+		  "link": "https://lampame.github.io/main/pubtorr.js",
+		  "descr": "Сборник публичных парсеров и Torrserver'ов с отображением статуса доступности",
 		  "available_lampa": 1
 		},
 	        {
