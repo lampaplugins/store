@@ -84,7 +84,7 @@
 		  "author": "@lme",
 		  "link": "https://lampame.github.io/main/pubtorr.js",
 		  "descr": "Сборник публичных парсеров и Torrserver'ов с отображением статуса доступности",
-		  "available_lampa": 1
+		  "available_lampa": 0
 		},
 	        {
 		  "name": "Дополнительные категории",
