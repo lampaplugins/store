@@ -72,6 +72,13 @@
 		  "descr": "Плагин для ТВ, на которых Lampa установлена через официальные магазины LG Store и Tizen App Store. Включает в настройках отображение пунктов Парсер и Torrserver",
 		  "available_lampa": 1
 		},
+	        {
+		  "name": "Публичные парсеры",
+		  "author": "@lme",
+		  "link": "https://lampame.github.io/main/pubtorr.js",
+		  "descr": "Сборник публичных парсеров отображением статуса доступности",
+		  "available_lampa": 0
+		},
 		{
 		  "name": "Тип управления",
 		  "author": "@nemiroff",
