@@ -159,7 +159,14 @@
     },
     {
       "title": "Разное",
-      "results": [	
+      "results": [
+	      {
+		  "name": "Радио Рекорд (мод плагина от @Tw1cker)",
+		  "author": "@elenatv99",
+		  "link": "https://lampaplugins.github.io/store/record.js",
+		  "descr": "Радио Рекорд + Радио Вера)))",
+		  "available_lampa": 1
+		},
 	      	{
 		  "name": "Отзывы и рецензии",
 		  "author": "@elenatv99",
