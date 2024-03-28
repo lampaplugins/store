@@ -89,7 +89,7 @@
 	        {
 		  "name": "Дополнительные категории",
 		  "author": "@lme",
-		  "link": "https://lampame.github.io/main/newcategory.js",
+		  "link": "https://lampame.github.io/main/nc/nc.js",
 		  "descr": "Добавление категорий Мультфильмы, Netflix, Концерты, и прочее",
 		  "available_lampa": 1
 		},
@@ -105,13 +105,6 @@
 		  "author": "@t_anton",
 		  "link": "https://nb557.github.io/plugins/reset_subs.js",
 		  "descr": "Сбрасывает настройки субтитров по умолчанию",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Мультфильмы",
-		  "author": "@AndreyURL54",
-		  "link": "http://95.215.8.180/plugins/mult.js",
-		  "descr": "Заменяет пункт Аниме на Мульт",
 		  "available_lampa": 1
 		},
 		{
