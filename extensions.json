@@ -58,6 +58,13 @@
 		  "link": "https://bwa.to/o",
 		  "descr": "Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
+		},
+		{
+		  "name": "Showy",
+		  "author": "Showy",
+		  "link": "http://showy.online/m.js",
+		  "descr": "Онлайн, поддержка 4к",
+		  "available_lampa": 1
 		}
       ],
       "hpu": "video"
