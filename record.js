@@ -209,7 +209,7 @@
           button.on('hover:enter', function () {
             Lampa.Activity.push({
               url: '',
-              title: 'Радио Vera',
+              title: 'Радио Record',
               component: 'radiovera',
               page: 1
             });
