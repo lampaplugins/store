@@ -161,6 +161,13 @@
       "title": "Разное",
       "results": [
 	      {
+		  "name": "SomaFM",
+		  "author": "@tsynik",
+		  "link": "https://tsynik.github.io/lampa/soma.js",
+		  "descr": "Радио для Lampa",
+		  "available_lampa": 1
+		},
+	      {
 		  "name": "Радио Рекорд (мод плагина от @Tw1cker)",
 		  "author": "@elenatv99",
 		  "link": "https://lampaplugins.github.io/store/record.js",
