@@ -178,7 +178,21 @@
 		  "name": "Отзывы и рецензии",
 		  "author": "@elenatv99",
 		  "link": "https://skaz.tv/o.js",
-		  "descr": "Добавляет кнопку чтения отзывов с КиноПоиск в карточку фильма или сериала",
+		  "descr": "Отзывы с КиноПоиск в карточку фильма или сериала",
+		  "available_lampa": 1
+		},
+	      {
+		  "name": "Комментарии к фильмам от Rezka",
+		  "author": "@BDVBurik",
+		  "link": "https://bdvburik.github.io/rezkacomment.js",
+		  "descr": "Комментарии с сайта Rezka в карточках фильмов, сериалов",
+		  "available_lampa": 1
+		},
+	       {
+		  "name": "Оригинальные названия",
+		  "author": "@BDVBurik",
+		  "link": "https://bdvburik.github.io/title.js",
+		  "descr": "Добавляет оригинальные названия к фильмам, сериалам.",
 		  "available_lampa": 1
 		},
 		{
