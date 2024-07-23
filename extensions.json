@@ -65,6 +65,13 @@
 		  "link": "http://showy.online/m.js",
 		  "descr": "Онлайн, поддержка 4к",
 		  "available_lampa": 1
+		},
+        	{
+		  "name": "Клубничка 18+",
+		  "author": "@sisi",
+		  "link": "https://sisi.am/pussy.js",
+		  "descr": "Онлайн просмотр контента для взрослых, больше 30 сайтов",
+		  "available_lampa": 1
 		}
       ],
       "hpu": "video"
@@ -145,13 +152,6 @@
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv2.js",
 		  "descr": "Версия ТВ by skaz плагина на основе IPTV",
-		  "available_lampa": 1
-		},
-        {
-		  "name": "Клубничка 18+",
-		  "author": "@sisi",
-		  "link": "https://sisi.am/nyam.js",
-		  "descr": "Онлайн просмотр контента для взрослых, больше 30 сайтов",
 		  "available_lampa": 1
 		}
       ],
