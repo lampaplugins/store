@@ -168,17 +168,17 @@
 		  "available_lampa": 1
 		},
 	      {
-		  "name": "Радио Рекорд (мод плагина от @Tw1cker)",
+		  "name": "Радио Рекорд",
 		  "author": "@elenatv99",
 		  "link": "https://lampaplugins.github.io/store/record.js",
 		  "descr": "Радио Рекорд + Радио Вера)))",
 		  "available_lampa": 1
 		},
 	      	{
-		  "name": "Отзывы и рецензии",
+		  "name": "Отзывы/рецензии и качество",
 		  "author": "@elenatv99",
 		  "link": "https://skaz.tv/o.js",
-		  "descr": "Отзывы с КиноПоиск в карточку фильма или сериала",
+		  "descr": "Отзывы с КиноПоиск в карточку фильма или сериала и отметки качества фильмов с онлайн балансеров",
 		  "available_lampa": 1
 		},
 	      {
