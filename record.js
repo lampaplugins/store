@@ -220,6 +220,6 @@
         }
       });
     }
-    if (!window.radio) startPlugin();
+    if (!window.radiovera) startPlugin();
 
 })();
