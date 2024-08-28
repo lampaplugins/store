@@ -66,6 +66,13 @@
 		  "descr": "Онлайн, поддержка 4к",
 		  "available_lampa": 1
 		},
+	      {
+		  "name": "YouTube",
+		  "author": "@helpiptv",
+		  "link": "http://lampa.skaz.tv/plugins/youtube.js",
+		  "descr": "В разработке. Несколько LIVE трансляций, остальное через VPN",
+		  "available_lampa": 1
+		},
         	{
 		  "name": "Клубничка 18+",
 		  "author": "@sisi",
