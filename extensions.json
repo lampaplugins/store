@@ -168,6 +168,13 @@
       "title": "Разное",
       "results": [
 	      {
+      		"name": "Кинопоиск",
+      		"author": "and7ey",
+      		"link": "https://and7ey.github.io/lampa/kinopoisk.js",
+      		"descr": "Отображает в приложении список фильмов из папки Буду смотреть на Кинопоиске",
+      		"available_lampa": 1
+ 	   },
+	      {
 		  "name": "SomaFM",
 		  "author": "@tsynik",
 		  "link": "https://tsynik.github.io/lampa/soma.js",
