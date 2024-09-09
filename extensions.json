@@ -56,7 +56,7 @@
 		  "name": "BwaJS",
 		  "author": "@bwato",
 		  "link": "https://bwa.to/o",
-		  "descr": "Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 		},
 		{
