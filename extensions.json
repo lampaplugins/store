@@ -67,6 +67,20 @@
 		  "available_lampa": 1
 		},
 	      {
+		  "name": "Онлайн Stream",
+		  "author": "",
+		  "link": "http://arkmv.ru/vod",
+		  "descr": "Онлайн",
+		  "available_lampa": 1
+		},
+ {
+		  "name": "Онлайн Stream 2",
+		  "author": "",
+		  "link": "http://llpp.in/v/vod.js",
+		  "descr": "Онлайн",
+		  "available_lampa": 1
+		},
+	      {
 		  "name": "YouTube",
 		  "author": "@helpiptv",
 		  "link": "http://lampa.skaz.tv/plugins/youtube.js",
