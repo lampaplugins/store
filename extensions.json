@@ -5,24 +5,24 @@
       "title": "Популярные",
       "results": [
         {
-		  "name": "Онлайн Мод",
-		  "author": "@t_anton",
-		  "link": "https://nb557.github.io/plugins/online_mod.js",
-		  "descr": "Фильмы и сериалы в онлайн, больше 10 балансеров для просмотра.",
+		  "name": "Showy",
+		  "author": "@Showy",
+		  "link": "http://showy.online/m.js",
+		  "descr": "Фильмы и сериалы в онлайн",
 		  "available_lampa": 1
 		},
         {
 		  "name": "Телевидение by Skaz ",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Бесплатные каналы и 1400+ каналов по подписке, IPTV плейлисты @skaztv_bot",
+		  "descr": "Бесплатные каналы и 1500+ каналов по подписке, IPTV плейлисты @skaztv_bot",
 		  "available_lampa": 1
 		},
 		{
 		  "name": "MODS's",
 		  "author": "@modss_group",
 		  "link": "http://lampa.stream/modss",
-		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
+		  "descr": "Фильмы и сериалы в онлайн. Плюс различные дополнения через меню настроек Modss.",
 		  "available_lampa": 1
 		}
       ],
@@ -31,13 +31,6 @@
     {
       "title": "Видео",
       "results": [
-        {
-		  "name": "Онлайн Мод",
-		  "author": "@t_anton",
-		  "link": "https://nb557.github.io/plugins/online_mod.js",
-		  "descr": "Фильмы и сериалы в онлайн, больше 10 балансеров для просмотра.",
-		  "available_lampa": 1
-		},
 		{
 		  "name": "MODS's",
 		  "author": "@modss_group",
@@ -45,11 +38,11 @@
 		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
 		  "available_lampa": 1
 		},
-		{
-		  "name": "Онлайн Prestige",
-		  "author": "",
-		  "link": "https://bwa.to/plugins/prestige.js",
-		  "descr": "Старый, но еще рабочий плагин для онлайн просмотра, 3 балансера",
+                {
+		  "name": "Онлайн Мод",
+		  "author": "@t_anton",
+		  "link": "https://nb557.github.io/plugins/online_mod.js",
+		  "descr": "Фильмы и сериалы в онлайн",
 		  "available_lampa": 1
 		},
 		{
@@ -66,14 +59,21 @@
 		  "descr": "Онлайн, поддержка 4к",
 		  "available_lampa": 1
 		},
-	      {
+		{
+		  "name": "BwaJS 2",
+		  "author": "@bwato",
+		  "link": "http://bwa.to/co",
+		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "available_lampa": 1
+		},   
+	      	{
 		  "name": "Онлайн Stream",
 		  "author": "",
 		  "link": "http://arkmv.ru/vod",
 		  "descr": "Онлайн",
 		  "available_lampa": 1
 		},
- {
+ 		{
 		  "name": "Онлайн Stream 2",
 		  "author": "",
 		  "link": "http://llpp.in/v/vod.js",
