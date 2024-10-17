@@ -203,15 +203,15 @@
 		  "available_lampa": 1
 		},
 	      	{
-		  "name": "Отзывы/рецензии и качество",
+		  "name": "Отзывы/рецензии с КиноПоиск",
 		  "author": "@elenatv99",
 		  "link": "https://skaz.tv/o.js",
-		  "descr": "Отзывы с КиноПоиск в карточку фильма или сериала и отметки качества фильмов с онлайн балансеров",
+		  "descr": "Отзывы с КиноПоиск",
 		  "available_lampa": 1
 		},
 	      {
 		  "name": "Комментарии к фильмам от Rezka",
-		  "author": "@BDVBurik",
+		  "author": "@BDV_Burik",
 		  "link": "https://bdvburik.github.io/rezkacomment.js",
 		  "descr": "Комментарии с сайта Rezka в карточках фильмов, сериалов",
 		  "available_lampa": 1
