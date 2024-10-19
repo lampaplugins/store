@@ -32,14 +32,14 @@ function startMe() {
 			}
 		var plugArray = Lampa.Storage.get('plugins');
 		var newplugArray = plugArray.filter(function(obj) {
-              return obj.url !== 'https://plugin.rootu.top/tmdb.js';
+       		       return obj.url !== 'https://plugin.rootu.top/tmdb.js';
 			});
 			newplugArray = newplugArray.filter(function(obj) {
-              return obj.url !== 'http://cub.red/plugin/tmdb-proxy';
+              		return obj.url !== 'http://cub.red/plugin/tmdb-proxy';
 			});
 				
 		newplugArray.push({"url": "http://cub.red/plugin/tmdb-proxy","name":"TMDB-proxy", "status": 1});
-        Lampa.Storage.set('plugins', newplugArray);	
+        	Lampa.Storage.set('plugins', newplugArray);	
 		window.location = window.location.origin;
 	   } else {
 		   if (Lampa.Storage.get('source')!='tmdb') { 
@@ -54,10 +54,10 @@ function startMe() {
 		return obj; 
 		});
 		newplugArray = newplugArray.filter(function(obj) {
-              return obj.url !== 'https://plugin.rootu.top/tmdb.js';
-			});
+           	   return obj.url !== 'https://plugin.rootu.top/tmdb.js';
+		});
 		newplugArray.push({"url": "https://plugin.rootu.top/tmdb.js","name":"RootU TMDB", "status": 1});
-        Lampa.Storage.set('plugins', newplugArray);		
+	        Lampa.Storage.set('plugins', newplugArray);		
 		window.location = window.location.origin;
 	   }
 
