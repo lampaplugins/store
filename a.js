@@ -42,7 +42,7 @@ function startMe() {
         	Lampa.Storage.set('plugins', newplugArray);	
 		setTimeout(function(){window.location = window.location.origin;},1000);
 		Lampa.Noty.show('Lampa будет перезагружена');
-	   } elseif(value==2) {
+	   } else if (value==2) {
 		   if (Lampa.Storage.get('source')!='tmdb') { 
 				Lampa.Storage.set('sourceskaz',Lampa.Storage.get('source'));
 				Lampa.Storage.set('source','tmdb');
