@@ -15,13 +15,13 @@ function startMe() {
         name: 'location_server',
         type: 'select',
         values: {
-			0: 'По умолчанию',
-			1: 'Починить карточки'
+			0: 'Нет',
+			1: 'Да'
 		},
         default: '0',
     },
     field: {
-        name: 'Если главная пустая или не работает cub.red'
+        name: 'Применить фикс?'
     },
     onChange: function(value) {
        if (value==0)
