@@ -15,16 +15,16 @@ function startMe() {
         name: 'cub_fix',
         type: 'select',
         values: {
-			0: 'Нет',
-			1: 'Да'
+			1: 'Нет',
+			2: 'Да'
 		},
-        default: '0',
+        default: '1',
     },
     field: {
         name: 'Применить фикс?'
     },
     onChange: function(value) {
-       if (value==0)
+       if (value==1)
 	   {
 		 	if (Lampa.Storage.get('sourceskaz')!='') {
 				Lampa.Storage.set('source',Lampa.Storage.get('sourceskaz'));	
@@ -42,7 +42,7 @@ function startMe() {
         	Lampa.Storage.set('plugins', newplugArray);	
 		setTimeout(function(){window.location = window.location.origin;},1000);
 		Lampa.Noty.show('Lampa будет перезагружена');
-	   } else {
+	   } elseif(value==2) {
 		   if (Lampa.Storage.get('source')!='tmdb') { 
 				Lampa.Storage.set('sourceskaz',Lampa.Storage.get('source'));
 				Lampa.Storage.set('source','tmdb');
