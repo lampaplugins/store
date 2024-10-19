@@ -12,7 +12,7 @@ function startMe() {
   Lampa.SettingsApi.addParam({
     component: 'lampa_alert',
     param: {
-        name: 'location_server',
+        name: 'cub_fix',
         type: 'select',
         values: {
 			0: 'Нет',
