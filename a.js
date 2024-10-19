@@ -40,7 +40,8 @@ function startMe() {
 				
 		newplugArray.push({"url": "http://cub.red/plugin/tmdb-proxy","name":"TMDB-proxy", "status": 1});
         	Lampa.Storage.set('plugins', newplugArray);	
-		window.location = window.location.origin;
+		setTimeout(function(){window.location = window.location.origin;},1000);
+		Lampa.Noty.show('Lampa будет перезагружена');
 	   } else {
 		   if (Lampa.Storage.get('source')!='tmdb') { 
 				Lampa.Storage.set('sourceskaz',Lampa.Storage.get('source'));
@@ -59,7 +60,8 @@ function startMe() {
 		});
 		newplugArray.push({"url": "https://plugin.rootu.top/tmdb.js","name":"RootU TMDB", "status": 1});
 	        Lampa.Storage.set('plugins', newplugArray);		
-		window.location = window.location.origin;
+		setTimeout(function(){window.location = window.location.origin;},1000);
+		Lampa.Noty.show('Lampa будет перезагружена');
 	   }
 
     }
