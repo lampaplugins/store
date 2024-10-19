@@ -44,7 +44,8 @@ function startMe() {
 	   } else {
 		   if (Lampa.Storage.get('source')!='tmdb') { 
 				Lampa.Storage.set('sourceskaz',Lampa.Storage.get('source'));
-				Lampa.Storage.set('source','tmdb');	
+				Lampa.Storage.set('source','tmdb');
+			   	console.log('Source TMDB');
 			}
 		var plugArray = Lampa.Storage.get('plugins');
 		var newplugArray = plugArray.map(function(obj) {
