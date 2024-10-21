@@ -93,6 +93,13 @@
     {
       "title": "Управление",
       "results": [
+	       {
+      		"name": "Подборки",
+      		"author": "@lampa_land",
+      		"link": "https://lampaplugins.github.io/store/p.js",
+      		"descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
+      		"available_lampa": 1
+ 	   	},
 		{
 		  "name": "Добавляет пункт \"Парсер\" в меню",
 		  "author": "@lampa",
@@ -174,13 +181,6 @@
     {
       "title": "Разное",
       "results": [
-	        {
-      		"name": "Подборки",
-      		"author": "@lampa_land",
-      		"link": "https://lampaplugins.github.io/store/p.js",
-      		"descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
-      		"available_lampa": 1
- 	   },
 	        {
       		"name": "Логотипы вместо названий",
       		"author": "@lampa_land",
