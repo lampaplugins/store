@@ -1,6 +1,6 @@
 ! function() {
     "use strict";
-    if (Lampa.Storage.get("cub_fix")=='2') $('.noty').hide();
+    if (Lampa.Storage.get("cub_fix")=='2') $('.noty').hide(); // для тех кто не обновил lampac
     function t() {
         window.aplugin = !0, Lampa.SettingsApi.addComponent({
             component: "lampa_alert",
@@ -22,6 +22,7 @@
             },
             onChange: function(t) {
                 if (1 == t) {
+		    // сохраним текущий источник и вернем при отмене фикса
                     "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
                         a = (a = Lampa.Storage.get("plugins").filter((function(t) {
                             return "https://plugin.rootu.top/tmdb.js" !== t.url
