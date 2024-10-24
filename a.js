@@ -1,6 +1,6 @@
 ! function() {
     "use strict";
-
+    if (Lampa.Storage.get("sourceskaz")!='') $('.noty').hide();
     function t() {
         window.aplugin = !0, Lampa.SettingsApi.addComponent({
             component: "lampa_alert",
