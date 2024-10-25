@@ -4,13 +4,13 @@
     {
       "title": "Популярные",
       "results": [
-        {
-		  "name": "Showy",
-		  "author": "@Showy",
-		  "link": "http://showy.online/m.js",
-		  "descr": "Фильмы и сериалы в онлайн",
+       {
+		  "name": "BwaJS",
+		  "author": "@bwato",
+		  "link": "https://bwa.to/o",
+		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
-		},
+	},
         {
 		  "name": "Телевидение by Skaz ",
 		  "author": "@helpiptv",
