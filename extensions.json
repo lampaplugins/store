@@ -8,7 +8,7 @@
 		  "name": "BwaJS",
 		  "author": "@bwato",
 		  "link": "https://bwa.to/o",
-		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "descr": "Фильмы и сериалы в онлайн",
 		  "available_lampa": 1
 	},
         {
@@ -49,7 +49,7 @@
 		  "name": "BwaJS",
 		  "author": "@bwato",
 		  "link": "https://bwa.to/o",
-		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "descr": "Фильмы и сериалы в онлайн. С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 		},
 		{
@@ -63,7 +63,7 @@
 		  "name": "BwaJS 2",
 		  "author": "@bwato",
 		  "link": "http://bwa.to/co",
-		  "descr": "С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "descr": "Фильмы и сериалы в онлайн. С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 		},   
 	      	{
