@@ -23,7 +23,7 @@
             onChange: function(t) {
                 if (1 == t) {
 		    // сохраним текущий источник и вернем при отмене фикса
-                    "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
+                //    "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
                         a = (a = Lampa.Storage.get("plugins").filter((function(t) {
                             return "https://plugin.rootu.top/tmdb.js" !== t.url
                         })).filter((function(t) {
@@ -43,7 +43,7 @@
                         Lampa.Noty.show("Lampa будет перезагружена");
                 } else if (2 == t) {
                     var a;
-                    "tmdb" != Lampa.Storage.get("source") && (Lampa.Storage.set("sourceskaz", Lampa.Storage.get("source")), Lampa.Storage.set("source", "tmdb")),
+                  //  "tmdb" != Lampa.Storage.get("source") && (Lampa.Storage.set("sourceskaz", Lampa.Storage.get("source")), Lampa.Storage.set("source", "tmdb")),
                         (a = (a = Lampa.Storage.get("plugins").map((function(t) {
                             return "http://cub.red/plugin/tmdb-proxy" === t.url && (t.status = 0), t
                         }))).filter((function(t) {
