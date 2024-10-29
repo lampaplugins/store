@@ -182,27 +182,34 @@
       "title": "Разное",
       "results": [
 	        {
+      		"name": "Настройка шапки",
+      		"author": "@and7ey",
+      		"link": "https://and7ey.github.io/lampa/head_filter.js",
+      		"descr": "Добавляет возможность скрыть элементы в шапке приложения Лампа",
+      		"available_lampa": 1
+ 	   	},
+		{
       		"name": "Логотипы вместо названий",
       		"author": "@lampa_land",
       		"link": "https://lampaplugins.github.io/store/logo.js",
       		"descr": "Отображает логотипы фильмов, вместо названий в карточках",
       		"available_lampa": 1
- 	   },
-	      {
+ 	   	},
+	  	{
       		"name": "Кинопоиск",
-      		"author": "and7ey",
+      		"author": "@and7ey",
       		"link": "https://and7ey.github.io/lampa/kinopoisk.js",
       		"descr": "Отображает в приложении список фильмов из папки Буду смотреть на Кинопоиске",
       		"available_lampa": 1
- 	   },
-	      {
+ 	 	  },
+	    	  {
 		  "name": "SomaFM",
 		  "author": "@tsynik",
 		  "link": "https://tsynik.github.io/lampa/soma.js",
 		  "descr": "Радио для Lampa",
 		  "available_lampa": 1
 		},
-	      {
+	     	 {
 		  "name": "Радио Рекорд",
 		  "author": "@elenatv99",
 		  "link": "https://lampaplugins.github.io/store/record.js",
