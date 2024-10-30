@@ -46,13 +46,16 @@ function styleReview(reviewHtml) {
             // Добавляем цветовое кодирование для типа отзыва
             var reviewType = authorInfo.innerHTML.split('<br>')[1];
             var colorClass = '';
-            if (reviewType?.includes('Позитивный')) {
-                colorClass = 'positive';
-            } else if (reviewType?.includes('Негативный')) {
-                colorClass = 'negative';
-            } else if (reviewType?.includes('Нейтральный')) {
-                colorClass = 'neutral';
-            }
+                        var positiveReview = 'Позитивный';
+			var negativeReview = 'Негативный';
+			var neutralReview = 'Нейтральный';
+if (reviewType != null && reviewType.indexOf(positiveReview) !== -1) {
+  colorClass = 'positive';
+} else if (reviewType != null && reviewType.indexOf(negativeReview) !== -1) {
+  colorClass = 'negative';
+} else if (reviewType != null && reviewType.indexOf(neutralReview) !== -1) {
+  colorClass = 'neutral';
+}
             authorInfo.innerHTML = authorInfo.innerHTML.replace(reviewType, `<span class="${colorClass}">${reviewType}</span>`);
         }
 
