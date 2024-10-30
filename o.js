@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 function otzyv_kp_imdb(kpid,imdbid,num) {
-    $.get(Lampa.Utils.protocol() + 'api.skaz.tv/otzyv.php?kp='+kpid+'&tmdb='+imdbid+'&num='+num, function (data) {
+    $.get('https://api.skaz.tv/otzyv.php?kp='+kpid+'&tmdb='+imdbid+'&num='+num, function (data) {
         var styledData = styleReview(data);
         
         var modal = $('<div><div class="broadcast__text" style="text-align:left"><div class="otzyv">'+styledData+'</div></div></div>');
@@ -46,11 +46,11 @@ function styleReview(reviewHtml) {
             // Добавляем цветовое кодирование для типа отзыва
             var reviewType = authorInfo.innerHTML.split('<br>')[1];
             var colorClass = '';
-            if (reviewType.includes('Позитивный')) {
+            if (reviewType?.includes('Позитивный')) {
                 colorClass = 'positive';
-            } else if (reviewType.includes('Негативный')) {
+            } else if (reviewType?.includes('Негативный')) {
                 colorClass = 'negative';
-            } else if (reviewType.includes('Нейтральный')) {
+            } else if (reviewType?.includes('Нейтральный')) {
                 colorClass = 'neutral';
             }
             authorInfo.innerHTML = authorInfo.innerHTML.replace(reviewType, `<span class="${colorClass}">${reviewType}</span>`);
