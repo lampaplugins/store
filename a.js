@@ -54,8 +54,8 @@
                             return "https://khuyampa.best/tmdbproxy.js" !== t.url
                         })),
                         a.push({
-                            url: "https://khuyampa.best/tmdbproxy.js",
-                            name: "khuyampa TMDB Proxy",
+                            url: "https://plugin.rootu.top/tmdb.js",
+                            name: "RootU TMDB Proxy",
                             status: 1
                         }),
                         Lampa.Storage.set("plugins", a),
