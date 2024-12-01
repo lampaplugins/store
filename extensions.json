@@ -109,14 +109,14 @@
 		},
 	        {
 		  "name": "Публичные парсеры",
-		  "author": "@lme",
+		  "author": "@lme_chat",
 		  "link": "https://lampame.github.io/main/pubtorr.js",
 		  "descr": "Сборник публичных парсеров отображением статуса доступности",
 		  "available_lampa": 1
 		},
 	   	{
 		  "name": "Shikimori catalog",
-		  "author": "@lme",
+		  "author": "@lme_chat",
 		  "link": "https://lampame.github.io/main/shikimori.js",
 		  "descr": "Отображает информацию по аниме с Shikimori, так же пытается найти по оригинальному названию на ТМДБ",
 		  "available_lampa": 1
@@ -130,7 +130,7 @@
 		},
 	        {
 		  "name": "Дополнительные категории",
-		  "author": "@lme",
+		  "author": "@lme_chat",
 		  "link": "https://lampame.github.io/main/nc/nc.js",
 		  "descr": "Добавление категорий Мультфильмы, Netflix, Концерты, и прочее",
 		  "available_lampa": 1
@@ -232,7 +232,7 @@
 		},
 	      	{
 		  "name": "Отзывы/рецензии с КиноПоиск",
-		  "author": "@elenatv99",
+		  "author": "@lampa_land",
 		  "link": "https://skaz.tv/o.js",
 		  "descr": "Отзывы с КиноПоиск",
 		  "available_lampa": 1
