@@ -65,7 +65,14 @@
 		  "link": "http://bwa.to/co",
 		  "descr": "Фильмы и сериалы в онлайн. С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
-		},   
+		},  
+	      {
+		  "name": "Onlyskaz",
+		  "author": "@lampa_land",
+		  "link": "http://skaz.tv/onlines.js",
+		  "descr": "Фильмы и сериалы в онлайн для подписчиков ТВ by Skaz @skaztv_bot",
+		  "available_lampa": 1
+		},  
 	      	{
 		  "name": "Онлайн Stream",
 		  "author": "",
