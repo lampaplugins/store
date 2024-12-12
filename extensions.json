@@ -49,9 +49,16 @@
 		  "name": "BwaJS",
 		  "author": "@bwato",
 		  "link": "https://bwa.to/o",
-		  "descr": "Фильмы и сериалы в онлайн. С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 		},
+	      	{
+		  "name": "BwaRC",
+		  "author": "@bwato",
+		  "link": "http://bwa.to/co",
+		  "descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
+		  "available_lampa": 1
+		},  
 		{
 		  "name": "Showy",
 		  "author": "Showy",
@@ -59,13 +66,6 @@
 		  "descr": "Необходима авторизация через телеграм бота. Онлайн, поддержка 4к",
 		  "available_lampa": 1
 		},
-		{
-		  "name": "BwaJS 2",
-		  "author": "@bwato",
-		  "link": "http://bwa.to/co",
-		  "descr": "Фильмы и сериалы в онлайн. С обходом блока провайдеров Украины. Нужна поддержка WebAssembly и версия Chrome > 80",
-		  "available_lampa": 1
-		},  
 	      {
 		  "name": "Onlyskaz",
 		  "author": "@lampa_land",
