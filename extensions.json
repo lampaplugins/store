@@ -67,6 +67,13 @@
 		  "available_lampa": 1
 		},
 	      {
+		  "name": "VideoCDN",
+		  "author": "@lampa_land",
+		  "link": "http://skaz.tv/vcdn.js",
+		  "descr": "Фильмы и сериалы в онлайн с сервиса VCDN",
+		  "available_lampa": 1
+		},  
+	      {
 		  "name": "Onlyskaz",
 		  "author": "@lampa_land",
 		  "link": "http://skaz.tv/onlines.js",
