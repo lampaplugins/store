@@ -1,12 +1,14 @@
 (function() {
-  //var skazvip = Lampa.Storage.get('skaz_vip');
-  //if (skazvip=='1') {
-  //                  $.getScript('http://skaz.tv/onlines.js'); 
-  //                  return false;
-  //}
+  var vybor = [
+'http://vcdn.lampa.land/',
+'http://vcdn2.lampa.land/',
+'http://vcdn3.lampa.land/'
+];
+var randomIndex = Math.floor(Math.random() * vybor.length);
+var randomUrl = vybor[randomIndex];
   var Defined = {
     api: 'lampac',
-    localhost: 'http://vcdn.skaz.tv/',
+    localhost: randomUrl,
     apn: 'https://apn.watch/'
   };
   var rchtype = 'web';
