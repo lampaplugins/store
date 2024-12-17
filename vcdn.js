@@ -1,10 +1,9 @@
 (function() {
-  
-  var skazvip = Lampa.Storage.get('skaz_vip');
-  if (skazvip=='1') {
-                    $.getScript('http://skaz.tv/onlines.js'); 
-                    return false;
-  }
+  //var skazvip = Lampa.Storage.get('skaz_vip');
+  //if (skazvip=='1') {
+  //                  $.getScript('http://skaz.tv/onlines.js'); 
+  //                  return false;
+  //}
   var Defined = {
     api: 'lampac',
     localhost: 'http://vcdn.skaz.tv/',
