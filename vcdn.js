@@ -272,7 +272,7 @@ var randomUrl = vybor[randomIndex];
         }, 1000 * json.keepalive);
       };
       if (typeof signalR == 'undefined') {
-        Lampa.Utils.putScript(["https://skaz.tv/signalr-6.0.25_es5.js"], function() {}, false, function() {
+        Lampa.Utils.putScript(["http://vcdn2.lampa.land/signalr-6.0.25_es5.js"], function() {}, false, function() {
           load();
         }, true);
       } else load();
