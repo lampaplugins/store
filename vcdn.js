@@ -1,6 +1,5 @@
 (function() {
   var vybor = [
-'http://vcdn.lampa.land/',
 'http://vcdn2.lampa.land/',
 'http://vcdn3.lampa.land/'
 ];
