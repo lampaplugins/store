@@ -5,9 +5,9 @@
       "title": "Популярные",
       "results": [
        {
-		  "name": "BwaJS",
+		  "name": "Durex",
 		  "author": "@bwato",
-		  "link": "https://bwa.to/o",
+		  "link": "http://durex.monster",
 		  "descr": "Фильмы и сериалы в онлайн",
 		  "available_lampa": 1
 	},
@@ -53,10 +53,31 @@
 		  "available_lampa": 1
 		},
 	      	{
+		  "name": "Durex",
+		  "author": "@bwato",
+		  "link": "https://bwa.to/o",
+		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "available_lampa": 1
+		},
+	      	 {
+		  "name": "VideoCDN",
+		  "author": "@lampa_land",
+		  "link": "http://skaz.tv/vcdn.js",
+		  "descr": "Фильмы и сериалы в онлайн с сервиса VCDN",
+		  "available_lampa": 1
+		},  
+	      	{
 		  "name": "BwaRC",
 		  "author": "@bwato",
 		  "link": "http://bwa.to/co",
 		  "descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
+		  "available_lampa": 1
+		},  
+	      	{
+		  "name": "Onlyskaz",
+		  "author": "@lampa_land",
+		  "link": "http://skaz.tv/onlines.js",
+		  "descr": "Онлайн фильмы и сериалы 4K для подписчиков @skaztv_bot. Серверы в России (возможен геоблок)",
 		  "available_lampa": 1
 		},  
 		{
@@ -66,20 +87,6 @@
 		  "descr": "Необходима авторизация через телеграм бота. Онлайн, поддержка 4к",
 		  "available_lampa": 1
 		},
-	      {
-		  "name": "VideoCDN",
-		  "author": "@lampa_land",
-		  "link": "http://skaz.tv/vcdn.js",
-		  "descr": "Фильмы и сериалы в онлайн с сервиса VCDN",
-		  "available_lampa": 1
-		},  
-	      {
-		  "name": "Onlyskaz",
-		  "author": "@lampa_land",
-		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Фильмы и сериалы в онлайн для подписчиков ТВ by Skaz @skaztv_bot. Серверы в России, возможен геоблок",
-		  "available_lampa": 1
-		},  
 	      	{
 		  "name": "Онлайн Stream",
 		  "author": "",
