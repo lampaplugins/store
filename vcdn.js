@@ -5,9 +5,6 @@
 ];
 var randomIndex = Math.floor(Math.random() * vybor.length);
 var randomUrl = vybor[randomIndex];
- (function() {
-  'use strict';
-
   var Defined = {
     api: 'lampac',
     localhost: randomUrl,
