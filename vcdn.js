@@ -1,7 +1,7 @@
 (function() {
   var vybor = [
-'http://vcdn2.lampa.land/',
-'http://vcdn3.lampa.land/'
+'http://vcdn2.skaz.tv/',
+'http://vcdn3.skaz.tv/'
 ];
 var randomIndex = Math.floor(Math.random() * vybor.length);
 var randomUrl = vybor[randomIndex];
