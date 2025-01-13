@@ -213,7 +213,7 @@
       		"name": "Рейтинг CUB в карточке фильма",
       		"author": "RootU",
       		"link": "https://plugin.rootu.top/cub-rating.js",
-      		"descr": "Добавляет рейтинг пользователей Lampa",
+      		"descr": "Выводит средний рейтинг (общую оценкую) на основе реакций пользователей",
       		"available_lampa": 1
  	   	},
 	        {
