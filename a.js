@@ -59,6 +59,8 @@
                             status: 1
                         }),
                         Lampa.Storage.set("plugins", a),
+			Lampa.Storage.set('proxy_tmdb_auto',true),
+			Lampa.Storage.set('proxy_tmdb_auto',true),
                         setTimeout((function() {
                             window.location = window.location.origin
                         }), 1e3),
