@@ -209,6 +209,13 @@
     {
       "title": "Разное",
       "results": [
+	      	 {
+      		"name": "Рейтинг CUB в карточке фильма",
+      		"author": "RootU",
+      		"link": "https://plugin.rootu.top/cub-rating.js",
+      		"descr": "Добавляет рейтинг пользователей Lampa",
+      		"available_lampa": 1
+ 	   	},
 	        {
       		"name": "Настройка шапки",
       		"author": "@and7ey",
