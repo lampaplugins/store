@@ -590,6 +590,7 @@ var randomUrl = vybor[randomIndex];
               first.quality = json_call.quality || item.qualitys;
               first.subtitles = json.subtitles;
 			  first.vast_url = json.vast_url;
+		    	  console.log(json.vast_url);
 			  first.vast_msg = json.vast_msg;
               _this5.appendAPN(first);
               _this5.setDefaultQuality(first);
