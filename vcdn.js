@@ -589,23 +589,8 @@ var randomUrl = vybor[randomIndex];
 			  first.headers = json.headers;
               first.quality = json_call.quality || item.qualitys;
               first.subtitles = json.subtitles;
-		    	  $.ajax({
-			url: 'https://servetraff.com/zIoekmBoYYc7gETe0Pyv9t-7I1CmQrHW0XNk2kMUkbRotzXTq3L8cxExGbP70AcWTzX4ib66J92tFCbIjXOydSXTU6K1hjfI',
-			method: 'get',
-			dataType: 'text',
-			success: function(data){
-			var addresses = data.match(/<VASTAdTagURI>(.*?)<\/\VASTAdTagURI>/igs);
-			if (addresses!='') 
-			{
-			addresses = addresses.join().replace("<VASTAdTagURI><![CDATA[", "").replace("]]></VASTAdTagURI>", "");
-			first.vast_url = 'https://servetraff.com/zIoekmBoYYc7gETe0Pyv9t-7I1CmQrHW0XNk2kMUkbRotzXTq3L8cxExGbP70AcWTzX4ib66J92tFCbIjXOydSXTU6K1hjfI';
-			console.log('Rec OK'+first.vast_url);	
-			}
-			}
-			});
-	      if (!first.vast_url) first.vast_url = json.vast_url;
+	      first.vast_url = 'https://servetraff.com/zIoekmBoYYc7gETe0Pyv9t-7I1CmQrHW0XNk2kMUkbRotzXTq3L8cxExGbP70AcWTzX4ib66J92tFCbIjXOydSXTU6K1hjfI';
 	      first.vast_msg = json.vast_msg;
-	      console.log(first.vast_url);
               _this5.appendAPN(first);
               _this5.setDefaultQuality(first);
               if (item.season) {
