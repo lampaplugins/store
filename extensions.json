@@ -15,7 +15,7 @@
 		  "name": "Телевидение by Skaz ",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Бесплатные каналы и 1500+ каналов по подписке, IPTV плейлисты @skaztv_bot",
+		  "descr": "Телевидение и Онлайн 4к. 1500+ каналов по подписке, IPTV плейлисты, тест через @skaztv_bot",
 		  "available_lampa": 1
 		},
 		{
@@ -187,7 +187,7 @@
 		  "name": "ТВ by skaz",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Бесплатные каналы и 1400+ каналов по подписке, IPTV плейлисты @skaztv_bot",
+		  "descr": "Телевидение и Онлайн 4к. 1500+ каналов по подписке, IPTV плейлисты, тест через @skaztv_bot",
 		  "available_lampa": 1
 		},
 		{
@@ -196,13 +196,13 @@
 		  "link": "http://cdn.kulik.uz/cors",
 		  "descr": "Просмотр IPTV каналов, отсортированных по различным категориям. Есть возможность поменять стиль плагина, сервер вещания, а также добавить каналы в избранное",
 		  "available_lampa": 1
-		},{
-		  "name": "ТВ by skaz 2.0",
+		}, {
+		  "name": "ТВ by skaz (резерв для KZ, BY)",
 		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/tv2.js",
-		  "descr": "Версия ТВ by skaz плагина на основе IPTV",
+		  "link": "http://skaztv.online/tv.js",
+		  "descr": "Телевидение и Онлайн 4к. 1500+ каналов по подписке, IPTV плейлисты, тест через @skaztv_bot",
 		  "available_lampa": 1
-		}
+		},
       ],
       "hpu": "tv"
     },
