@@ -202,7 +202,7 @@
 		  "link": "http://skaztv.online/tv.js",
 		  "descr": "Телевидение и Онлайн 4к. 1500+ каналов по подписке, IPTV плейлисты, тест через @skaztv_bot",
 		  "available_lampa": 1
-		},
+		}
       ],
       "hpu": "tv"
     },
