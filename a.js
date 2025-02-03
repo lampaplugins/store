@@ -40,6 +40,7 @@
                         Lampa.Storage.set("plugins", a),
 			Lampa.Storage.set('proxy_tmdb_auto',true),
 			Lampa.Storage.set('proxy_tmdb',true),
+			Lampa.Storage.set('cub_domain', 'cub.red');
                         setTimeout((function() {
                             window.location = window.location.origin
                         }), 1e3),
@@ -47,7 +48,6 @@
                 } else if (2 == t) {
                     var a;
 			"http" != Lampa.Storage.get("protocol") && (Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol")), Lampa.Storage.set("protocol", "http")),
-                  //  "tmdb" != Lampa.Storage.get("source") && (Lampa.Storage.set("sourceskaz", Lampa.Storage.get("source")), Lampa.Storage.set("source", "tmdb")),
                         (a = (a = Lampa.Storage.get("plugins").map((function(t) {
                             return "http://cub.red/plugin/tmdb-proxy" === t.url && (t.status = 0), t
                         }))).filter((function(t) {
@@ -63,6 +63,7 @@
                         Lampa.Storage.set("plugins", a),
 			Lampa.Storage.set('proxy_tmdb_auto',true),
 			Lampa.Storage.set('proxy_tmdb',true),
+			Lampa.Storage.set('cub_domain', 'standby.cub.red');
                         setTimeout((function() {
                             window.location = window.location.origin
                         }), 1e3),
