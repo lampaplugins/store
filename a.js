@@ -64,7 +64,7 @@
 			Lampa.Storage.set('proxy_tmdb_auto',true),
 			Lampa.Storage.set('proxy_tmdb',true),
 			Lampa.Storage.set('cub_domain', 'standby.cub.red');
-			Lampa.Storage.set('source', 'source');
+			Lampa.Storage.set('source', 'tmdb');
                         setTimeout((function() {
                             window.location = window.location.origin
                         }), 1e3),
