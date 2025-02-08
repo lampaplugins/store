@@ -23,7 +23,7 @@
             onChange: function(t) {
                 if (1 == t) {
 		    // сохраним текущий источник и вернем при отмене фикса
-                //    "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
+                //   "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
 			 "" != Lampa.Storage.get("protocolskaz") && (Lampa.Storage.set("protocol", Lampa.Storage.get("protocolskaz")), Lampa.Storage.set("protocol", "https")),
                         a = (a = Lampa.Storage.get("plugins").filter((function(t) {
                             return "https://plugin.rootu.top/tmdb.js" !== t.url
@@ -64,6 +64,7 @@
 			Lampa.Storage.set('proxy_tmdb_auto',true),
 			Lampa.Storage.set('proxy_tmdb',true),
 			Lampa.Storage.set('cub_domain', 'standby.cub.red');
+			Lampa.Storage.set('source', 'source');
                         setTimeout((function() {
                             window.location = window.location.origin
                         }), 1e3),
