@@ -5,10 +5,10 @@
       "title": "Популярные",
       "results": [
        {
-		  "name": "Durex",
+		  "name": "BwaJS",
 		  "author": "@bwato",
-		  "link": "http://durex.monster",
-		  "descr": "Фильмы и сериалы в онлайн",
+		  "link": "https://bwa.to/o",
+		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 	},
         {
@@ -47,13 +47,6 @@
 		},
 		{
 		  "name": "BwaJS",
-		  "author": "@bwato",
-		  "link": "https://bwa.to/o",
-		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
-		  "available_lampa": 1
-		},
-	      	{
-		  "name": "Durex",
 		  "author": "@bwato",
 		  "link": "https://bwa.to/o",
 		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
