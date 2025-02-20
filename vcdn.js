@@ -589,7 +589,7 @@ var randomUrl = vybor[randomIndex];
 			  first.headers = json.headers;
               first.quality = json_call.quality || item.qualitys;
               first.subtitles = json.subtitles;
-	      first.vast_url = 'https://skaz.tv/vast2.xml';
+	      first.vast_url = json.vast_url;
 	      first.vast_msg = '';
               _this5.appendAPN(first);
               _this5.setDefaultQuality(first);
