@@ -54,7 +54,7 @@
 		},
 	      	 {
 		  "name": "VideoCDN",
-		  "author": "@lampa_land",
+		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/vcdn.js",
 		  "descr": "Фильмы и сериалы в онлайн с сервиса VCDN",
 		  "available_lampa": 1
@@ -68,7 +68,7 @@
 		},  
 	      	{
 		  "name": "Onlyskaz",
-		  "author": "@lampa_land",
+		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/onlines.js",
 		  "descr": "Онлайн фильмы и сериалы 4K для подписчиков @skaztv_bot. Серверы в России (возможен геоблок)",
 		  "available_lampa": 1
@@ -102,7 +102,7 @@
       "results": [
 	       {
       		"name": "Подборки",
-      		"author": "@lampa_land",
+      		"author": "@helpiptv",
       		"link": "https://lampaplugins.github.io/store/p.js",
       		"descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
       		"available_lampa": 1
@@ -158,7 +158,7 @@
 		},
 	        {
 		  "name": "Импорт/Экспорт истории, закладок",
-		  "author": "@lampa_land",
+		  "author": "@helpiptv",
 		  "link": "https://skaz.tv/export.js",
 		  "descr": "Позволяет сохранять историю и закладки и восстанавливать по ID",
 		  "available_lampa": 1
@@ -218,7 +218,7 @@
  	   	},
 		{
       		"name": "Логотипы вместо названий",
-      		"author": "@lampa_land",
+      		"author": "@helpiptv",
       		"link": "https://lampaplugins.github.io/store/logo.js",
       		"descr": "Отображает логотипы фильмов, вместо названий в карточках",
       		"available_lampa": 1
@@ -239,14 +239,14 @@
 		},
 	     	 {
 		  "name": "Радио Рекорд",
-		  "author": "@lampa_land",
+		  "author": "@helpiptv",
 		  "link": "https://lampaplugins.github.io/store/record.js",
 		  "descr": "Радио Рекорд",
 		  "available_lampa": 1
 		},
 	      	{
 		  "name": "Отзывы/рецензии с КиноПоиск",
-		  "author": "@lampa_land",
+		  "author": "@helpiptv",
 		  "link": "https://skaz.tv/o.js",
 		  "descr": "Отзывы с КиноПоиск",
 		  "available_lampa": 1
