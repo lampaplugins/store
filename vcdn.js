@@ -1439,8 +1439,8 @@ var randomUrl = vybor[randomIndex];
     var manifst = {
       type: 'video',
       version: '',
-      name: 'VideoCDN',
-      description: 'Плагин для просмотра онлайн сериалов и фильмов с сервиса VideoCDN',
+      name: 'Onlyskaz (free)',
+      description: 'Плагин для просмотра онлайн сериалов и фильмов',
       component: 'lampac',
       onContextMenu: function onContextMenu(object) {
         return {
