@@ -100,6 +100,13 @@
     {
       "title": "Управление",
       "results": [
+	      	 {
+      		"name": "Трейлеры с iTunes",
+      		"author": "@RootU",
+      		"link": "https://plugin.rootu.top/trailers.jss",
+      		"descr": "Добавляет кнопку трейлеры с сервиса iTunes",
+      		"available_lampa": 1
+ 	   	},
 	       {
       		"name": "Подборки",
       		"author": "@helpiptv",
