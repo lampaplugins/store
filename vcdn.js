@@ -3,7 +3,8 @@
 'http://xropoutu.deploy.cx/',
 'http://fuonuhzk.deploy.cx/',
 'http://uxeqxoeh.deploy.cx/',
-'https://plftzbrq.deploy.cx/'
+'http://plftzbrq.deploy.cx/',
+'http://sjpshuzz.deploy.cx/'
 ];
 var randomIndex = Math.floor(Math.random() * vybor.length);
 var randomUrl = vybor[randomIndex];
