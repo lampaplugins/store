@@ -1,5 +1,6 @@
 (function() {
   var vybor = [
+'http://vcdn.skaz.tv/',
 'http://vcdn2.skaz.tv/',
 'http://vcdn3.skaz.tv/'
 ];
