@@ -100,6 +100,13 @@
     {
       "title": "Управление",
       "results": [
+	      	      	 {
+      		"name": "Трейлеры с Рутуб",
+      		"author": "@RootU",
+      		"link": "https://plugin.rootu.top/rutube.js",
+      		"descr": "Добавляет кнопку трейлеры с сервиса RuTube",
+      		"available_lampa": 1
+ 	   	},
 	      	 {
       		"name": "Трейлеры с iTunes",
       		"author": "@RootU",
