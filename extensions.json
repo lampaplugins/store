@@ -122,6 +122,13 @@
       		"available_lampa": 1
  	   	},
 		{
+		  "name": "AVIAMOVIE",
+		  "author": "Roman V",
+		  "link": "https://aviamovie.github.io/surs.js",
+		  "descr": "Плагин создает уникальные подборки фильмов и сериалов на главной странице по жанрам, стримингам, популярности, просмотрам и кассовым сборам. Обновление подборок происходит при каждом нажатии кнопки Главная (Home).",
+		  "available_lampa": 1
+		},
+		{
 		  "name": "Добавляет пункт \"Парсер\" в меню",
 		  "author": "@lampa",
 		  "link": "http://cub.red/plugin/etor",
