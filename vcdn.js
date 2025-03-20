@@ -277,7 +277,7 @@ var randomUrl = vybor[randomIndex];
 		}
       };
       if (typeof signalR == 'undefined') {
-        Lampa.Utils.putScript(["http://skaz.tv/signalr-6.0.25_es5.js"], function() {}, false, function() {
+        Lampa.Utils.putScript(["http://vcdn2.skaz.tv/signalr-6.0.25_es5.js"], function() {}, false, function() {
           load();
         }, true);
       } else load();
