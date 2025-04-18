@@ -26,9 +26,11 @@
                 //   "" != Lampa.Storage.get("sourceskaz") && (Lampa.Storage.set("source", Lampa.Storage.get("sourceskaz")), Lampa.Storage.set("sourceskaz", "")),
 			 "" != Lampa.Storage.get("protocolskaz") && (Lampa.Storage.set("protocol", Lampa.Storage.get("protocolskaz")), Lampa.Storage.set("protocol", "https")),
                         a = (a = Lampa.Storage.get("plugins").filter((function(t) {
-                            return "https://plugin.rootu.top/tmdb.js" !== t.url
+                            return "https://skaz.tv/t.js" !== t.url
                         })).filter((function(t) {
                             return "http://cub.red/plugin/tmdb-proxy" !== t.url
+			})).filter((function(t) {
+                            return "https://plugin.rootu.top/tmdb.js" !== t.url
                         })).filter((function(t) {
                             return "https://khuyampa.best/tmdbproxy.js" !== t.url
                         }))),
@@ -52,12 +54,14 @@
                             return "http://cub.red/plugin/tmdb-proxy" === t.url && (t.status = 0), t
                         }))).filter((function(t) {
                             return "https://plugin.rootu.top/tmdb.js" !== t.url
+			}))).filter((function(t) {
+                            return "https://skaz.tv/t.js" !== t.url
                         }))).filter((function(t) {
                             return "https://khuyampa.best/tmdbproxy.js" !== t.url
                         })),
                         a.push({
-                            url: "https://plugin.rootu.top/tmdb.js",
-                            name: "RootU TMDB Proxy",
+                            url: "https://skaz.tv/t.js",
+                            name: "TMDB Proxy",
                             status: 1
                         }),
                         Lampa.Storage.set("plugins", a),
