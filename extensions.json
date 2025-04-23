@@ -51,14 +51,7 @@
 		  "link": "https://bwa.to/o",
 		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
-		},
-	      	 {
-		  "name": "Onlyskaz (free)",
-		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/vcdn.js",
-		  "descr": "Фильмы и сериалы в онлайн",
-		  "available_lampa": 1
-		},  
+		}, 
 	      	{
 		  "name": "BwaRC",
 		  "author": "@bwato",
@@ -70,7 +63,7 @@
 		  "name": "Onlyskaz",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Онлайн фильмы и сериалы 4K для подписчиков @skaztv_bot. Серверы в России (возможен геоблок)",
+		  "descr": "Онлайн Фильмы и Сериалы 4K по подписке в @skaztv_bot. Серверы в России (возможен геоблок)",
 		  "available_lampa": 1
 		},  
 		{
