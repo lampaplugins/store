@@ -217,6 +217,13 @@
       "title": "Разное",
       "results": [
 	      	 {
+      		"name": "Интерфейс мод",
+      		"author": "bywolf88",
+      		"link": "https://bywolf88.github.io/lampa-plugins/interface_mod.js",
+      		"descr": "Темы, стили отображения рейтинга и другое",
+      		"available_lampa": 1
+ 	   	},
+	      	 {
       		"name": "Рейтинг CUB в карточке фильма",
       		"author": "RootU",
       		"link": "https://plugin.rootu.top/cub-rating.js",
