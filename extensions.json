@@ -12,10 +12,10 @@
 		  "available_lampa": 1
 	},
         {
-		  "name": "Телевидение by Skaz ",
+		  "name": "by Skaz ",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Телевидение и Онлайн 4к. 1500+ каналов по подписке, IPTV плейлисты, тест через @skaztv_bot",
+		  "descr": "Телевидение и Онлайн 4к. 1600+ каналов по подписке, IPTV плейлисты, Онлайн 4ктест через @skaztv_bot",
 		  "available_lampa": 1
 		},
 		{
@@ -63,7 +63,7 @@
 		  "name": "Onlyskaz",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Онлайн Фильмы и Сериалы 4K по подписке в @skaztv_bot. Серверы в России (возможен геоблок)",
+		  "descr": "Онлайн Фильмы и Сериалы 4к",
 		  "available_lampa": 1
 		},  
 		{
