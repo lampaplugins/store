@@ -1,7 +1,9 @@
 !function() {
     "use strict";
     if(Lampa.Storage.get("cub_fix")=='2') $('.noty').hide(); // для тех кто не обновил lampac
-    
+    window.lampa_settings.torrents_use = true;
+	window.lampa_settings.demo = false;
+	window.lampa_settings.read_only = false;
     function t() {
         window.aplugin = !0, 
         Lampa.SettingsApi.addComponent({
