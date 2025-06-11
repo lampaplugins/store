@@ -100,7 +100,7 @@
                     }
                     
                     setTimeout(function() {
-                        window.location = window.location.origin
+                        window.location.reload();
                     }, 1e3);
                     
                     Lampa.Noty.show("Lampa будет перезагружена");
