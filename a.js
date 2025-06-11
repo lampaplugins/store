@@ -59,6 +59,7 @@
                     Lampa.Storage.set('cub_domain', 'cub.red');
                     
                     setTimeout(function() {
+			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
                         window.location = window.location.origin
                     }, 1e3);
                     
