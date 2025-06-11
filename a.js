@@ -100,7 +100,8 @@
                     }
                     
                     setTimeout(function() {
-                        window.location.reload();
+			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
+                         window.location = window.location.origin
                     }, 1e3);
                     
                     Lampa.Noty.show("Lampa будет перезагружена");
