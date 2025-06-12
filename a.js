@@ -1,5 +1,8 @@
 !function() {
     "use strict";
+    if (window.location.hostname === 'cf.lampa.mx') {
+    	return false;
+	}
     if(Lampa.Storage.get("cub_fix")=='2') $('.noty').hide(); // для тех кто не обновил lampac
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
