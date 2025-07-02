@@ -101,7 +101,6 @@
                     Lampa.Storage.set("plugins", a);
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
-                    Lampa.Storage.set('cub_domain', 'standby.cub.red');
 		    Lampa.Storage.set('cub_mirrors', '[]');
                     Lampa.Storage.set('source', 'tmdb');
                     
