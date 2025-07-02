@@ -41,6 +41,9 @@
                             return "https://skaz.tv/t.js" !== t.url
                         })
                         .filter(function(t) {
+                            return "http://skaz.tv/t.js" !== t.url
+                        })
+                        .filter(function(t) {
                             return "http://cub.red/plugin/tmdb-proxy" !== t.url
                         })
                         .filter(function(t) {
@@ -81,6 +84,9 @@
                         })
                         .filter(function(t) {
                             return "https://skaz.tv/t.js" !== t.url
+                        })
+                        .filter(function(t) {
+                            return "http://skaz.tv/t.js" !== t.url
                         })
                         .filter(function(t) {
                             return "https://khuyampa.best/tmdbproxy.js" !== t.url
