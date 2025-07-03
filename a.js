@@ -62,7 +62,6 @@
                     Lampa.Storage.set("plugins", a);
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
-                    Lampa.Storage.set('cub_domain', 'cub.red');
                     
                     setTimeout(function() {
 			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
@@ -93,7 +92,7 @@
                         });
                     
                     a.push({
-                        url: "https://skaz.tv/t.js",
+                        url: "http://skaz.tv/t.js",
                         name: "TMDB Proxy",
                         status: 1
                     });
@@ -101,9 +100,6 @@
                     Lampa.Storage.set("plugins", a);
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
-		    Lampa.Storage.set('cub_mirrors', '[]');
-                    Lampa.Storage.set('source', 'tmdb');
-                    
                     if("http" != Lampa.Storage.get("protocol")) {
                         Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol"));
                         Lampa.Storage.set("protocol", "http");
