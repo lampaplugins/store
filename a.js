@@ -7,7 +7,7 @@
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
 	window.lampa_settings.read_only = false;
-    function checkApiAvailability(){var t=[{url:"https://cubnotrip.top/api/checker",name:"cubnotrip.top"}],i=0;!function n(){if(!(i>=t.length)){var e=t[i],o=new XMLHttpRequest;o.open("GET",e.url,!0),o.timeout=5e3,o.onload=function(){if(200===o.status)try{if(o.responseText)var t=o.responseText;if("ok"===t){localStorage.setItem("cub_domain",JSON.stringify([e.name]));return}}catch(r){}i++,n()},o.onerror=function(){i++,n()},o.ontimeout=function(){i++,n()},o.send()}}()}
+    function checkApiAvailability(){var t=[{url:"https://cubnotrip.top/api/checker",name:"cubnotrip.top"}],i=0;!function n(){if(!(i>=t.length)){var e=t[i],o=new XMLHttpRequest;o.open("GET",e.url,!0),o.timeout=5e3,o.onload=function(){if(200===o.status)try{if(o.responseText)var t=o.responseText;if("ok"===t){Lampa.Storage.set("cub_domain",JSON.stringify([e.name]));return}}catch(r){}i++,n()},o.onerror=function(){i++,n()},o.ontimeout=function(){i++,n()},o.send()}}()}
     function t() {
         window.aplugin = !0, 
         Lampa.SettingsApi.addComponent({
@@ -101,11 +101,11 @@
                     Lampa.Storage.set("plugins", a);
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
-		    checkApiAvailability();
                     if("http" != Lampa.Storage.get("protocol")) {
                         Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol"));
                         Lampa.Storage.set("protocol", "http");
                     }
+		    checkApiAvailability();
                     setTimeout(function() {
 			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
                          window.location = window.location.origin
