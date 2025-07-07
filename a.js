@@ -7,45 +7,6 @@
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
 	window.lampa_settings.read_only = false;
-	function checkApiAvailability() {
-	var mirrors = [
-  		{ url: 'https://cubnotrip.top/api/checker', name: 'cubnotrip.top' }
-	];
-  var currentMirrorIndex = 0;
-  function tryNextMirror() {
-    if (currentMirrorIndex >= mirrors.length) {
-      return;
-    }
-    var mirror = mirrors[currentMirrorIndex];
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', mirror.url, true);
-    xhr.timeout = 5000;
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        try {
-          if (xhr.responseText) var response = xhr.responseText;
-          if (response === 'ok') {
-            Lampa.Storage.set('cub_mirrors', JSON.stringify([mirror.name]));
-            return;
-          }
-        } catch (e) {
-        }
-      }
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.onerror = function() {
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.ontimeout = function() {
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.send();
-  }
-  tryNextMirror();
-}
 
     function t() {
         window.aplugin = !0, 
@@ -144,7 +105,6 @@
                         Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol"));
                         Lampa.Storage.set("protocol", "http");
                     }
-                    checkApiAvailability();
                     setTimeout(function() {
 			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
                          window.location = window.location.origin
