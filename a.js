@@ -7,45 +7,7 @@
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
 	window.lampa_settings.read_only = false;
-function checkApiAvailability() {
-	var mirrors = [
-  		{ url: 'https://cubnotrip.top/api/checker', name: 'cubnotrip.top' }
-	];
-  var currentMirrorIndex = 0;
-  function tryNextMirror() {
-    if (currentMirrorIndex >= mirrors.length) {
-      return;
-    }
-    var mirror = mirrors[currentMirrorIndex];
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', mirror.url, true);
-    xhr.timeout = 5000;
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        try {
-          if (xhr.responseText) var response = xhr.responseText;
-          if (response === 'ok') {
-            localStorage.setItem('cub_domain', JSON.stringify([mirror.name]));
-            return;
-          }
-        } catch (e) {
-        }
-      }
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.onerror = function() {
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.ontimeout = function() {
-      currentMirrorIndex++;
-      tryNextMirror();
-    };
-    xhr.send();
-  }
-  tryNextMirror();
-}
+    function checkApiAvailability(){var t=[{url:"https://cubnotrip.top/api/checker",name:"cubnotrip.top"}],i=0;!function n(){if(!(i>=t.length)){var e=t[i],o=new XMLHttpRequest;o.open("GET",e.url,!0),o.timeout=5e3,o.onload=function(){if(200===o.status)try{if(o.responseText)var t=o.responseText;if("ok"===t){localStorage.setItem("cub_domain",JSON.stringify([e.name]));return}}catch(r){}i++,n()},o.onerror=function(){i++,n()},o.ontimeout=function(){i++,n()},o.send()}}()}
     function t() {
         window.aplugin = !0, 
         Lampa.SettingsApi.addComponent({
