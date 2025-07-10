@@ -29,8 +29,22 @@
       "hpu": "best"
     },
     {
-      "title": "Видео",
+      "title": "Онлайн видео",
       "results": [
+	      	{
+		  "name": "Онлисказ 4к",
+		  "author": "@helpiptv",
+		  "link": "http://skaz.tv/onlines.js",
+		  "descr": "Онлайн Фильмы и Сериалы 4к. Тестовый период через бота.",
+		  "available_lampa": 1
+		},
+	      	{
+		  "name": "NetFix",
+		  "author": "@netfix_party",
+		  "link": "https://netfix.cc/netfix.js",
+		  "descr": "Лучшее кино и сериалы - быстро, удобно, в высоком качестве.",
+		  "available_lampa": 1
+		},
 		{
 		  "name": "MODS's",
 		  "author": "@modss_group",
@@ -58,19 +72,12 @@
 		  "link": "http://bwa.to/co",
 		  "descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
 		  "available_lampa": 1
-		},  
-	      	{
-		  "name": "Onlyskaz",
-		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Онлайн Фильмы и Сериалы 4к",
-		  "available_lampa": 1
-		},  
+		},   
 		{
-		  "name": "Showy",
+		  "name": "Смотреть (Showy)",
 		  "author": "Showy",
-		  "link": "http://showwwy.com/m.js",
-		  "descr": "Необходима авторизация через телеграм бота. Онлайн, поддержка 4к",
+		  "link": "http://smotret24.ru/online.js",
+		  "descr": "Простой плагин для просмотра видео",
 		  "available_lampa": 1
 		},
 	      	{
