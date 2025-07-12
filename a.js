@@ -30,8 +30,8 @@
                 if(1 == t) {
                     // сохраним текущий источник и вернем при отмене фикса
                     "" != Lampa.Storage.get("protocolskaz") && (
-                        Lampa.Storage.set("protocol", Lampa.Storage.get("protocolskaz")), 
-                        Lampa.Storage.set("protocol", "https")
+                   //     Lampa.Storage.set("protocol", Lampa.Storage.get("protocolskaz")), 
+                   //     Lampa.Storage.set("protocol", "https")
                     );
                     
                     var a = Lampa.Storage.get("plugins")
@@ -99,8 +99,8 @@
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
                     if("http" != Lampa.Storage.get("protocol")) {
-                        Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol"));
-                        Lampa.Storage.set("protocol", "http");
+                     //   Lampa.Storage.set("protocolskaz", Lampa.Storage.get("protocol"));
+                     //   Lampa.Storage.set("protocol", "http");
                     }
                     setTimeout(function() {
 			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
