@@ -1,8 +1,5 @@
 !function() {
     "use strict";
-    if (window.location.protocol === 'https:') {
-    	return false;
-	}
     if(Lampa.Storage.get("cub_fix")=='2') $('.noty').hide();
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
