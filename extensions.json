@@ -5,9 +5,9 @@
       "title": "Популярные",
       "results": [
        {
-		  "name": "BwaJS",
+		  "name": "BwaRC",
 		  "author": "@bwato",
-		  "link": "https://bwa.to/o",
+		  "link": "https://bwa.to/rc",
 		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
 		  "available_lampa": 1
 	},
