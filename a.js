@@ -93,6 +93,7 @@
                     Lampa.Storage.set("plugins", a);
                     Lampa.Storage.set('proxy_tmdb_auto', true);
                     Lampa.Storage.set('proxy_tmdb', true);
+			Lampa.Storage.set('source', 'tmdb');
               
                     setTimeout(function() {
 			 if(!window.location.origin){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port ? ":"+window.location.port : "");}
