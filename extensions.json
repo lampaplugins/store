@@ -51,6 +51,13 @@
 		  "link": "http://lampa.stream/modss",
 		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
 		  "available_lampa": 1
+		}, 
+		  {
+		  "name": "Z1 Онлайн",
+		  "author": "@z1",
+		  "link": "http://z01.online/online.js",
+		  "descr": "Бесплатный просмотр онлайн",
+		  "available_lampa": 1
 		},
                 {
 		  "name": "Онлайн Мод",
@@ -305,3 +312,4 @@
     }
   ]
 }
+
