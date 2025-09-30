@@ -55,8 +55,8 @@
 		  {
 		  "name": "Z1 Онлайн",
 		  "author": "@z1",
-		  "link": "http://z01.online/online.js",
-		  "descr": "Бесплатный просмотр онлайн",
+		  "link": "http://z01.online/live",
+		  "descr": "Фильмы и сериалы онлайн без подписки",
 		  "available_lampa": 1
 		},
                 {
@@ -312,4 +312,5 @@
     }
   ]
 }
+
 
