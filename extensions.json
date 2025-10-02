@@ -93,6 +93,13 @@
 		  "link": "https://sisi.am/pussy.js",
 		  "descr": "Онлайн просмотр контента для взрослых, больше 30 сайтов",
 		  "available_lampa": 1
+		},
+		{
+		  "name": "Клубничка Z",
+		  "author": "@z01",
+		  "link": "http://z01.online/s.js",
+		  "descr": "Онлайн просмотр контента для взрослых",
+		  "available_lampa": 1
 		}
       ],
       "hpu": "video"
@@ -312,5 +319,6 @@
     }
   ]
 }
+
 
 
