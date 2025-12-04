@@ -272,13 +272,6 @@
 		  "descr": "Радио Рекорд",
 		  "available_lampa": 1
 		},
-	      	{
-		  "name": "Отзывы/рецензии с КиноПоиск",
-		  "author": "@helpiptv",
-		  "link": "https://skaz.tv/o.js",
-		  "descr": "Отзывы с КиноПоиск",
-		  "available_lampa": 1
-		},
 	      {
 		  "name": "Комментарии к фильмам от Rezka",
 		  "author": "@BDV_Burik",
@@ -319,6 +312,7 @@
     }
   ]
 }
+
 
 
 
