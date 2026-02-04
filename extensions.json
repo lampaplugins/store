@@ -66,13 +66,13 @@
 		  "descr": "Фильмы и сериалы в онлайн",
 		  "available_lampa": 1
 		},
-	      	{
-		  "name": "BwaRC",
-		  "author": "@bwato",
-		  "link": "http://bwa.to/rc",
-		  "descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
-		  "available_lampa": 1
-		},   
+{
+"name": "Filmix",
+"author": "@filmix",
+"link": "https://lampaplugins.github.io/store/fx.js",
+"descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
+"available_lampa": 1
+},  
 		{
 		  "name": "Смотреть (Showy)",
 		  "author": "Showy",
@@ -85,13 +85,6 @@
 		  "author": "",
 		  "link": "http://arkmv.ru/vod",
 		  "descr": "Онлайн",
-		  "available_lampa": 1
-		},
-        	{
-		  "name": "Клубничка 18+",
-		  "author": "@sisi",
-		  "link": "https://sisi.am/pussy.js",
-		  "descr": "Онлайн просмотр контента для взрослых, больше 30 сайтов",
 		  "available_lampa": 1
 		},
 		{
@@ -312,6 +305,7 @@
     }
   ]
 }
+
 
 
 
