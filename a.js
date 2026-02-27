@@ -1,6 +1,5 @@
 !function() {
     "use strict";
-    if(Lampa.Storage.get("cub_fix")=='2') $('.noty').hide();
     window.lampa_settings.torrents_use = true;
 	window.lampa_settings.demo = false;
 	window.lampa_settings.read_only = false;
