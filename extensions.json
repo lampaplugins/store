@@ -7,15 +7,15 @@
        {
 		  "name": "BwaRC",
 		  "author": "@bwato",
-		  "link": "https://bwa.to/rc",
-		  "descr": "Фильмы и сериалы в онлайн. Нужна поддержка WebAssembly и версия Chrome > 80",
+		  "link": "https://bwa.ad/rc",
+		  "descr": "Фильмы и сериалы в онлайн.",
 		  "available_lampa": 1
 	},
         {
 		  "name": "by Skaz ",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Телевидение и Онлайн 4к. 1700+ каналов, Фильмы и сериалы. Бесплатные онлайн трансляции",
+		  "descr": "Телевидение и Онлайн 4к. 1800+ каналов, Фильмы и сериалы.",
 		  "available_lampa": 1
 		},
 		{
@@ -35,7 +35,7 @@
 		  "name": "Онлисказ 4к",
 		  "author": "@helpiptv",
 		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Онлайн Фильмы и Сериалы 4к. Тестовый период через бота.",
+		  "descr": "Онлайн Фильмы и Сериалы 4к",
 		  "available_lampa": 1
 		},
 	      	{
@@ -56,7 +56,7 @@
 		  "name": "Z1 Онлайн",
 		  "author": "@z1",
 		  "link": "http://z01.online/live",
-		  "descr": "Фильмы и сериалы онлайн без подписки",
+		  "descr": "Фильмы и сериалы онлайн",
 		  "available_lampa": 1
 		},
                 {
@@ -305,6 +305,7 @@
     }
   ]
 }
+
 
 
 
