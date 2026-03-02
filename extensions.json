@@ -35,7 +35,7 @@
 "name": "Онлисказ 4к",
 "author": "@helpiptv",
 "link": "http://skaz.tv/onlines.js",
-"descr": "Онлайн Фильмы и Сериалы 4к по подписке",
+"descr": "Онлайн Фильмы и Сериалы 4к",
 "available_lampa": 1
 },
 {
@@ -77,7 +77,7 @@
 "name": "Filmix",
 "author": "@filmix",
 "link": "https://lampaplugins.github.io/store/fx.js",
-"descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
+"descr": "Фильмы и сериалы в онлайн",
 "available_lampa": 1
 },
 {
@@ -91,6 +91,13 @@
 "name": "Клубничка Z",
 "author": "@z01",
 "link": "http://z01.online/s.js",
+"descr": "Онлайн просмотр контента для взрослых",
+"available_lampa": 1
+},
+{
+"name": "Клубничка BWA",
+"author": "@z01",
+"link": "http://bwa.ad/re",
 "descr": "Онлайн просмотр контента для взрослых",
 "available_lampa": 1
 }
