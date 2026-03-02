@@ -1,313 +1,329 @@
 {
-  "secuses": true,
-  "results": [
-    {
-      "title": "Популярные",
-      "results": [
-       {
-		  "name": "BwaRC",
-		  "author": "@bwato",
-		  "link": "https://bwa.ad/rc",
-		  "descr": "Фильмы и сериалы в онлайн.",
-		  "available_lampa": 1
-	},
-        {
-		  "name": "by Skaz ",
-		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Телевидение и Онлайн 4к. 1800+ каналов, Фильмы и сериалы.",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "MODS's",
-		  "author": "@modss_group",
-		  "link": "http://lampa.stream/modss",
-		  "descr": "Фильмы и сериалы в онлайн. Плюс различные дополнения через меню настроек Modss.",
-		  "available_lampa": 1
-		}
-      ],
-      "hpu": "best"
-    },
-    {
-      "title": "Онлайн видео",
-      "results": [
-	      	{
-		  "name": "Онлисказ 4к",
-		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/onlines.js",
-		  "descr": "Онлайн Фильмы и Сериалы 4к",
-		  "available_lampa": 1
-		},
-	      	{
-		  "name": "NetFix",
-		  "author": "@netfix_party",
-		  "link": "https://netfix.cc/netfix.js",
-		  "descr": "Лучшее кино и сериалы - быстро, удобно, в высоком качестве.",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "MODS's",
-		  "author": "@modss_group",
-		  "link": "http://lampa.stream/modss",
-		  "descr": "Фильмы и сериалы в онлайн. На выбор доступно 17 балансеров и различные дополнения через меню настроек Modss.",
-		  "available_lampa": 1
-		}, 
-		  {
-		  "name": "Z1 Онлайн",
-		  "author": "@z1",
-		  "link": "http://z01.online/live",
-		  "descr": "Фильмы и сериалы онлайн",
-		  "available_lampa": 1
-		},
-                {
-		  "name": "Онлайн Мод",
-		  "author": "@t_anton",
-		  "link": "https://nb557.github.io/plugins/online_mod.js",
-		  "descr": "Фильмы и сериалы в онлайн",
-		  "available_lampa": 1
-		},
+"secuses": true,
+"results": [
+{
+"title": "Популярные",
+"results": [
+{
+"name": "Z01",
+"author": "@z01support",
+"link": "http://z01.online/live",
+"descr": "Фильмы и сериалы в онлайн",
+"available_lampa": 1
+},
+{
+"name": "by Skaz",
+"author": "@helpiptv",
+"link": "http://skaz.tv/tv.js",
+"descr": "Телевидение и Онлайн 4к. 1700+ каналов, Фильмы и сериалы. Бесплатные онлайн трансляции",
+"available_lampa": 1
+},
+{
+"name": "BWA",
+"author": "@bwa",
+"link": "http://bwa.ad/rc",
+"descr": "Фильмы и сериалы в онлайн",
+"available_lampa": 1
+}
+],
+"hpu": "best"
+},
+{
+"title": "Онлайн видео",
+"results": [
+{
+"name": "Онлисказ 4к",
+"author": "@helpiptv",
+"link": "http://skaz.tv/onlines.js",
+"descr": "Онлайн Фильмы и Сериалы 4к по подписке",
+"available_lampa": 1
+},
+{
+"name": "NetFix",
+"author": "@netfix_party",
+"link": "https://netfix.cc/netfix.js",
+"descr": "Лучшее кино и сериалы - быстро, удобно, в высоком качестве.",
+"available_lampa": 1
+},
+{
+"name": "MODS's",
+"author": "@modss_group",
+"link": "http://lampa.stream/modss",
+"descr": "Фильмы и сериалы в онлайн",
+"available_lampa": 1
+},
+{
+"name": "Z01 Онлайн",
+"author": "@z1",
+"link": "http://z01.online/live",
+"descr": "Фильмы и сериалы онлайн",
+"available_lampa": 1
+},
+{
+"name": "BwaRC",
+"author": "@bwa",
+"link": "https://bwa.ad/rc",
+"descr": "Фильмы и сериалы в онлайн",
+"available_lampa": 1
+},
+{
+"name": "Онлайн Мод",
+"author": "@t_anton",
+"link": "https://nb557.github.io/plugins/online_mod.js",
+"descr": "Фильмы и сериалы в онлайн",
+"available_lampa": 1
+},
 {
 "name": "Filmix",
 "author": "@filmix",
 "link": "https://lampaplugins.github.io/store/fx.js",
 "descr": "Фильмы и сериалы в онлайн. Работает на старых устройствах",
 "available_lampa": 1
-},  
-		{
-		  "name": "Смотреть (Showy)",
-		  "author": "Showy",
-		  "link": "http://smotret24.ru/online.js",
-		  "descr": "Простой плагин для просмотра видео",
-		  "available_lampa": 1
-		},
-	      	{
-		  "name": "Онлайн Stream",
-		  "author": "",
-		  "link": "http://arkmv.ru/vod",
-		  "descr": "Онлайн",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Клубничка Z",
-		  "author": "@z01",
-		  "link": "http://z01.online/s.js",
-		  "descr": "Онлайн просмотр контента для взрослых",
-		  "available_lampa": 1
-		}
-      ],
-      "hpu": "video"
-    },
-    {
-      "title": "Управление",
-      "results": [
-	      	      	 {
-      		"name": "Трейлеры с Рутуб",
-      		"author": "@RootU",
-      		"link": "https://plugin.rootu.top/rutube.js",
-      		"descr": "Добавляет кнопку трейлеры с сервиса RuTube",
-      		"available_lampa": 1
- 	   	},
-	      	 {
-      		"name": "Трейлеры с iTunes",
-      		"author": "@RootU",
-      		"link": "https://plugin.rootu.top/trailers.js",
-      		"descr": "Добавляет кнопку трейлеры с сервиса iTunes",
-      		"available_lampa": 1
- 	   	},
-	       {
-      		"name": "Подборки",
-      		"author": "@helpiptv",
-      		"link": "https://lampaplugins.github.io/store/p.js",
-      		"descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
-      		"available_lampa": 1
- 	   	},
-		{
-		  "name": "SURS",
-		  "author": "Roman V",
-		  "link": "https://aviamovie.github.io/surs.js",
-		  "descr": "Плагин создает уникальные подборки фильмов и сериалов на главной странице по жанрам, стримингам, популярности, просмотрам и кассовым сборам. Обновление подборок происходит при каждом нажатии кнопки Главная (Home).",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Добавляет пункт \"Парсер\" в меню",
-		  "author": "@lampa",
-		  "link": "http://cub.red/plugin/etor",
-		  "descr": "Плагин для ТВ, на которых Lampa установлена через официальные магазины LG Store и Tizen App Store. Включает в настройках отображение пунктов Парсер и Torrserver",
-		  "available_lampa": 1
-		},
-	        {
-		  "name": "Публичные парсеры",
-		  "author": "@lme_chat",
-		  "link": "https://lampame.github.io/main/pubtorr.js",
-		  "descr": "Сборник публичных парсеров отображением статуса доступности",
-		  "available_lampa": 1
-		},
-	   	{
-		  "name": "Shikimori catalog",
-		  "author": "@lme_chat",
-		  "link": "https://lampame.github.io/main/shikimori.js",
-		  "descr": "Отображает информацию по аниме с Shikimori, так же пытается найти по оригинальному названию на ТМДБ",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Тип управления",
-		  "author": "@nemiroff",
-		  "link": "https://nemiroff.github.io/lampa/select_weapon.js",
-		  "descr": "Позволяет выбрать тип управления (Пульт без мышки, Пульт с мышью, Тачскрин), а так же сбросить тип управления выбранный ранее",
-		  "available_lampa": 1
-		},
-	        {
-		  "name": "Дополнительные категории",
-		  "author": "@lme_chat",
-		  "link": "https://lampame.github.io/main/nc/nc.js",
-		  "descr": "Добавление категорий Мультфильмы, Netflix, Концерты, и прочее",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Старый стиль (Закладки, Нравится, Позже)",
-		  "author": "@VitalikPVA",
-		  "link": "http://github.freebie.tom.ru/want.js",
-		  "descr": "Возвращает в главное меню старый стиль отображения пунктов (Закладки, Нравится, Позже)",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Сброс настроек субтитров",
-		  "author": "@t_anton",
-		  "link": "https://nb557.github.io/plugins/reset_subs.js",
-		  "descr": "Сбрасывает настройки субтитров по умолчанию",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Выключение тача",
-		  "author": "@t_anton",
-		  "link": "https://nb557.github.io/plugins/not_mobile.js",
-		  "descr": "Выключает сенсорное управление, если оно было включено по ошибке",
-		  "available_lampa": 1
-		}
-      ],
-      "hpu": "control"
-    },
-    {
-      "title": "Телевидение",
-      "results": [
-		 {
-		  "name": "by skaz",
-		  "author": "@helpiptv",
-		  "link": "http://skaz.tv/tv.js",
-		  "descr": "Телевидение и Онлайн 4к. 1700+ каналов, IPTV плейлисты. Бесплатные онлайн трансляции",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Kulik",
-		  "author": "@SawamuraRen",
-		  "link": "http://cdn.kulik.uz/cors",
-		  "descr": "Просмотр IPTV каналов, отсортированных по различным категориям. Есть возможность поменять стиль плагина, сервер вещания, а также добавить каналы в избранное",
-		  "available_lampa": 1
-		}, {
-		  "name": "by skaz (резерв для KZ, BY)",
-		  "author": "@helpiptv",
-		  "link": "http://skaztv.online/tv.js",
-		  "descr": "Телевидение и Онлайн 4к. 1700+ каналов, IPTV плейлисты. Бесплатные онлайн трансляции",
-		  "available_lampa": 1
-		}
-      ],
-      "hpu": "tv"
-    },
-    {
-      "title": "Разное",
-      "results": [
-	      	 {
-      		"name": "Интерфейс мод",
-      		"author": "bywolf88",
-      		"link": "https://bywolf88.github.io/lampa-plugins/interface_mod.js",
-      		"descr": "Темы, стили отображения рейтинга и другое",
-      		"available_lampa": 1
- 	   	},
-	      	 {
-      		"name": "Рейтинг CUB в карточке фильма",
-      		"author": "RootU",
-      		"link": "https://plugin.rootu.top/cub-rating.js",
-      		"descr": "Выводит средний рейтинг (общую оценкую) на основе реакций пользователей",
-      		"available_lampa": 1
- 	   	},
-	        {
-      		"name": "Настройка шапки",
-      		"author": "@and7ey",
-      		"link": "https://and7ey.github.io/lampa/head_filter.js",
-      		"descr": "Добавляет возможность скрыть элементы в шапке приложения Лампа",
-      		"available_lampa": 1
- 	   	},
-		{
-      		"name": "Логотипы вместо названий",
-      		"author": "@helpiptv",
-      		"link": "https://lampaplugins.github.io/store/logo.js",
-      		"descr": "Отображает логотипы фильмов, вместо названий в карточках",
-      		"available_lampa": 1
- 	   	},
-	  	{
-      		"name": "Кинопоиск",
-      		"author": "@and7ey",
-      		"link": "https://and7ey.github.io/lampa/kinopoisk.js",
-      		"descr": "Отображает в приложении список фильмов из папки Буду смотреть на Кинопоиске",
-      		"available_lampa": 1
- 	 	  },
-	    	  {
-		  "name": "SomaFM",
-		  "author": "@tsynik",
-		  "link": "https://tsynik.github.io/lampa/soma.js",
-		  "descr": "Радио для Lampa",
-		  "available_lampa": 1
-		},
-	     	 {
-		  "name": "Радио Рекорд",
-		  "author": "@helpiptv",
-		  "link": "https://lampaplugins.github.io/store/record.js",
-		  "descr": "Радио Рекорд",
-		  "available_lampa": 1
-		},
-	      {
-		  "name": "Комментарии к фильмам от Rezka",
-		  "author": "@BDV_Burik",
-		  "link": "https://bdvburik.github.io/rezkacomment.js",
-		  "descr": "Комментарии с сайта Rezka в карточках фильмов, сериалов",
-		  "available_lampa": 1
-		},
-	       {
-		  "name": "Оригинальные названия",
-		  "author": "@BDV_Burik",
-		  "link": "https://bdvburik.github.io/title.js",
-		  "descr": "Добавляет оригинальные названия к фильмам, сериалам.",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Предзагрузка ts",
-		  "author": "@rootu",
-		  "link": "https://plugin.rootu.top/ts-preload.js",
-		  "descr": "Плагин визуализации предзагрузки торрентов для встроенного клиента TorrServer",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Приятные мелочи",
-		  "author": "@AndreyURL54",
-		  "link": "http://skaztv.online/js/tricks.js",
-		  "descr": "Дополнение некоторых востребованных функций и дизайна, которых вам не хватало. (mod. Без проверки на MSX)",
-		  "available_lampa": 1
-		},
-		{
-		  "name": "Отключение Websocket",
-		  "author": "@rootu",
-		  "link": "http://plugin.rootu.top/wsoff.js",
-		  "descr": "Плагин отключает протокол Websocket, помогает при ошибках на некоторых устройствах",
-		  "available_lampa": 1
-		}
-      ],
-      "hpu": "other"
-    }
-  ]
+},
+{
+"name": "Онлайн Stream",
+"author": "",
+"link": "http://arkmv.ru/vod",
+"descr": "Онлайн",
+"available_lampa": 1
+},
+{
+"name": "Клубничка Z",
+"author": "@z01",
+"link": "http://z01.online/s.js",
+"descr": "Онлайн просмотр контента для взрослых",
+"available_lampa": 1
 }
-
-
-
-
-
-
+],
+"hpu": "video"
+},
+{
+"title": "Управление",
+"results": [
+{
+"name": "Трейлеры с Рутуб",
+"author": "@RootU",
+"link": "https://plugin.rootu.top/rutube.js",
+"descr": "Добавляет кнопку трейлеры с сервиса RuTube",
+"available_lampa": 1
+},
+{
+"name": "Трейлеры с iTunes",
+"author": "@RootU",
+"link": "https://plugin.rootu.top/trailers.js",
+"descr": "Добавляет кнопку трейлеры с сервиса iTunes",
+"available_lampa": 1
+},
+{
+"name": "Подборки",
+"author": "@helpiptv",
+"link": "https://lampaplugins.github.io/store/p.js",
+"descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
+"available_lampa": 1
+},
+{
+"name": "SURS",
+"author": "Roman V",
+"link": "https://aviamovie.github.io/surs.js",
+"descr": "Плагин создает уникальные подборки фильмов и сериалов на главной странице по жанрам, стримингам, популярности, просмотрам и кассовым сборам. Обновление подборок происходит при каждом нажатии кнопки Главная (Home).",
+"available_lampa": 1
+},
+{
+  "name": "No Autostart",
+  "author": "@pavelpikta",
+  "link": "https://lampaplugins.github.io/store/no-autostart.js",
+  "descr": "Отключает автоматический запуск воспроизведения торрента при открытии одного файла.",
+  "version": "1.0.0"
+},
+{
+  "name": "Torrent Styles MOD V2",
+  "author": "@devsecops",
+  "link": "https://lampaplugins.github.io/store/torrent_styles_v2.js",
+  "descr": "Улучшенные стили для списка торрентов. Цветная индикация битрейта, сидов, пиров и размера.",
+  "version": "2.0.0"
+},
+{
+  "name": "Navigation Bar",
+  "author": "@devsecops",
+  "link": "https://lampaplugins.github.io/store/navigation_bar.js",
+  "descr": "Добавляет кнопки из бокового меню Lampa в навигационную панель на мобильных устройствах. Позволяет настраивать отображение кнопок через настройки плагина.",
+  "version": "1.0.0"
+},
+{
+"name": "Добавляет пункт \"Парсер\" в меню",
+"author": "@lampa",
+"link": "http://cub.red/plugin/etor",
+"descr": "Плагин для ТВ, на которых Lampa установлена через официальные магазины LG Store и Tizen App Store. Включает в настройках отображение пунктов Парсер и Torrserver",
+"available_lampa": 1
+},
+{
+"name": "Внешняя клавиатура",
+"author": "@glukhovsergey",
+"link": "https://fv.plymo.ru/p/kb.js",
+"descr": "Во встроенной клавиатуре появится QR код, сканируете его и вводите с телефона",
+"available_lampa": 1
+},
+{
+"name": "Shikimori catalog",
+"author": "@lme_chat",
+"link": "https://lampame.github.io/main/shikimori.js",
+"descr": "Отображает информацию по аниме с Shikimori, так же пытается найти по оригинальному названию на ТМДБ",
+"available_lampa": 1
+},
+{
+"name": "Тип управления",
+"author": "@nemiroff",
+"link": "https://nemiroff.github.io/lampa/select_weapon.js",
+"descr": "Позволяет выбрать тип управления (Пульт без мышки, Пульт с мышью, Тачскрин), а так же сбросить тип управления выбранный ранее",
+"available_lampa": 1
+},
+{
+"name": "Дополнительные категории",
+"author": "@lme_chat",
+"link": "https://lampame.github.io/main/nc/nc.js",
+"descr": "Добавление категорий Мультфильмы, Netflix, Концерты, и прочее",
+"available_lampa": 1
+},
+{
+"name": "Старый стиль (Закладки, Нравится, Позже)",
+"author": "@VitalikPVA",
+"link": "http://github.freebie.tom.ru/want.js",
+"descr": "Возвращает в главное меню старый стиль отображения пунктов (Закладки, Нравится, Позже)",
+"available_lampa": 1
+},
+{
+"name": "Сброс настроек субтитров",
+"author": "@t_anton",
+"link": "https://nb557.github.io/plugins/reset_subs.js",
+"descr": "Сбрасывает настройки субтитров по умолчанию",
+"available_lampa": 1
+},
+{
+"name": "Выключение тача",
+"author": "@t_anton",
+"link": "https://nb557.github.io/plugins/not_mobile.js",
+"descr": "Выключает сенсорное управление, если оно было включено по ошибке",
+"available_lampa": 1
+}
+],
+"hpu": "control"
+},
+{
+"title": "Телевидение",
+"results": [
+{
+"name": "TV Skaz & Online",
+"author": "@helpiptv",
+"link": "http://skaz.tv/tv.js",
+"descr": "Телевидение и Онлайн 4к. 1700+ каналов, IPTV плейлисты. Бесплатные онлайн трансляции",
+"available_lampa": 1
+},
+{
+"name": "Kulik",
+"author": "@SawamuraRen",
+"link": "http://cdn.kulik.uz/cors",
+"descr": "Просмотр IPTV каналов, отсортированных по различным категориям. Есть возможность поменять стиль плагина, сервер вещания, а также добавить каналы в избранное",
+"available_lampa": 1
+},
+{
+"name": "TV Skaz & Online (резерв для KZ, BY)",
+"author": "@helpiptv",
+"link": "http://skaztv.online/tv.js",
+"descr": "Телевидение и Онлайн 4к. 1700+ каналов, IPTV плейлисты. Бесплатные онлайн трансляции",
+"available_lampa": 1
+}
+],
+"hpu": "tv"
+},
+{
+"title": "Разное",
+"results": [
+{
+"name": "Интерфейс мод",
+"author": "bywolf88",
+"link": "https://bywolf88.github.io/lampa-plugins/interface_mod.js",
+"descr": "Темы, стили отображения рейтинга и другое",
+"available_lampa": 1
+},
+{
+"name": "Рейтинг CUB в карточке фильма",
+"author": "RootU",
+"link": "https://plugin.rootu.top/cub-rating.js",
+"descr": "Выводит средний рейтинг (общую оценкую) на основе реакций пользователей",
+"available_lampa": 1
+},
+{
+"name": "Настройка шапки",
+"author": "@and7ey",
+"link": "https://and7ey.github.io/lampa/head_filter.js",
+"descr": "Добавляет возможность скрыть элементы в шапке приложения Лампа",
+"available_lampa": 1
+},
+{
+"name": "Логотипы вместо названий",
+"author": "@helpiptv",
+"link": "https://lampaplugins.github.io/store/logo.js",
+"descr": "Отображает логотипы фильмов, вместо названий в карточках",
+"available_lampa": 1
+},
+{
+"name": "Кинопоиск",
+"author": "@and7ey",
+"link": "https://and7ey.github.io/lampa/kinopoisk.js",
+"descr": "Отображает в приложении список фильмов из папки Буду смотреть на Кинопоиске",
+"available_lampa": 1
+},
+{
+"name": "SomaFM",
+"author": "@tsynik",
+"link": "https://tsynik.github.io/lampa/soma.js",
+"descr": "Радио для Lampa",
+"available_lampa": 1
+},
+{
+"name": "Радио Рекорд",
+"author": "@helpiptv",
+"link": "https://lampaplugins.github.io/store/record.js",
+"descr": "Радио Рекорд",
+"available_lampa": 1
+},
+{
+"name": "Комментарии к фильмам от Rezka",
+"author": "@BDV_Burik",
+"link": "https://bdvburik.github.io/rezkacomment.js",
+"descr": "Комментарии с сайта Rezka в карточках фильмов, сериалов",
+"available_lampa": 1
+},
+{
+"name": "Оригинальные названия",
+"author": "@BDV_Burik",
+"link": "https://bdvburik.github.io/title.js",
+"descr": "Добавляет оригинальные названия к фильмам, сериалам.",
+"available_lampa": 1
+},
+{
+"name": "Предзагрузка ts",
+"author": "@rootu",
+"link": "https://plugin.rootu.top/ts-preload.js",
+"descr": "Плагин визуализации предзагрузки торрентов для встроенного клиента TorrServer",
+"available_lampa": 1
+},
+{
+"name": "Приятные мелочи",
+"author": "@AndreyURL54",
+"link": "http://skaztv.online/js/tricks.js",
+"descr": "Дополнение некоторых востребованных функций и дизайна, которых вам не хватало. (mod. Без проверки на MSX)",
+"available_lampa": 1
+},
+{
+"name": "Отключение Websocket",
+"author": "@rootu",
+"link": "http://plugin.rootu.top/wsoff.js",
+"descr": "Плагин отключает протокол Websocket, помогает при ошибках на некоторых устройствах",
+"available_lampa": 1
+}
+],
+"hpu": "other"
+}
+]
+}
