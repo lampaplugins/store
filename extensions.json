@@ -246,6 +246,13 @@
 "title": "Разное",
 "results": [
 {
+"name": "Игры",
+"author": "@helpiptv",
+"link": "http://skaz.tv/g.js",
+"descr": "Тетрис, змейка, пак-ман и прочее",
+"available_lampa": 1
+},
+{
 "name": "Интерфейс мод",
 "author": "bywolf88",
 "link": "https://bywolf88.github.io/lampa-plugins/interface_mod.js",
