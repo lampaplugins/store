@@ -2,7 +2,7 @@
   'use strict';
 
   var config = {
-    version: '2.0.0',
+    version: '3.0.0',
     name: 'Torrent Styles MOD',
     pluginId: 'torrent_styles_mod'
   };
@@ -39,7 +39,7 @@
       high_from_gb: 100,
       top_from_gb: 200
     },
-    // Debounce updateTorrentStyles() calls triggered by MutationObserver
+    // Debounce for delayed full-document passes (init / late load)
     debounce_ms: 60
   };
 
@@ -279,9 +279,13 @@
     }
   }
 
-  function updateTorrentStyles() {
+  var torrentRenderHooked = false;
+
+  function updateTorrentStyles(root) {
     try {
-      document.querySelectorAll('.torrent-item__seeds span').forEach(function (span) {
+      var scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+
+      scope.querySelectorAll('.torrent-item__seeds span').forEach(function (span) {
         var value = tsParseInt(span.textContent);
         span.classList.add('ts-seeds');
 
@@ -292,7 +296,7 @@
         tsApplyTier(span, ['low-seeds', 'good-seeds', 'high-seeds'], seedTier);
       });
 
-      document.querySelectorAll('.torrent-item__bitrate span').forEach(function (span) {
+      scope.querySelectorAll('.torrent-item__bitrate span').forEach(function (span) {
         var value = tsParseFloat(span.textContent);
         span.classList.add('ts-bitrate');
 
@@ -303,14 +307,14 @@
       });
 
       // "Grabs" in Lampa template is actually peers/leechers (качают)
-      document.querySelectorAll('.torrent-item__grabs span').forEach(function (span) {
+      scope.querySelectorAll('.torrent-item__grabs span').forEach(function (span) {
         var value = tsParseInt(span.textContent);
         span.classList.add('ts-grabs');
         tsApplyTier(span, ['high-grabs'], value > 10 ? 'high-grabs' : '');
       });
 
       // Size badge (highlight big files)
-      document.querySelectorAll('.torrent-item__size').forEach(function (el) {
+      scope.querySelectorAll('.torrent-item__size').forEach(function (el) {
         var text = (el.textContent || '');
         el.classList.add('ts-size');
 
@@ -331,42 +335,23 @@
     }
   }
 
-  function observeDom() {
-    try {
-      var observer = new MutationObserver(function (mutations) {
-        var needsUpdate = false;
-        for (var i = 0; i < mutations.length; i++) {
-          var mutation = mutations[i];
-          // Check for added nodes
-          if (mutation.addedNodes && mutation.addedNodes.length) {
-            needsUpdate = true;
-            break;
-          }
-          // Check for text content changes (bitrate/seeds values might update)
-          if (mutation.type === 'characterData' ||
-            (mutation.type === 'childList' && mutation.target &&
-              (mutation.target.classList &&
-                (mutation.target.classList.contains('torrent-item__bitrate') ||
-                  mutation.target.classList.contains('torrent-item__seeds') ||
-                  mutation.target.classList.contains('torrent-item__grabs') ||
-                  mutation.target.classList.contains('torrent-item__size'))))) {
-            needsUpdate = true;
-            break;
-          }
-        }
-        if (needsUpdate) scheduleUpdate();
-      });
+  /**
+   * Hooks `Listener.send('torrent', { type: 'render', … })` from Lampa torrents list (src/components/torrents.js).
+   */
+  function attachTorrentRenderHook() {
+    if (torrentRenderHooked) return;
+    if (typeof Lampa === 'undefined' || !Lampa.Listener || typeof Lampa.Listener.follow !== 'function') return;
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
-      scheduleUpdate(0);
-    } catch (e) {
-      console.error(config.name, 'observer error:', e);
-      scheduleUpdate(0);
-    }
+    torrentRenderHooked = true;
+
+    Lampa.Listener.follow('torrent', function (e) {
+      if (!e || e.type !== 'render' || !e.item) return;
+      var node = e.item[0];
+      if (!node && e.item.get && typeof e.item.get === 'function') node = e.item.get(0);
+      if (node) updateTorrentStyles(node);
+    });
+
+    scheduleUpdate(0);
   }
 
   function registerPlugin() {
@@ -391,22 +376,26 @@
 
   function init() {
     injectStyles();
-    observeDom();
+    attachTorrentRenderHook();
 
     if (window.appready) {
+      attachTorrentRenderHook();
       registerPlugin();
-      // Update styles after app is ready
       scheduleUpdate(200);
     } else if (typeof Lampa !== 'undefined' && Lampa.Listener && typeof Lampa.Listener.follow === 'function') {
       Lampa.Listener.follow('app', function (e) {
         if (e.type === 'ready') {
+          attachTorrentRenderHook();
           registerPlugin();
-          // Update styles again when app is ready
           scheduleUpdate(200);
         }
       });
     } else {
-      setTimeout(registerPlugin, 500);
+      setTimeout(function () {
+        registerPlugin();
+        attachTorrentRenderHook();
+        scheduleUpdate(200);
+      }, 500);
     }
 
     console.log(config.name, 'Configuration plugin loaded, version:', config.version);
