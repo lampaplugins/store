@@ -164,6 +164,13 @@
           "available_lampa": 1
         },
         {
+          "name": "LG webOS (виджет)",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/lg.js",
+          "descr": "Для телевизоров LG: режим ТВ-платформы и запись в localStorage списка зеркал для виджета (lampa.mx, lampa.byskaz.ru).",
+          "version": "1.0.0"
+        },
+        {
           "name": "Добавляет пункт \"Парсер\" в меню",
           "author": "@lampa",
           "link": "http://cub.red/plugin/etor",
