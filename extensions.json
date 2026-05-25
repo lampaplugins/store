@@ -74,6 +74,13 @@
           "available_lampa": 1
         },
         {
+          "name": "Amedia",
+          "author": "@byskaz",
+          "link": "https://skaz.tv/amedia/a.js",
+          "descr": "Фильмы и сериалы в онлайн для Андроид устройств. Версия apk 1.12.5 и выше",
+          "available_lampa": 1
+        },
+        {
           "name": "Filmix",
           "author": "@filmix",
           "link": "https://lampaplugins.github.io/store/fx.js",
