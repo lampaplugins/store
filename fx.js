@@ -27,12 +27,187 @@
     return proxy_url + api_url + path;
   }
 
+  function proxyPhotoUrl(url) {
+    if (!url) return '';
+
+    if (url.indexOf('//') === 0) url = 'https:' + url;
+    else if (url.charAt(0) === '/') url = 'https://filmixapp.vip' + url;
+    else if (url.indexOf('http://') === 0) url = 'https://' + url.substring(7);
+
+    if (url.indexOf('filmix') > -1 || url.indexOf('thumbs.') > -1) {
+      return proxy_url + url;
+    }
+
+    return url;
+  }
+
   function hasStreamLinks(data) {
     var pl = data && data.player_links;
     if (!pl) return false;
     if (pl.movie && pl.movie.length) return true;
     if (pl.playlist && Object.keys(pl.playlist).length) return true;
     return false;
+  }
+
+  function getProDaysLeft(proDate) {
+    if (proDate == null || proDate === '') return null;
+
+    if (typeof proDate === 'number') {
+      var ms = proDate > 9999999999 ? proDate : proDate * 1000;
+      return Math.max(0, Math.ceil((ms - Date.now()) / 86400000));
+    }
+
+    var str = ('' + proDate).trim();
+    var match = str.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+
+    if (match) str = match[3] + '-' + match[2] + '-' + match[1];
+
+    var ts = Date.parse(str);
+
+    if (isNaN(ts)) return null;
+
+    return Math.max(0, Math.ceil((ts - Date.now()) / 86400000));
+  }
+
+  function normalizeProfile(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+
+    var user = raw.user_data || raw;
+
+    if (!user || typeof user !== 'object') return null;
+
+    var login = user.login || user.user_login || '';
+    var name = user.display_name || user.name || user.username || login;
+
+    if (!login && !name) return null;
+
+    var photo = user.avatar || user.photo || user.avatar_url || user.user_photo || user.img || user.foto || user.image || user.avatarUrl || '';
+
+    photo = proxyPhotoUrl(photo);
+
+    var proDays = null;
+    var directDays = user.pro_days != null ? user.pro_days : (user.days_left != null ? user.days_left : (user.days != null ? user.days : user.day_count));
+
+    if (directDays != null && directDays !== '') {
+      proDays = parseInt(directDays, 10);
+      if (isNaN(proDays)) proDays = null;
+    }
+
+    if (proDays == null && user.pro_date) proDays = getProDaysLeft(user.pro_date);
+
+    return {
+      login: login,
+      name: name,
+      photo: photo,
+      is_pro: !!user.is_pro,
+      is_pro_plus: !!user.is_pro_plus,
+      pro_date: user.pro_date || '',
+      pro_days: proDays,
+      quality: user.is_pro_plus ? 2160 : (user.is_pro ? 1080 : 720),
+      videoserver: user.videoserver || '',
+      email: user.email || user.mail || '',
+      id: user.id || user.user_id || ''
+    };
+  }
+
+  function applyQualityFromProfile(user) {
+    window.fxapi.max_qualitie = 720;
+
+    if (user.is_pro_plus) window.fxapi.max_qualitie = 2160;
+    else if (user.is_pro) window.fxapi.max_qualitie = 1080;
+  }
+
+  function getSubscriptionLabel(profile) {
+    if (!profile) return Lampa.Lang.translate('filmix_sub_free');
+
+    if (profile.is_pro_plus) return 'PRO+';
+    if (profile.is_pro) return 'PRO';
+
+    return Lampa.Lang.translate('filmix_sub_free');
+  }
+
+  function renderFxProfile() {
+    var box = $('[data-name="fxapi_profile"]');
+
+    if (!box.length) return;
+
+    var profile = normalizeProfile(Lampa.Storage.get('fxapi_status', {}));
+    var html = '';
+
+    if (!profile) {
+      html = '<div class="fxapi-profile fxapi-profile--empty">' + Lampa.Lang.translate('filmix_nodevice') + '</div>';
+    } else {
+      var rows = [];
+      var badge = getSubscriptionLabel(profile);
+
+      rows.push('<div class="fxapi-profile__badge">' + badge + '</div>');
+
+      if ((profile.is_pro || profile.is_pro_plus) && profile.pro_days != null) {
+        rows.push(Lampa.Lang.translate('filmix_sub_days') + ': <b>' + profile.pro_days + '</b>');
+      }
+
+      if ((profile.is_pro || profile.is_pro_plus) && profile.pro_date) {
+        rows.push(Lampa.Lang.translate('filmix_pro_until') + ' ' + profile.pro_date);
+      }
+
+      rows.push(Lampa.Lang.translate('filmix_max_quality') + ': <b>' + profile.quality + 'p</b>');
+
+      if (profile.videoserver) {
+        rows.push(Lampa.Lang.translate('filmix_video_server') + ': ' + profile.videoserver);
+      }
+
+      if (profile.email) {
+        rows.push(profile.email);
+      }
+
+      var avatarLetter = (profile.name || profile.login).charAt(0).toUpperCase();
+      var avatar = profile.photo
+        ? '<img src="' + profile.photo + '" alt="">'
+        : '<div class="fxapi-profile__placeholder">' + avatarLetter + '</div>';
+
+      html = '<div class="fxapi-profile">' +
+        '<div class="fxapi-profile__wrap">' +
+        '<div class="fxapi-profile__avatar">' + avatar + '</div>' +
+        '<div class="fxapi-profile__body">' +
+        '<div class="fxapi-profile__title">' + (profile.name || profile.login) + '</div>' +
+        (profile.login && profile.login !== profile.name ? '<div class="fxapi-profile__login">@' + profile.login + '</div>' : '') +
+        '<div class="fxapi-profile__meta">' + rows.join('<br>') + '</div>' +
+        '</div></div></div>';
+    }
+
+    box.html(html);
+
+    box.find('img').on('error', function () {
+      var letter = box.find('.fxapi-profile__title').text().charAt(0).toUpperCase() || '?';
+      $(this).replaceWith('<div class="fxapi-profile__placeholder">' + letter + '</div>');
+    });
+  }
+
+  function fetchUserProfile(token, callback, onError) {
+    var network = new Lampa.Reguest();
+
+    network.timeout(8000);
+    network.silent(Lampa.Utils.addUrlComponent(apiPath('user_profile'), devToken(token)), function (json) {
+      if (json && json.user_data) {
+        applyQualityFromProfile(json.user_data);
+        Lampa.Storage.set('fxapi_status', json.user_data);
+
+        var profile = normalizeProfile(json);
+
+        if (callback) callback(profile, json.user_data);
+      } else {
+        Lampa.Storage.set('fxapi_status', {});
+        window.fxapi.max_qualitie = 720;
+        window.fxapi.is_max_qualitie = false;
+
+        if (callback) callback(null);
+      }
+
+      renderFxProfile();
+    }, function (a, c) {
+      if (onError) onError(a, c);
+      else Lampa.Noty.show(network.errorDecode(a, c));
+    });
   }
 
   function parseLinkQualities(link) {
@@ -1279,7 +1454,7 @@
     window.online_filmix = true;
     var manifest = {
       type: 'video',
-      version: '1.0.5',
+      version: '1.0.6',
       name: 'Онлайн - Filmix',
       description: 'Плагин для просмотра онлайн сериалов и фильмов',
       component: 'online_fxapi',
@@ -1449,8 +1624,52 @@
         uk: 'Пристрій не авторизований',
         en: 'Device not authorized',
         zh: '设备未授权'
+      },
+      filmix_sub_free: {
+        ru: 'Бесплатно',
+        uk: 'Безкоштовно',
+        en: 'Free',
+        zh: '免费'
+      },
+      filmix_sub_days: {
+        ru: 'Осталось дней',
+        uk: 'Залишилось днів',
+        en: 'Days left',
+        zh: '剩余天数'
+      },
+      filmix_max_quality: {
+        ru: 'Макс. качество',
+        uk: 'Макс. якість',
+        en: 'Max quality',
+        zh: '最高画质'
+      },
+      filmix_video_server: {
+        ru: 'Видео сервер',
+        uk: 'Відео сервер',
+        en: 'Video server',
+        zh: '视频服务器'
+      },
+      fxapi_refresh_profile: {
+        ru: 'Обновить профиль Filmix',
+        uk: 'Оновити профіль Filmix',
+        en: 'Refresh Filmix profile',
+        zh: '刷新 Filmix 个人资料'
+      },
+      filmix_pro_until: {
+        ru: 'Подписка до',
+        uk: 'Підписка до',
+        en: 'Subscription until',
+        zh: '订阅至'
+      },
+      filmix_profile_updated: {
+        ru: 'Профиль Filmix обновлён',
+        uk: 'Профіль Filmix оновлено',
+        en: 'Filmix profile updated',
+        zh: 'Filmix 个人资料已更新'
       }
     });
+    Lampa.Template.add('fxapi_profile_css', '<style>.fxapi-profile{margin:1em 0;padding:1em;background:rgba(255,255,255,.08);border-radius:.6em;line-height:1.35}.fxapi-profile--empty{opacity:.75;padding:1.2em 1em}.fxapi-profile__wrap{display:flex;gap:1em;align-items:center}.fxapi-profile__avatar{width:4.5em;height:4.5em;border-radius:50%;overflow:hidden;background:rgba(0,0,0,.35);flex-shrink:0;display:flex;align-items:center;justify-content:center}.fxapi-profile__avatar img{width:100%;height:100%;object-fit:cover}.fxapi-profile__placeholder{font-size:1.8em;font-weight:600;text-transform:uppercase}.fxapi-profile__title{font-size:1.25em;font-weight:600}.fxapi-profile__login{opacity:.75;font-size:.95em;margin-top:.15em}.fxapi-profile__meta{opacity:.85;font-size:.92em;margin-top:.45em}.fxapi-profile__badge{display:inline-block;margin-bottom:.35em;padding:.15em .55em;border-radius:.3em;background:rgba(255,255,255,.14);font-size:.88em;font-weight:600}</style>');
+    $('body').append(Lampa.Template.get('fxapi_profile_css', {}, true));
     Lampa.Template.add('online_prestige_css', "\n        <style>\n        @charset 'UTF-8';.online-prestige{position:relative;-webkit-border-radius:.3em;-moz-border-radius:.3em;border-radius:.3em;background-color:rgba(0,0,0,0.3);display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;will-change:transform}.online-prestige__body{padding:1.2em;line-height:1.3;-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;position:relative}@media screen and (max-width:480px){.online-prestige__body{padding:.8em 1.2em}}.online-prestige__img{position:relative;width:13em;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;min-height:8.2em}.online-prestige__img>img{position:absolute;top:0;left:0;width:100%;height:100%;-o-object-fit:cover;object-fit:cover;-webkit-border-radius:.3em;-moz-border-radius:.3em;border-radius:.3em;opacity:0;-webkit-transition:opacity .3s;-o-transition:opacity .3s;-moz-transition:opacity .3s;transition:opacity .3s}.online-prestige__img--loaded>img{opacity:1}@media screen and (max-width:480px){.online-prestige__img{width:7em;min-height:6em}}.online-prestige__folder{padding:1em;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0}.online-prestige__folder>svg{width:4.4em !important;height:4.4em !important}.online-prestige__viewed{position:absolute;top:1em;left:1em;background:rgba(0,0,0,0.45);-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;padding:.25em;font-size:.76em}.online-prestige__viewed>svg{width:1.5em !important;height:1.5em !important}.online-prestige__episode-number{position:absolute;top:0;left:0;right:0;bottom:0;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;font-size:2em}.online-prestige__loader{position:absolute;top:50%;left:50%;width:2em;height:2em;margin-left:-1em;margin-top:-1em;background:url(./img/loader.svg) no-repeat center center;-webkit-background-size:contain;-moz-background-size:contain;-o-background-size:contain;background-size:contain}.online-prestige__head,.online-prestige__footer{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-moz-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center}.online-prestige__timeline{margin:.8em 0}.online-prestige__timeline>.time-line{display:block !important}.online-prestige__title{font-size:1.7em;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;line-clamp:1;-webkit-box-orient:vertical}@media screen and (max-width:480px){.online-prestige__title{font-size:1.4em}}.online-prestige__time{padding-left:2em}.online-prestige__info{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center}.online-prestige__info>*{overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;line-clamp:1;-webkit-box-orient:vertical}.online-prestige__quality{padding-left:1em;white-space:nowrap}.online-prestige__scan-file{position:absolute;bottom:0;left:0;right:0}.online-prestige__scan-file .broadcast__scan{margin:0}.online-prestige .online-prestige-split{font-size:.8em;margin:0 1em;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0}.online-prestige.focus::after{content:'';position:absolute;top:-0.6em;left:-0.6em;right:-0.6em;bottom:-0.6em;-webkit-border-radius:.7em;-moz-border-radius:.7em;border-radius:.7em;border:solid .3em #fff;z-index:-1;pointer-events:none}.online-prestige+.online-prestige{margin-top:1.5em}.online-prestige--folder .online-prestige__footer{margin-top:.8em}.online-prestige-watched{padding:1em}.online-prestige-watched__icon>svg{width:1.5em;height:1.5em}.online-prestige-watched__body{padding-left:1em;padding-top:.1em;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}.online-prestige-watched__body>span+span::before{content:' ● ';vertical-align:top;display:inline-block;margin:0 .5em}.online-prestige-rate{display:-webkit-inline-box;display:-webkit-inline-flex;display:-moz-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center}.online-prestige-rate>svg{width:1.3em !important;height:1.3em !important}.online-prestige-rate>span{font-weight:600;font-size:1.1em;padding-left:.7em}.online-empty{line-height:1.4}.online-empty__title{font-size:2em;margin-bottom:.9em}.online-empty__time{font-size:1.2em;font-weight:300;margin-bottom:1.6em}.online-empty__buttons{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}.online-empty__buttons>*+*{margin-left:1em}.online-empty__button{background:rgba(0,0,0,0.3);font-size:1.2em;padding:.5em 1.2em;-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;margin-bottom:2.4em}.online-empty__button.focus{background:#fff;color:black}.online-empty__templates .online-empty-template:nth-child(2){opacity:.5}.online-empty__templates .online-empty-template:nth-child(3){opacity:.2}.online-empty-template{background-color:rgba(255,255,255,0.3);padding:1em;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;-webkit-border-radius:.3em;-moz-border-radius:.3em;border-radius:.3em}.online-empty-template>*{background:rgba(0,0,0,0.3);-webkit-border-radius:.3em;-moz-border-radius:.3em;border-radius:.3em}.online-empty-template__ico{width:4em;height:4em;margin-right:2.4em}.online-empty-template__body{height:1.7em;width:70%}.online-empty-template+.online-empty-template{margin-top:1em}\n        </style>\n    ");
     $('body').append(Lampa.Template.get('online_prestige_css', {}, true));
 
@@ -1493,38 +1712,7 @@
     };
 
     function checkToken(token) {
-      var network = new Lampa.Reguest();
-      network.timeout(8000);
-      network.silent(Lampa.Utils.addUrlComponent(apiPath('user_profile'), devToken(token)), function (json) {
-        if (json) {
-          if (json.user_data) {
-            if (json.user_data.is_pro) window.fxapi.max_qualitie = 1080;
-            if (json.user_data.is_pro_plus) window.fxapi.max_qualitie = 2160;
-            Lampa.Storage.set('fxapi_status', json.user_data);
-            showFxStatus();
-          } else {
-            Lampa.Storage.set('fxapi_token', '');
-            Lampa.Storage.set('fxapi_status', {});
-            window.fxapi.is_max_qualitie = false;
-          }
-        }
-      }, function (a, c) {
-        Lampa.Noty.show(network.errorDecode(a, c));
-      });
-    }
-
-    function showFxStatus() {
-      var status = Lampa.Storage.get('fxapi_status', {});
-      var info = Lampa.Lang.translate('filmix_nodevice');
-      var field = $('[data-name="fxapi_status"]');
-
-      if (status.login) {
-        if (status.is_pro_plus) info = status.login + ' - PRO+';
-        else if (status.is_pro) info = status.login + ' - PRO';
-        else info = status.login;
-      }
-
-      if (field.length) field.find('.settings-param__value').text(info);
+      fetchUserProfile(token);
     }
 
     Lampa.Params.select('fxapi_token', '', '');
@@ -1536,7 +1724,7 @@
       icon: '<svg height="57" viewBox="0 0 58 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 20.3735V45H26.8281V34.1262H36.724V26.9806H26.8281V24.3916C26.8281 21.5955 28.9062 19.835 31.1823 19.835H39V13H26.8281C23.6615 13 20 15.4854 20 20.3735Z" fill="white"/><rect x="2" y="2" width="54" height="53" rx="5" stroke="white" stroke-width="4"/></svg>'
     });
 
-    Lampa.Template.add('settings_fxapi', '<div>\n        <div class="settings-param selector" data-name="fxapi_proxy" data-type="input" placeholder="https://cors.example.com/">\n            <div class="settings-param__name">#{fxapi_proxy_title}</div>\n            <div class="settings-param__value"></div>\n            <div class="settings-param__descr">#{fxapi_proxy_descr}</div>\n        </div>\n        <div class="settings-param selector" data-name="fxapi_token" data-type="input" placeholder="#{filmix_param_placeholder}">\n            <div class="settings-param__name">#{filmix_param_add_title}</div>\n            <div class="settings-param__value"></div>\n            <div class="settings-param__descr">#{filmix_param_add_descr}</div>\n        </div>\n        <div class="settings-param selector" data-name="fxapi_add" data-static="true">\n            <div class="settings-param__name">#{filmix_param_add_device}</div>\n        </div>\n        <div class="settings-param" data-name="fxapi_status" data-static="true">\n            <div class="settings-param__name">#{title_status}</div>\n            <div class="settings-param__value"></div>\n        </div>\n    </div>');
+    Lampa.Template.add('settings_fxapi', '<div>\n        <div class="settings-param" data-name="fxapi_profile" data-static="true"></div>\n        <div class="settings-param selector" data-name="fxapi_refresh" data-static="true">\n            <div class="settings-param__name">#{fxapi_refresh_profile}</div>\n        </div>\n        <div class="settings-param selector" data-name="fxapi_proxy" data-type="input" placeholder="https://cors.example.com/">\n            <div class="settings-param__name">#{fxapi_proxy_title}</div>\n            <div class="settings-param__value"></div>\n            <div class="settings-param__descr">#{fxapi_proxy_descr}</div>\n        </div>\n        <div class="settings-param selector" data-name="fxapi_token" data-type="input" placeholder="#{filmix_param_placeholder}">\n            <div class="settings-param__name">#{filmix_param_add_title}</div>\n            <div class="settings-param__value"></div>\n            <div class="settings-param__descr">#{filmix_param_add_descr}</div>\n        </div>\n        <div class="settings-param selector" data-name="fxapi_add" data-static="true">\n            <div class="settings-param__name">#{filmix_param_add_device}</div>\n        </div>\n    </div>');
 
     Lampa.Storage.listener.follow('change', function (e) {
       if (e.name == 'fxapi_proxy') {
@@ -1549,7 +1737,7 @@
         else {
           Lampa.Storage.set('fxapi_status', {});
           window.fxapi.max_qualitie = 720;
-          showFxStatus();
+          renderFxProfile();
         }
       }
     });
@@ -1557,7 +1745,24 @@
     Lampa.Settings.listener.follow('open', function (e) {
       if (e.name != 'fxapi') return;
 
-      showFxStatus();
+      renderFxProfile();
+
+      var token = getToken();
+
+      if (token) fetchUserProfile(token);
+
+      e.body.find('[data-name="fxapi_refresh"]').unbind('hover:enter').on('hover:enter', function () {
+        var refreshToken = getToken();
+
+        if (!refreshToken) {
+          Lampa.Noty.show(Lampa.Lang.translate('filmix_nodevice'));
+          return;
+        }
+
+        fetchUserProfile(refreshToken, function (profile) {
+          if (profile) Lampa.Noty.show(Lampa.Lang.translate('filmix_profile_updated'));
+        });
+      });
 
       e.body.find('[data-name="fxapi_add"]').unbind('hover:enter').on('hover:enter', function () {
         var network = new Lampa.Reguest();
@@ -1589,7 +1794,7 @@
               clearInterval(ping_auth);
               Lampa.Storage.set('fxapi_token', user_token);
               e.body.find('[data-name="fxapi_token"] .settings-param__value').text(user_token);
-              checkToken(user_token);
+              fetchUserProfile(user_token);
               Lampa.Controller.toggle('settings_component');
             }
           }, function () { });
