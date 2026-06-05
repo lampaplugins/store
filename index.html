@@ -1,1 +1,543 @@
-<h1>Hi</h1>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Каталог расширений для Lampa — плагины, магазин и быстрое подключение одной строкой.">
+  <title>Lampa Plugins Store — каталог расширений</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0e14;
+      --bg-soft: #12151e;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-hover: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8eaef;
+      --text-muted: #8b92a8;
+      --accent: #f5a623;
+      --accent-soft: rgba(245, 166, 35, 0.15);
+      --accent-glow: rgba(245, 166, 35, 0.35);
+      --radius: 16px;
+      --font: "DM Sans", system-ui, -apple-system, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245, 166, 35, 0.12), transparent),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(88, 101, 242, 0.08), transparent),
+        var(--bg);
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #e07800);
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    section {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    section:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    section:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    section:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .steps li:first-child {
+      padding-top: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .url-box {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .btn {
+      flex-shrink: 0;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.75rem 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1a1200;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary.copied {
+      background: #3dd68c;
+      color: #0a1a12;
+    }
+
+    .links {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      background: var(--bg-soft);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .link-item:hover {
+      background: var(--surface-hover);
+      border-color: var(--border);
+    }
+
+    .link-item span:first-child {
+      font-weight: 500;
+    }
+
+    .link-item span:last-child {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .plugins {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plugin {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plugin:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .plugin-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .plugin-name {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .plugin-name:hover {
+      color: var(--accent);
+    }
+
+    .plugin-desc {
+      margin-top: 0.2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .btn-copy-sm {
+      flex-shrink: 0;
+      font-family: var(--font);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.45rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-soft);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .btn-copy-sm:hover {
+      color: var(--accent);
+      border-color: rgba(245, 166, 35, 0.35);
+      background: var(--accent-soft);
+    }
+
+    .btn-copy-sm.copied {
+      color: #3dd68c;
+      border-color: rgba(61, 214, 140, 0.35);
+      background: rgba(61, 214, 140, 0.12);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    footer a:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .copy-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">▶</div>
+      <h1>Lampa Store</h1>
+      <p class="tagline">Каталог расширений для Lampa — подключите магазин одной строкой и выбирайте плагины прямо в
+        приложении.</p>
+    </header>
+
+    <section class="card">
+      <h2>Быстрый старт</h2>
+      <ol class="steps">
+        <li>Добавьте плагином ссылку на <strong>store.js</strong> в настройках Lampa.</li>
+        <li>Откройте появившийся пункт магазина в настройках.</li>
+        <li>Выберите нужное расширение из каталога.</li>
+      </ol>
+      <div class="copy-row">
+        <code class="url-box" id="store-url">https://lampaplugins.github.io/store/store.js</code>
+        <button class="btn btn-primary" id="copy-btn" type="button">Копировать</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ссылки</h2>
+      <div class="links">
+        <a class="link-item" href="store.js">
+          <span>store.js</span>
+          <span>магазин</span>
+        </a>
+        <a class="link-item" href="extensions.json">
+          <span>extensions.json</span>
+          <span>каталог</span>
+        </a>
+        <a class="link-item" href="https://github.com/lampaplugins/store" target="_blank" rel="noopener noreferrer">
+          <span>GitHub</span>
+          <span>исходники</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Локальные плагины</h2>
+      <div class="plugins" id="plugins">
+        <div class="plugin" data-file="store.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="store.js">store.js</a>
+            <p class="plugin-desc">Запуск магазина из настроек</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="torrent_styles_v2.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="torrent_styles_v2.js">torrent_styles_v2.js</a>
+            <p class="plugin-desc">Красивый список торрентов</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="navigation_bar.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="navigation_bar.js">navigation_bar.js</a>
+            <p class="plugin-desc">Нижняя панель на телефоне</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="interface_mod.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="interface_mod.js">interface_mod.js</a>
+            <p class="plugin-desc">Темы, карточка, торренты</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="fx.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="fx.js">fx.js</a>
+            <p class="plugin-desc">Filmix онлайн</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="logo.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="logo.js">logo.js</a>
+            <p class="plugin-desc">Логотипы на карточках</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="record.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="record.js">record.js</a>
+            <p class="plugin-desc">Радио «Рекорд»</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="lg.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="lg.js">lg.js</a>
+            <p class="plugin-desc">LG TV: виджет и зеркало</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="no-autostart.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="no-autostart.js">no-autostart.js</a>
+            <p class="plugin-desc">Без автозапуска торрента</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+        <div class="plugin" data-file="no-mic.js">
+          <div class="plugin-info">
+            <a class="plugin-name" href="no-mic.js">no-mic.js</a>
+            <p class="plugin-desc">Клавиатура без микрофона</p>
+          </div>
+          <button class="btn-copy-sm" type="button">Копировать</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Сообщество вокруг <a href="https://github.com/lampaplugins/store">Lampa</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const base = new URL('./', window.location.href).href;
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+
+    function markCopied(btn) {
+      const prev = btn.textContent;
+      btn.textContent = 'Скопировано';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = prev;
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+
+    document.getElementById('copy-btn').addEventListener('click', async () => {
+      const url = document.getElementById('store-url').textContent.trim();
+      try {
+        await copyText(url);
+        markCopied(document.getElementById('copy-btn'));
+      } catch (_) { }
+    });
+
+    document.querySelectorAll('.plugin').forEach(row => {
+      const btn = row.querySelector('.btn-copy-sm');
+      const url = new URL(row.dataset.file, base).href;
+      btn.addEventListener('click', async () => {
+        try {
+          await copyText(url);
+          markCopied(btn);
+        } catch (_) { }
+      });
+    });
+  </script>
+</body>
+
+</html>
