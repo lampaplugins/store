@@ -112,35 +112,21 @@
       "hpu": "video"
     },
     {
-      "title": "Управление",
+      "title": "@pavelpikta",
       "results": [
         {
-          "name": "Трейлеры с Рутуб",
-          "author": "@RootU",
-          "link": "https://plugin.rootu.top/rutube.js",
-          "descr": "Добавляет кнопку трейлеры с сервиса RuTube",
-          "available_lampa": 1
+          "name": "Jellyfin",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/pavelpikta/jellyfin.js",
+          "descr": "Библиотека Jellyfin в Lampa: фильмы и сериалы, продолжить просмотр, постеры TMDB, выбор пользователя.",
+          "version": "1.0.0"
         },
         {
-          "name": "Трейлеры с iTunes",
-          "author": "@RootU",
-          "link": "https://plugin.rootu.top/trailers.js",
-          "descr": "Добавляет кнопку трейлеры с сервиса iTunes",
-          "available_lampa": 1
-        },
-        {
-          "name": "Подборки",
-          "author": "@helpiptv",
-          "link": "https://lampaplugins.github.io/store/p.js",
-          "descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
-          "available_lampa": 1
-        },
-        {
-          "name": "SURS",
-          "author": "Roman V",
-          "link": "https://aviamovie.github.io/surs.js",
-          "descr": "Плагин создает уникальные подборки фильмов и сериалов на главной странице по жанрам, стримингам, популярности, просмотрам и кассовым сборам. Обновление подборок происходит при каждом нажатии кнопки Главная (Home).",
-          "available_lampa": 1
+          "name": "Интерфейс мод",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/interface_mod.js",
+          "descr": "Темы, стили карточки и торрентов, кнопки онлайн, локализованные статусы сезонов TMDB и другие улучшения интерфейса.",
+          "version": "4.0.0"
         },
         {
           "name": "No Autostart",
@@ -176,6 +162,40 @@
           "link": "https://lampaplugins.github.io/store/lg.js",
           "descr": "Для телевизоров LG: режим ТВ-платформы и запись в localStorage списка зеркал для виджета (lampa.mx, lampa.byskaz.ru).",
           "version": "1.0.0"
+        }
+      ],
+      "hpu": "pavelpikta"
+    },
+    {
+      "title": "Управление",
+      "results": [
+        {
+          "name": "Трейлеры с Рутуб",
+          "author": "@RootU",
+          "link": "https://plugin.rootu.top/rutube.js",
+          "descr": "Добавляет кнопку трейлеры с сервиса RuTube",
+          "available_lampa": 1
+        },
+        {
+          "name": "Трейлеры с iTunes",
+          "author": "@RootU",
+          "link": "https://plugin.rootu.top/trailers.js",
+          "descr": "Добавляет кнопку трейлеры с сервиса iTunes",
+          "available_lampa": 1
+        },
+        {
+          "name": "Подборки",
+          "author": "@helpiptv",
+          "link": "https://lampaplugins.github.io/store/p.js",
+          "descr": "Подборки от онлайн кинотеатров, мультсериалы и мультфильмы.",
+          "available_lampa": 1
+        },
+        {
+          "name": "SURS",
+          "author": "Roman V",
+          "link": "https://aviamovie.github.io/surs.js",
+          "descr": "Плагин создает уникальные подборки фильмов и сериалов на главной странице по жанрам, стримингам, популярности, просмотрам и кассовым сборам. Обновление подборок происходит при каждом нажатии кнопки Главная (Home).",
+          "available_lampa": 1
         },
         {
           "name": "Добавляет пункт \"Парсер\" в меню",
@@ -279,13 +299,6 @@
           "link": "https://bywolf88.github.io/lampa-plugins/interface_mod.js",
           "descr": "Темы, стили отображения рейтинга и другое",
           "available_lampa": 1
-        },
-        {
-          "name": "Интерфейс мод",
-          "author": "@pavelpikta",
-          "link": "https://lampaplugins.github.io/store/interface_mod.js",
-          "descr": "Темы, стили карточки и торрентов, кнопки онлайн, локализованные статусы сезонов TMDB и другие улучшения интерфейса.",
-          "version": "4.0.0"
         },
         {
           "name": "Рейтинг CUB в карточке фильма",

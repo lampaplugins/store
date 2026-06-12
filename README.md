@@ -49,6 +49,7 @@
 | `record.js` | Радио «Рекорд» |
 | `lg.js` | LG TV: режим виджета и зеркала |
 | `cardify.js` | Другая карточка фильма (Cardify) |
+| `pavelpikta/jellyfin.js` | Библиотека Jellyfin в Lampa |
 | `a.js` | Служебные настройки (см. файл) |
 | `o.js` | Заготовка |
 
