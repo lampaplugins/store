@@ -25,7 +25,7 @@
 
   var MANIFEST = {
     type: 'video',
-    version: '1.2.0',
+    version: '1.3.0',
     author: '@pavelpikta',
     name: 'Jellyfin',
     description: 'Browse and play your Jellyfin library in Lampa',
@@ -105,13 +105,9 @@
         en: 'Tap card to play (long = menu)',
         ru: 'Нажатие — смотреть (долгое — меню)',
       },
-      jellyfin_set_transcode: {
-        en: 'Server transcoding (HLS)',
-        ru: 'Транскодинг на сервере (HLS)',
-      },
-      jellyfin_set_transcode_descr: {
-        en: 'Off: direct play (Static). On: Jellyfin transcodes to H.264/AAC HLS — pick quality in the player.',
-        ru: 'Выкл.: прямое воспроизведение (Static). Вкл.: транскодинг Jellyfin в H.264/AAC HLS — качество выбирается в плеере.',
+      jellyfin_set_stream_hint: {
+        en: 'Lampa player: HLS transcode (quality in player). External player: direct stream.',
+        ru: 'Плеер Lampa: HLS-транскодинг (качество в плеере). Внешний плеер: прямой поток.',
       },
       jellyfin_play_from_library: {
         en: 'Play from Jellyfin',
@@ -413,8 +409,52 @@
     return id;
   }
 
+  function activePlayerId() {
+    try {
+      return String(Lampa.Storage.field('player') || Lampa.Storage.get('player', 'inner') || 'inner')
+        .trim()
+        .toLowerCase();
+    } catch (e) {
+      return 'inner';
+    }
+  }
+
+  function usesLampaNativePlayer() {
+    var player = activePlayerId();
+    if (player === 'inner' || player === 'lampa') return true;
+
+    var Platform = Lampa.Platform;
+    if (!Platform || typeof Platform.is !== 'function') return player === 'ios';
+
+    if (Platform.is('apple') && player === 'ios') return true;
+    if (Platform.is('webos') && player === 'webos') return false;
+    if (Platform.is('android') && player === 'android') return false;
+    if (typeof Platform.desktop === 'function' && Platform.desktop() && player === 'other') {
+      return false;
+    }
+
+    var external = {
+      vlc: 1,
+      nplayer: 1,
+      infuse: 1,
+      senplayer: 1,
+      vidhub: 1,
+      svplayer: 1,
+      tracyplayer: 1,
+      tvospro: 1,
+      tvos: 1,
+      tvosl: 1,
+      tvosselect: 1,
+      mpv: 1,
+      iina: 1,
+    };
+    if (external[player]) return false;
+
+    return true;
+  }
+
   function transcodingEnabled() {
-    return storageToggle('Transcode', false);
+    return usesLampaNativePlayer();
   }
 
   var TRANSCODE_QUALITY_PRESETS = {
@@ -2287,16 +2327,9 @@
 
     Lampa.SettingsApi.addParam({
       component: SETTINGS_COMPONENT,
-      param: { type: 'trigger', default: false, name: STORAGE_PREFIX + 'Transcode' },
-      field: {
-        name: Lampa.Lang.translate('jellyfin_set_transcode'),
-        description: Lampa.Lang.translate('jellyfin_set_transcode_descr'),
-      },
-      onChange: function () {
-        Lampa.Settings.update();
-      },
+      param: { name: STORAGE_PREFIX + 'StreamHint', type: 'static' },
+      field: { name: Lampa.Lang.translate('jellyfin_set_stream_hint') },
     });
-
   }
 
   function init() {
