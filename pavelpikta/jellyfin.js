@@ -25,7 +25,7 @@
 
   var MANIFEST = {
     type: 'video',
-    version: '1.1.0',
+    version: '1.2.0',
     author: '@pavelpikta',
     name: 'Jellyfin',
     description: 'Browse and play your Jellyfin library in Lampa',
@@ -110,8 +110,8 @@
         ru: 'Транскодинг на сервере (HLS)',
       },
       jellyfin_set_transcode_descr: {
-        en: 'Off: direct play (Static). On: Jellyfin transcodes to H.264/AAC HLS when needed.',
-        ru: 'Выкл.: прямое воспроизведение (Static). Вкл.: транскодинг Jellyfin в H.264/AAC HLS при необходимости.',
+        en: 'Off: direct play (Static). On: Jellyfin transcodes to H.264/AAC HLS — pick quality in the player.',
+        ru: 'Выкл.: прямое воспроизведение (Static). Вкл.: транскодинг Jellyfin в H.264/AAC HLS — качество выбирается в плеере.',
       },
       jellyfin_play_from_library: {
         en: 'Play from Jellyfin',
@@ -417,6 +417,76 @@
     return storageToggle('Transcode', false);
   }
 
+  var TRANSCODE_QUALITY_PRESETS = {
+    '720p': {
+      maxWidth: 1280,
+      videoBitrate: 5000000,
+      maxStreamingBitrate: 30000000,
+      audioBitrate: 384000,
+      h264Level: '42',
+    },
+    '1080p': {
+      maxWidth: 1920,
+      videoBitrate: 20000000,
+      maxStreamingBitrate: 80000000,
+      audioBitrate: 384000,
+      h264Level: '51',
+    },
+    '1440p': {
+      maxWidth: 2560,
+      videoBitrate: 35000000,
+      maxStreamingBitrate: 100000000,
+      audioBitrate: 384000,
+      h264Level: '51',
+    },
+    '2160p': {
+      maxWidth: 3840,
+      videoBitrate: 60000000,
+      maxStreamingBitrate: 120000000,
+      audioBitrate: 640000,
+      h264Level: '52',
+    },
+  };
+
+  var PLAYER_TRANSCODE_QUALITIES = [
+    { key: '720p', preset: '720p' },
+    { key: '1080p', preset: '1080p' },
+    { key: '1440p', preset: '1440p' },
+    { key: '2160p', preset: '2160p' },
+  ];
+
+  function defaultTranscodePresetKey() {
+    try {
+      var def = parseInt(
+        Lampa.Storage.field('video_quality_default') ||
+        Lampa.Storage.get('video_quality_default', '1080'),
+        10
+      );
+      if (def >= 2160) return '2160p';
+      if (def >= 1440) return '1440p';
+      if (def >= 1080) return '1080p';
+      return '720p';
+    } catch (e) {
+      return '1080p';
+    }
+  }
+
+  function streamQualityPreset(presetKey) {
+    return TRANSCODE_QUALITY_PRESETS[presetKey || defaultTranscodePresetKey()] || TRANSCODE_QUALITY_PRESETS['1080p'];
+  }
+
+  function appendTranscodeQualityParams(parts, presetKey) {
+    var quality = streamQualityPreset(presetKey);
+    parts.push('MaxStreamingBitrate=' + quality.maxStreamingBitrate);
+    parts.push('MaxStaticBitrate=' + quality.maxStreamingBitrate);
+    parts.push('VideoBitrate=' + quality.videoBitrate);
+    parts.push('AudioBitrate=' + quality.audioBitrate);
+    parts.push('MaxWidth=' + quality.maxWidth);
+    parts.push('h264-profile=high,main,baseline,constrainedbaseline');
+    parts.push('h264-level=' + quality.h264Level);
+    parts.push('TranscodingMaxAudioChannels=6');
+  }
+
   function mediaSourceId(itemId) {
     return String(itemId || '').replace(/-/g, '');
   }
@@ -450,17 +520,40 @@
     parts.push('TranscodingProtocol=hls');
     parts.push('SegmentContainer=ts');
     parts.push('MinSegments=1');
+    parts.push('BreakOnNonKeyFrames=false');
+    appendTranscodeQualityParams(parts, opts.qualityPreset);
     return apiBase() + '/Videos/' + encodeURIComponent(id) + '/master.m3u8?' + parts.join('&');
+  }
+
+  function buildStreamQualityMap(itemId, opts) {
+    if (!transcodingEnabled()) return null;
+    var map = {};
+    PLAYER_TRANSCODE_QUALITIES.forEach(function (entry) {
+      map[entry.key] = streamUrl(itemId, Object.assign({}, opts, { qualityPreset: entry.preset }));
+    });
+    return map;
+  }
+
+  function playItemFromRow(row, userId, includeMovie) {
+    var opts = { userId: userId, startTicks: rowStartTicks(row) };
+    var qualityMap = buildStreamQualityMap(row.id, opts);
+    var item = {
+      title: row.title,
+      url: streamUrl(row.id, opts),
+    };
+    if (row.resumeSec > 0) {
+      item.timeline = includeMovie
+        ? { time: row.resumeSec, duration: 0, percent: 0 }
+        : { time: row.resumeSec };
+    }
+    if (qualityMap) item.quality = qualityMap;
+    if (includeMovie) item.movie = row.raw;
+    return item;
   }
 
   function playlistFromRows(rows, userId) {
     return rows.map(function (row) {
-      var item = {
-        title: row.title,
-        url: streamUrl(row.id, { userId: userId, startTicks: rowStartTicks(row) }),
-      };
-      if (row.resumeSec > 0) item.timeline = { time: row.resumeSec };
-      return item;
+      return playItemFromRow(row, userId, false);
     });
   }
 
@@ -1458,18 +1551,7 @@
     resolveUserId()
       .then(function (userId) {
         var playlist = playlistFromRows(rows, userId);
-        var idx = rows.indexOf(row);
-        if (idx < 0) idx = 0;
-        var current = playlist[idx];
-        var payload = {
-          title: current.title,
-          url: current.url,
-          timeline: current.timeline
-            ? { time: current.timeline.time, duration: 0, percent: 0 }
-            : null,
-          movie: row.raw,
-        };
-        Lampa.Player.play(payload);
+        Lampa.Player.play(playItemFromRow(row, userId, true));
         Lampa.Player.playlist(playlist);
       })
       .catch(function () {
@@ -2214,6 +2296,7 @@
         Lampa.Settings.update();
       },
     });
+
   }
 
   function init() {
