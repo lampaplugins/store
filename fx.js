@@ -41,11 +41,59 @@
     return url;
   }
 
+  function isPlaylistMap(playlist) {
+    return playlist && !Array.isArray(playlist) && Object.keys(playlist).length > 0;
+  }
+
+  function normalizePostResponse(data) {
+    if (!data || !data.player_links) return data;
+
+    var pl = data.player_links;
+
+    if (Array.isArray(pl.playlist) && !pl.playlist.length) {
+      pl.playlist = null;
+    }
+
+    return data;
+  }
+
+  function seasonLabel(key) {
+    return key === '-1' ? '1' : key;
+  }
+
+  function playlistSeasonKeys(playlist) {
+    if (!isPlaylistMap(playlist)) return [];
+
+    return Object.keys(playlist).sort(function (a, b) {
+      return parseInt(a, 10) - parseInt(b, 10);
+    });
+  }
+
+  function episodeMap(episode_voice) {
+    if (!episode_voice) return {};
+
+    if (Array.isArray(episode_voice)) {
+      var mapped = {};
+
+      for (var i = 0; i < episode_voice.length; i++) {
+        mapped[String(i + 1)] = episode_voice[i];
+      }
+
+      return mapped;
+    }
+
+    return episode_voice;
+  }
+
+  function isBlockedTranslation(name) {
+    return typeof name === 'string' && name.toLowerCase().indexOf('заблокировано ') === 0;
+  }
+
   function hasStreamLinks(data) {
     var pl = data && data.player_links;
     if (!pl) return false;
     if (pl.movie && pl.movie.length) return true;
-    if (pl.playlist && Object.keys(pl.playlist).length) return true;
+    if (isPlaylistMap(pl.playlist)) return true;
     return false;
   }
 
@@ -258,7 +306,7 @@
       var _this = this;
 
       object = _object;
-      var year = parseInt((object.movie.release_date || object.movie.first_air_date || '0000').slice(0, 4));
+      var year = parseInt(((object.movie.release_date || object.movie.first_air_date || '0000') + '').slice(0, 4));
       var orig = object.movie.original_name || object.movie.original_title;
       var url = Lampa.Utils.addUrlComponent(apiPath('search'), 'story=' + encodeURIComponent(query));
       url = Lampa.Utils.addUrlComponent(url, devToken());
@@ -320,6 +368,8 @@
         network.clear();
         network.timeout(10000);
         network.silent(Lampa.Utils.addUrlComponent(apiPath('post/' + filmix_id), devToken()), function (found) {
+          found = normalizePostResponse(found);
+
           if (found && hasStreamLinks(found)) {
             success(found);
             component.loading(false);
@@ -381,21 +431,23 @@
       extract = {};
       var pl_links = data.player_links;
 
-      if (pl_links.playlist && Object.keys(pl_links.playlist).length > 0) {
+      if (isPlaylistMap(pl_links.playlist)) {
         var seas_num = 0;
 
         for (var season in pl_links.playlist) {
           var episode = pl_links.playlist[season];
           ++seas_num;
           var transl_id = 0;
+          var season_num = parseInt(season === '-1' ? '1' : season, 10);
 
           for (var voice in episode) {
-            var episode_voice = episode[voice];
+            var episode_voice = episodeMap(episode[voice]);
             ++transl_id;
             var items = [];
 
             for (var ID in episode_voice) {
               var file_episod = episode_voice[ID];
+              if (!file_episod || !file_episod.link) continue;
               var quality_eps = file_episod.qualities.filter(function (qualitys) {
                 return qualitys > 0 && qualitys <= window.fxapi.max_qualitie;
               });
@@ -404,23 +456,26 @@
               var stream_url = file_episod.link.replace('%s.mp4', max_quality + '.mp4');
               var s_e = stream_url.slice(0 - stream_url.length + stream_url.lastIndexOf('/'));
               var str_s_e = s_e.match(/s(\d+)e(\d+?)_\d+\.mp4/i);
+              var _seas_num = season_num;
+              var _epis_num = parseInt(ID, 10);
 
               if (str_s_e) {
-                var _seas_num = parseInt(str_s_e[1]);
-
-                var _epis_num = parseInt(str_s_e[2]);
-
-                items.push({
-                  id: _seas_num + '_' + _epis_num,
-                  comment: _epis_num + ' ' + Lampa.Lang.translate('torrent_serial_episode') + ' <i>' + ID + '</i>',
-                  file: stream_url,
-                  episode: _epis_num,
-                  season: _seas_num,
-                  quality: max_quality,
-                  qualities: quality_eps,
-                  translation: transl_id
-                });
+                _seas_num = parseInt(str_s_e[1], 10);
+                _epis_num = parseInt(str_s_e[2], 10);
+              } else if (isNaN(_epis_num)) {
+                continue;
               }
+
+              items.push({
+                id: _seas_num + '_' + _epis_num,
+                comment: _epis_num + ' ' + Lampa.Lang.translate('torrent_serial_episode') + ' <i>' + ID + '</i>',
+                file: stream_url,
+                episode: _epis_num,
+                season: _seas_num,
+                quality: max_quality,
+                qualities: quality_eps,
+                translation: transl_id
+              });
             }
 
             if (!extract[transl_id]) extract[transl_id] = {
@@ -436,10 +491,15 @@
           }
         }
       } else if (pl_links.movie && pl_links.movie.length > 0) {
+        if (pl_links.movie.length === 1 && isBlockedTranslation(pl_links.movie[0].translation)) {
+          return;
+        }
+
         var _transl_id = 0;
 
         for (var _ID in pl_links.movie) {
           var _file_episod = pl_links.movie[_ID];
+          if (isBlockedTranslation(_file_episod.translation)) continue;
           ++_transl_id;
 
           var _quality_eps = parseLinkQualities(_file_episod.link);
@@ -518,26 +578,34 @@
         voice_info: []
       };
 
-      if (results.last_episode && results.last_episode.season) {
-        var s = results.last_episode.season;
+      var playlist = results.player_links.playlist;
+      if (isPlaylistMap(playlist)) {
+        playlistSeasonKeys(playlist).forEach(function (key) {
+          filter_items.season.push(Lampa.Lang.translate('torrent_serial_season') + ' ' + seasonLabel(key));
+        });
 
-        while (s--) {
-          filter_items.season.push(Lampa.Lang.translate('torrent_serial_season') + ' ' + (results.last_episode.season - s));
-        }
-      }
-
-      for (var Id in results.player_links.playlist) {
-        var season = results.player_links.playlist[Id];
+        var seasonKeys = playlistSeasonKeys(playlist);
+        var seasonKey = seasonKeys[choice.season] || seasonKeys[0];
+        var seasonData = playlist[seasonKey];
         var d = 0;
 
-        for (var voic in season) {
-          ++d;
-
-          if (filter_items.voice.indexOf(voic) == -1) {
+        if (seasonData) {
+          for (var voic in seasonData) {
+            ++d;
             filter_items.voice.push(voic);
             filter_items.voice_info.push({
               id: d
             });
+          }
+        }
+      } else if (results.last_episode && results.last_episode.season) {
+        var lastSeason = parseInt(results.last_episode.season, 10);
+
+        if (lastSeason > 0) {
+          var s = lastSeason;
+
+          while (s--) {
+            filter_items.season.push(Lampa.Lang.translate('torrent_serial_season') + ' ' + (lastSeason - s));
           }
         }
       }
@@ -552,13 +620,21 @@
         }
       }
 
+      if (choice.voice >= filter_items.voice.length) {
+        choice.voice = 0;
+      }
+
+      if (filter_items.voice.length) {
+        choice.voice_name = filter_items.voice[choice.voice] || '';
+      }
+
       component.filter(filter_items, choice);
     }
 
     function filtred() {
       var filtred = [];
 
-      if (Object.keys(results.player_links.playlist).length) {
+      if (isPlaylistMap(results.player_links.playlist)) {
         for (var transl in extract) {
           var element = extract[transl];
 
@@ -1454,7 +1530,7 @@
     window.online_filmix = true;
     var manifest = {
       type: 'video',
-      version: '1.0.6',
+      version: '1.0.7',
       name: 'Онлайн - Filmix',
       description: 'Плагин для просмотра онлайн сериалов и фильмов',
       component: 'online_fxapi',
