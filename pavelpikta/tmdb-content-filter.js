@@ -4,108 +4,68 @@
   if (window.__tmdb_content_filter_loaded) return;
   window.__tmdb_content_filter_loaded = true;
 
-  var VERSION = '1.0.0';
+  var VERSION = '1.1.0';
   var COMPONENT = 'tmdb_cf';
   var LOG = 'TMDB Content Filter';
 
-  // ISO codes aligned with TMDB
-  var REGIONS = {
-    india: {
-      countries: ['IN'],
-      languages: ['hi', 'ta', 'te', 'ml', 'kn', 'bn', 'pa', 'mr', 'gu', 'or', 'as'],
-    },
-    pakistan: {
-      countries: ['PK'],
-      languages: ['ur'],
-    },
-    bangladesh: {
-      countries: ['BD'],
-      languages: ['bn'],
-    },
-    south_asia: {
-      countries: ['LK', 'NP', 'AF', 'BT', 'MV'],
-      languages: ['si', 'ne', 'ps', 'dv'],
-    },
-    korea: {
-      countries: ['KR', 'KP'],
-      languages: ['ko'],
-    },
-    japan: {
-      countries: ['JP'],
-      languages: ['ja'],
-    },
-    china: {
-      countries: ['CN', 'HK', 'TW', 'MO'],
-      languages: ['zh'],
-    },
-    southeast: {
-      countries: ['TH', 'VN', 'PH', 'ID', 'MY', 'SG', 'KH', 'LA', 'MM', 'BN', 'TL'],
-      languages: ['th', 'vi', 'id', 'ms', 'km', 'lo', 'my', 'tl', 'jv'],
-    },
-    central_asia: {
-      countries: ['MN', 'KZ', 'UZ', 'TM', 'TJ', 'KG'],
-      languages: ['mn', 'kk', 'uz', 'ky', 'tg'],
-    },
-    caucasus: {
-      countries: ['AM', 'GE', 'AZ'],
-      languages: ['hy', 'ka', 'az'],
-    },
-    middle_east: {
-      countries: ['IR', 'IQ', 'SA', 'AE', 'IL', 'LB', 'SY', 'JO', 'YE', 'OM', 'QA', 'KW', 'BH', 'PS'],
-      languages: ['fa', 'ar', 'he', 'ku'],
-    },
-    turkey: {
-      countries: ['TR', 'CY'],
-      languages: ['tr'],
-    },
-    north_africa: {
-      countries: ['MA', 'DZ', 'TN', 'LY', 'EG', 'EH', 'MR'],
-      languages: ['ar', 'fr'],
-    },
-    russia: {
-      countries: ['RU'],
-      languages: ['ru', 'ba', 'ce', 'cv', 'tt'],
-    },
-    north_america: {
-      countries: ['US', 'CA', 'MX', 'PR', 'GU', 'VI', 'BM', 'KY'],
-      languages: ['en', 'es', 'fr'],
-    },
-    latin_america: {
-      countries: [
-        'BR', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'UY', 'PY', 'BO', 'CR', 'PA', 'DO', 'CU', 'GT', 'HN', 'NI', 'SV',
-        'HT', 'JM', 'TT', 'BB', 'BS', 'BZ', 'GY', 'SR', 'GF', 'AW',
-      ],
-      languages: ['es', 'pt', 'gn', 'qu', 'ht'],
-    },
-    western_europe: {
-      countries: [
-        'GB', 'FR', 'DE', 'IT', 'ES', 'PT', 'NL', 'BE', 'CH', 'AT', 'IE', 'LU', 'MC', 'AD', 'LI', 'SM', 'VA', 'MT',
-        'IS', 'NO', 'SE', 'DK', 'FI', 'FO', 'GL',
-      ],
-      languages: ['en', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'sv', 'no', 'da', 'fi', 'is', 'ca', 'eu', 'gl', 'cy', 'ga', 'mt'],
-    },
-    eastern_europe: {
-      countries: [
-        'UA', 'BY', 'PL', 'CZ', 'SK', 'HU', 'RO', 'BG', 'HR', 'SI', 'RS', 'BA', 'ME', 'MK', 'AL', 'MD', 'EE', 'LV',
-        'LT', 'GR', 'XK',
-      ],
-      languages: ['uk', 'pl', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl', 'sr', 'bs', 'mk', 'sq', 'et', 'lv', 'lt', 'el', 'be'],
-    },
-    africa: {
-      countries: [
-        'ZA', 'NG', 'KE', 'GH', 'ET', 'TZ', 'UG', 'SN', 'CI', 'CM', 'AO', 'MZ', 'ZW', 'RW', 'SD', 'SO', 'CD', 'CG',
-        'BF', 'BJ', 'BW', 'NA', 'ZM', 'MW', 'ML', 'NE', 'TD', 'GA', 'GQ', 'GM', 'GN', 'GW', 'LR', 'SL', 'TG', 'BI',
-        'DJ', 'ER', 'SS', 'CF', 'CV', 'KM', 'MG', 'MU', 'SC', 'ST', 'SZ', 'LS',
-      ],
-      languages: ['sw', 'am', 'ha', 'yo', 'ig', 'zu', 'af', 'so', 'rw', 'mg', 'ln', 'st', 'sn', 'bm', 'ff', 'wo'],
-    },
-    oceania: {
-      countries: ['AU', 'NZ', 'FJ', 'PG', 'WS', 'TO', 'VU', 'SB', 'NC', 'PF', 'CK', 'KI', 'MH', 'FM', 'PW', 'NR', 'TV', 'AS', 'MP'],
-      languages: ['en', 'mi', 'sm', 'fj'],
-    },
+  var COUNTRY_GROUPS = {
+    india: ['IN'],
+    pakistan: ['PK'],
+    bangladesh: ['BD'],
+    south_asia: ['LK', 'NP', 'AF', 'BT', 'MV'],
+    korea: ['KR', 'KP'],
+    japan: ['JP'],
+    china: ['CN', 'HK', 'TW', 'MO'],
+    southeast: ['TH', 'VN', 'PH', 'ID', 'MY', 'SG', 'KH', 'LA', 'MM', 'BN', 'TL'],
+    central_asia: ['MN', 'KZ', 'UZ', 'TM', 'TJ', 'KG'],
+    caucasus: ['AM', 'GE', 'AZ'],
+    middle_east: ['IR', 'IQ', 'SA', 'AE', 'IL', 'LB', 'SY', 'JO', 'YE', 'OM', 'QA', 'KW', 'BH', 'PS'],
+    turkey: ['TR', 'CY'],
+    north_africa: ['MA', 'DZ', 'TN', 'LY', 'EG', 'EH', 'MR'],
+    russia: ['RU'],
+    north_america: ['US', 'CA', 'MX', 'PR', 'GU', 'VI', 'BM', 'KY'],
+    latin_america: [
+      'BR', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'UY', 'PY', 'BO', 'CR', 'PA', 'DO', 'CU', 'GT', 'HN', 'NI', 'SV',
+      'HT', 'JM', 'TT', 'BB', 'BS', 'BZ', 'GY', 'SR', 'GF', 'AW',
+    ],
+    western_europe: [
+      'GB', 'FR', 'DE', 'IT', 'ES', 'PT', 'NL', 'BE', 'CH', 'AT', 'IE', 'LU', 'MC', 'AD', 'LI', 'SM', 'VA', 'MT',
+      'IS', 'NO', 'SE', 'DK', 'FI', 'FO', 'GL',
+    ],
+    eastern_europe: [
+      'UA', 'BY', 'PL', 'CZ', 'SK', 'HU', 'RO', 'BG', 'HR', 'SI', 'RS', 'BA', 'ME', 'MK', 'AL', 'MD', 'EE', 'LV',
+      'LT', 'GR', 'XK',
+    ],
+    africa: [
+      'ZA', 'NG', 'KE', 'GH', 'ET', 'TZ', 'UG', 'SN', 'CI', 'CM', 'AO', 'MZ', 'ZW', 'RW', 'SD', 'SO', 'CD', 'CG',
+      'BF', 'BJ', 'BW', 'NA', 'ZM', 'MW', 'ML', 'NE', 'TD', 'GA', 'GQ', 'GM', 'GN', 'GW', 'LR', 'SL', 'TG', 'BI',
+      'DJ', 'ER', 'SS', 'CF', 'CV', 'KM', 'MG', 'MU', 'SC', 'ST', 'SZ', 'LS',
+    ],
+    oceania: ['AU', 'NZ', 'FJ', 'PG', 'WS', 'TO', 'VU', 'SB', 'NC', 'PF', 'CK', 'KI', 'MH', 'FM', 'PW', 'NR', 'TV', 'AS', 'MP'],
   };
 
-  var REGION_ORDER = [
+  // Region-specific languages only — no global en/es/fr/ar in groups (see settings note).
+  var LANGUAGE_GROUPS = {
+    india: ['hi', 'ta', 'te', 'ml', 'kn', 'bn', 'pa', 'mr', 'gu', 'or', 'as'],
+    pakistan: ['ur'],
+    bangladesh: ['bn'],
+    south_asia: ['si', 'ne', 'ps', 'dv'],
+    korea: ['ko'],
+    japan: ['ja'],
+    china: ['zh'],
+    southeast: ['th', 'vi', 'id', 'ms', 'km', 'lo', 'my', 'tl', 'jv'],
+    central_asia: ['mn', 'kk', 'uz', 'ky', 'tg'],
+    caucasus: ['hy', 'ka', 'az'],
+    middle_east: ['fa', 'he', 'ku'],
+    turkey: ['tr'],
+    russia: ['ru', 'ba', 'ce', 'cv', 'tt'],
+    latin_america: ['gn', 'qu', 'ht'],
+    eastern_europe: ['uk', 'pl', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl', 'sr', 'bs', 'mk', 'sq', 'et', 'lv', 'lt', 'el', 'be'],
+    africa: ['sw', 'am', 'ha', 'yo', 'ig', 'zu', 'af', 'so', 'rw', 'mg', 'ln', 'st', 'sn', 'bm', 'ff', 'wo'],
+    oceania: ['mi', 'sm', 'fj'],
+  };
+
+  var GROUP_ORDER = [
     'india',
     'pakistan',
     'bangladesh',
@@ -139,6 +99,19 @@
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/><path d="M8 8l8 8" stroke-width="1.2"/></svg>',
   };
 
+  var SETTINGS_SECTIONS = [
+    {
+      title: null,
+      keys: [
+        'india', 'pakistan', 'bangladesh', 'south_asia', 'korea', 'japan', 'china', 'southeast', 'central_asia',
+        'caucasus', 'middle_east', 'turkey', 'north_africa', 'russia',
+      ],
+    },
+    { title: 'tmdb_cf_title_americas', keys: ['north_america', 'latin_america'] },
+    { title: 'tmdb_cf_title_europe', keys: ['western_europe', 'eastern_europe'] },
+    { title: 'tmdb_cf_title_other', keys: ['africa', 'oceania'] },
+  ];
+
   function t(key) {
     return Lampa.Lang.translate(key);
   }
@@ -151,10 +124,25 @@
         ru: 'Включить фильтр контента',
       },
       tmdb_cf_enabled_desc: {
-        en: 'Hide movies and series from selected regions in TMDB and CUB catalogs',
-        ru: 'Скрывать фильмы и сериалы выбранных регионов в каталогах TMDB и CUB',
+        en: 'Hide catalog titles by production country and/or original language — each axis is configured separately',
+        ru: 'Скрывать тайтлы по стране производства и/или оригинальному языку — оси настраиваются отдельно',
       },
-      tmdb_cf_regions_title: { en: 'Hide content from', ru: 'Скрывать контент из' },
+      tmdb_cf_title_country: {
+        en: 'Hide by country of origin',
+        ru: 'Скрывать по стране производства',
+      },
+      tmdb_cf_title_country_desc: {
+        en: 'Uses origin_country and production_countries from TMDB',
+        ru: 'По полям origin_country и production_countries в TMDB',
+      },
+      tmdb_cf_title_language: {
+        en: 'Hide by original language',
+        ru: 'Скрывать по оригинальному языку',
+      },
+      tmdb_cf_title_language_desc: {
+        en: 'Only original_language — not spoken_languages. Groups omit global languages (en, es, fr, …)',
+        ru: 'Только original_language, без spoken_languages. Без глобальных языков (en, es, fr, …)',
+      },
       tmdb_cf_block_india: { en: 'India', ru: 'Индия' },
       tmdb_cf_block_pakistan: { en: 'Pakistan', ru: 'Пакистан' },
       tmdb_cf_block_bangladesh: { en: 'Bangladesh', ru: 'Бангладеш' },
@@ -170,7 +158,10 @@
         en: 'Central Asia (Kazakhstan, Uzbekistan, …)',
         ru: 'Центральная Азия (Казахстан, Узбекистан, …)',
       },
-      tmdb_cf_block_caucasus: { en: 'Caucasus (Armenia, Georgia, Azerbaijan)', ru: 'Кавказ (Армения, Грузия, Азербайджан)' },
+      tmdb_cf_block_caucasus: {
+        en: 'Caucasus (Armenia, Georgia, Azerbaijan)',
+        ru: 'Кавказ (Армения, Грузия, Азербайджан)',
+      },
       tmdb_cf_block_middle_east: {
         en: 'Middle East (Iran, Arab states, Israel, …)',
         ru: 'Ближний Восток (Иран, арабские страны, Израиль, …)',
@@ -213,8 +204,8 @@
         ru: 'Этот тайтл скрыт фильтром контента TMDB',
       },
       tmdb_cf_note: {
-        en: 'Matches TMDB country codes and original language. Movie lists often only include language, not country.',
-        ru: 'Сопоставление по кодам стран TMDB и оригинальному языку. В списках фильмов часто есть только язык.',
+        en: 'Country and language filters are independent. Blocking Oceania by country does not hide English titles from other regions.',
+        ru: 'Фильтры по стране и языку независимы. Блокировка Океании по стране не скрывает англоязычные тайтлы из других регионов.',
       },
     });
   }
@@ -239,15 +230,17 @@
     return out;
   }
 
-  var SETTINGS_SECTIONS = [
-    { title: null, keys: ['india', 'pakistan', 'bangladesh', 'south_asia', 'korea', 'japan', 'china', 'southeast', 'central_asia', 'caucasus', 'middle_east', 'turkey', 'north_africa', 'russia'] },
-    { title: 'tmdb_cf_title_americas', keys: ['north_america', 'latin_america'] },
-    { title: 'tmdb_cf_title_europe', keys: ['western_europe', 'eastern_europe'] },
-    { title: 'tmdb_cf_title_other', keys: ['africa', 'oceania'] },
-  ];
+  function hasLanguageGroup(key) {
+    var list = LANGUAGE_GROUPS[key];
+    return Array.isArray(list) && list.length > 0;
+  }
 
-  function regionEnabled(key) {
-    return !!Lampa.Storage.field(COMPONENT + '_block_' + key);
+  function countryGroupEnabled(key) {
+    return !!Lampa.Storage.field(COMPONENT + '_country_' + key);
+  }
+
+  function languageGroupEnabled(key) {
+    return !!Lampa.Storage.field(COMPONENT + '_lang_' + key);
   }
 
   function getBlockedSets() {
@@ -255,19 +248,21 @@
     var languages = {};
     var i;
     var key;
-    var region;
 
-    for (i = 0; i < REGION_ORDER.length; i++) {
-      key = REGION_ORDER[i];
-      if (!regionEnabled(key)) continue;
+    for (i = 0; i < GROUP_ORDER.length; i++) {
+      key = GROUP_ORDER[i];
 
-      region = REGIONS[key];
-      region.countries.forEach(function (code) {
-        countries[normalizeCountry(code)] = true;
-      });
-      region.languages.forEach(function (code) {
-        languages[normalizeLanguage(code)] = true;
-      });
+      if (countryGroupEnabled(key) && COUNTRY_GROUPS[key]) {
+        COUNTRY_GROUPS[key].forEach(function (code) {
+          countries[normalizeCountry(code)] = true;
+        });
+      }
+
+      if (languageGroupEnabled(key) && hasLanguageGroup(key)) {
+        LANGUAGE_GROUPS[key].forEach(function (code) {
+          languages[normalizeLanguage(code)] = true;
+        });
+      }
     }
 
     return { countries: countries, languages: languages };
@@ -312,22 +307,9 @@
     return uniqueList(codes);
   }
 
-  function getLanguageCodes(item) {
-    var codes = [];
-
-    if (item.original_language) {
-      codes.push(normalizeLanguage(item.original_language));
-    }
-
-    if (Array.isArray(item.spoken_languages)) {
-      item.spoken_languages.forEach(function (lang) {
-        if (lang && lang.iso_639_1) {
-          codes.push(normalizeLanguage(lang.iso_639_1));
-        }
-      });
-    }
-
-    return uniqueList(codes);
+  function getOriginalLanguage(item) {
+    if (!item || !item.original_language) return '';
+    return normalizeLanguage(item.original_language);
   }
 
   function shouldBlockItem(item, blocked) {
@@ -336,15 +318,17 @@
     if (!hasActiveBlocks(blocked)) return false;
 
     var codes = getCountryCodes(item);
-    var langs = getLanguageCodes(item);
+    var lang = getOriginalLanguage(item);
     var i;
 
-    for (i = 0; i < codes.length; i++) {
-      if (blocked.countries[codes[i]]) return true;
+    if (Object.keys(blocked.countries).length > 0) {
+      for (i = 0; i < codes.length; i++) {
+        if (blocked.countries[codes[i]]) return true;
+      }
     }
 
-    for (i = 0; i < langs.length; i++) {
-      if (blocked.languages[langs[i]]) return true;
+    if (Object.keys(blocked.languages).length > 0 && lang) {
+      if (blocked.languages[lang]) return true;
     }
 
     return false;
@@ -472,6 +456,54 @@
     Lampa.Settings.update();
   }
 
+  function addGroupToggles(kind) {
+    var prefix = kind === 'country' ? '_country_' : '_lang_';
+    var sectionTitle = kind === 'country' ? 'tmdb_cf_title_country' : 'tmdb_cf_title_language';
+    var sectionDesc =
+      kind === 'country' ? 'tmdb_cf_title_country_desc' : 'tmdb_cf_title_language_desc';
+
+    Lampa.SettingsApi.addParam({
+      component: COMPONENT,
+      param: { name: COMPONENT + '_title_' + kind, type: 'title' },
+      field: { name: t(sectionTitle), description: t(sectionDesc) },
+      onRender: function (item) {
+        item.toggleClass('hide', !isEnabled());
+      },
+    });
+
+    SETTINGS_SECTIONS.forEach(function (section) {
+      if (section.title) {
+        Lampa.SettingsApi.addParam({
+          component: COMPONENT,
+          param: { name: COMPONENT + '_title_' + kind + '_' + section.title, type: 'title' },
+          field: { name: t(section.title) },
+          onRender: function (item) {
+            item.toggleClass('hide', !isEnabled());
+          },
+        });
+      }
+
+      section.keys.forEach(function (key) {
+        if (!COUNTRY_GROUPS[key]) return;
+        if (kind === 'lang' && !hasLanguageGroup(key)) return;
+
+        Lampa.SettingsApi.addParam({
+          component: COMPONENT,
+          param: {
+            name: COMPONENT + prefix + key,
+            type: 'trigger',
+            default: false,
+          },
+          field: { name: t('tmdb_cf_block_' + key) },
+          onChange: onSettingsChanged,
+          onRender: function (item) {
+            item.toggleClass('hide', !isEnabled());
+          },
+        });
+      });
+    });
+  }
+
   function addSettings() {
     Lampa.SettingsApi.addComponent({
       component: COMPONENT,
@@ -489,45 +521,8 @@
       onChange: onSettingsChanged,
     });
 
-    Lampa.SettingsApi.addParam({
-      component: COMPONENT,
-      param: { name: COMPONENT + '_regions_title', type: 'title' },
-      field: { name: t('tmdb_cf_regions_title') },
-      onRender: function (item) {
-        item.toggleClass('hide', !isEnabled());
-      },
-    });
-
-    SETTINGS_SECTIONS.forEach(function (section) {
-      if (section.title) {
-        Lampa.SettingsApi.addParam({
-          component: COMPONENT,
-          param: { name: COMPONENT + '_title_' + section.title, type: 'title' },
-          field: { name: t(section.title) },
-          onRender: function (item) {
-            item.toggleClass('hide', !isEnabled());
-          },
-        });
-      }
-
-      section.keys.forEach(function (key) {
-        if (!REGIONS[key]) return;
-
-        Lampa.SettingsApi.addParam({
-          component: COMPONENT,
-          param: {
-            name: COMPONENT + '_block_' + key,
-            type: 'trigger',
-            default: false,
-          },
-          field: { name: t('tmdb_cf_block_' + key) },
-          onChange: onSettingsChanged,
-          onRender: function (item) {
-            item.toggleClass('hide', !isEnabled());
-          },
-        });
-      });
-    });
+    addGroupToggles('country');
+    addGroupToggles('lang');
 
     Lampa.SettingsApi.addParam({
       component: COMPONENT,
