@@ -122,6 +122,13 @@
           "version": "1.0.0"
         },
         {
+          "name": "TMDB Content Filter",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/pavelpikta/tmdb-content-filter.js",
+          "descr": "Скрывает фильмы и сериалы выбранных регионов в каталогах TMDB и CUB по коду страны и оригинальному языку.",
+          "version": "1.0.0"
+        },
+        {
           "name": "Интерфейс мод",
           "author": "@pavelpikta",
           "link": "https://lampaplugins.github.io/store/interface_mod.js",
