@@ -4,7 +4,7 @@
   if (window.__tmdb_content_filter_loaded) return;
   window.__tmdb_content_filter_loaded = true;
 
-  var VERSION = '1.1.0';
+  var VERSION = '1.2.0';
   var COMPONENT = 'tmdb_cf';
   var LOG = 'TMDB Content Filter';
 
@@ -132,8 +132,8 @@
         ru: 'Скрывать по стране производства',
       },
       tmdb_cf_title_country_desc: {
-        en: 'Uses origin_country and production_countries from TMDB',
-        ru: 'По полям origin_country и production_countries в TMDB',
+        en: 'production_countries / origin_country; in lists without country, regional languages are used as fallback',
+        ru: 'production_countries / origin_country; в списках без страны — запасной вариант по языкам региона',
       },
       tmdb_cf_title_language: {
         en: 'Hide by original language',
@@ -204,8 +204,8 @@
         ru: 'Этот тайтл скрыт фильтром контента TMDB',
       },
       tmdb_cf_note: {
-        en: 'Country and language filters are independent. Blocking Oceania by country does not hide English titles from other regions.',
-        ru: 'Фильтры по стране и языку независимы. Блокировка Океании по стране не скрывает англоязычные тайтлы из других регионов.',
+        en: 'Country and language filters are independent',
+        ru: 'Фильтры по стране и языку независимы',
       },
     });
   }
@@ -246,6 +246,7 @@
   function getBlockedSets() {
     var countries = {};
     var languages = {};
+    var countryFallbackLangs = {};
     var i;
     var key;
 
@@ -256,6 +257,12 @@
         COUNTRY_GROUPS[key].forEach(function (code) {
           countries[normalizeCountry(code)] = true;
         });
+
+        if (hasLanguageGroup(key)) {
+          LANGUAGE_GROUPS[key].forEach(function (code) {
+            countryFallbackLangs[normalizeLanguage(code)] = true;
+          });
+        }
       }
 
       if (languageGroupEnabled(key) && hasLanguageGroup(key)) {
@@ -265,12 +272,18 @@
       }
     }
 
-    return { countries: countries, languages: languages };
+    return {
+      countries: countries,
+      languages: languages,
+      countryFallbackLangs: countryFallbackLangs,
+    };
   }
 
   function hasActiveBlocks(blocked) {
     return (
-      Object.keys(blocked.countries).length > 0 || Object.keys(blocked.languages).length > 0
+      Object.keys(blocked.countries).length > 0 ||
+      Object.keys(blocked.languages).length > 0 ||
+      Object.keys(blocked.countryFallbackLangs || {}).length > 0
     );
   }
 
@@ -325,6 +338,11 @@
       for (i = 0; i < codes.length; i++) {
         if (blocked.countries[codes[i]]) return true;
       }
+
+      // TMDB list rows often lack country — match regional languages for enabled country groups.
+      if (!codes.length && lang && blocked.countryFallbackLangs && blocked.countryFallbackLangs[lang]) {
+        return true;
+      }
     }
 
     if (Object.keys(blocked.languages).length > 0 && lang) {
@@ -332,6 +350,13 @@
     }
 
     return false;
+  }
+
+  function filterCatalogData(data, blocked) {
+    if (!data) return 0;
+    blocked = blocked || getBlockedSets();
+    if (!hasActiveBlocks(blocked)) return 0;
+    return filterPayload(data, blocked);
   }
 
   function looksLikeCatalogResults(results) {
@@ -413,16 +438,95 @@
     if (!isEnabled()) return;
     if (!e || !e.data) return;
 
-    var blocked = getBlockedSets();
-    if (!hasActiveBlocks(blocked)) return;
-
     var url = e.params && e.params.url;
     if (!isCatalogRequest(url)) return;
 
-    var removed = filterPayload(e.data, blocked);
+    var removed = filterCatalogData(e.data);
     if (removed > 0) {
       console.log(LOG, 'filtered', removed, 'item(s)', url || '');
     }
+  }
+
+  function purgeBlockedLineItems(line, blocked) {
+    if (!line || !Array.isArray(line.items) || !line.items.length) return false;
+
+    var removed = false;
+    var i;
+
+    for (i = line.items.length - 1; i >= 0; i--) {
+      var card = line.items[i];
+
+      if (!card || !card.data || !shouldBlockItem(card.data, blocked)) continue;
+
+      if (typeof card.destroy === 'function') card.destroy();
+      line.items.splice(i, 1);
+      removed = true;
+    }
+
+    if (removed && line.scroll) {
+      try {
+        var root = line.scroll.render(true);
+        if (root && Lampa.Controller && Lampa.Controller.collectionSet) {
+          Lampa.Controller.collectionSet(root);
+        }
+      } catch (err) { }
+    }
+
+    return removed;
+  }
+
+  function onLineEvent(e) {
+    if (!isEnabled()) return;
+    if (!e || (e.type !== 'create' && e.type !== 'append')) return;
+    if (!e.data) return;
+
+    var blocked = getBlockedSets();
+    if (!hasActiveBlocks(blocked)) return;
+
+    filterCatalogData(e.data, blocked);
+
+    // Event module runs after Items.onCreate — drop cards that slipped through before line event.
+    if (e.type === 'create') purgeBlockedLineItems(e.line, blocked);
+  }
+
+  function wrapOnComplite(oncomplite) {
+    if (!oncomplite) return oncomplite;
+
+    return function (data) {
+      if (isEnabled()) filterCatalogData(data);
+      oncomplite(data);
+    };
+  }
+
+  function patchSourceMethod(source, methodName, flag) {
+    if (!source || typeof source[methodName] !== 'function' || source[flag]) return;
+
+    var original = source[methodName];
+
+    source[methodName] = function () {
+      var args = Array.prototype.slice.call(arguments);
+      var oncompliteIndex = methodName === 'get' ? 2 : 1;
+
+      if (typeof args[oncompliteIndex] === 'function') {
+        args[oncompliteIndex] = wrapOnComplite(args[oncompliteIndex]);
+      }
+
+      return original.apply(source, args);
+    };
+
+    source[flag] = true;
+  }
+
+  function patchApiSources() {
+    if (!Lampa.Api || !Lampa.Api.sources) return;
+
+    ['tmdb', 'cub'].forEach(function (name) {
+      var source = Lampa.Api.sources[name];
+      if (!source) return;
+
+      patchSourceMethod(source, 'get', '__tmdbCfGetPatched');
+      patchSourceMethod(source, 'list', '__tmdbCfListPatched');
+    });
   }
 
   function onFullCard(e) {
@@ -540,7 +644,10 @@
     Lampa.Manifest.plugins = MANIFEST;
 
     Lampa.Listener.follow('request_secuses', onRequestSuccess);
+    Lampa.Listener.follow('line', onLineEvent);
     Lampa.Listener.follow('full', onFullCard);
+
+    patchApiSources();
 
     console.log(LOG, 'loaded', VERSION);
   }
