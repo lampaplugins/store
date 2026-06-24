@@ -4,7 +4,7 @@
   if (window.__tmdb_content_filter_loaded) return;
   window.__tmdb_content_filter_loaded = true;
 
-  var VERSION = '1.3.0';
+  var VERSION = '1.4.0';
   var COMPONENT = 'tmdb_cf';
   var SETTINGS_COMPONENT = 'tmdb';
   var LOG = 'TMDB Content Filter';
@@ -92,11 +92,66 @@
     'oceania',
   ];
 
+  // TMDB genre IDs — full movie (19) + TV (16) lists; catalog rows use genre_ids.
+  var GENRE_GROUPS = {
+    action: [28, 10759],
+    adventure: [12],
+    animation: [16],
+    comedy: [35],
+    crime: [80],
+    documentary: [99],
+    drama: [18],
+    family: [10751],
+    kids: [10762],
+    fantasy: [14],
+    history: [36],
+    horror: [27],
+    music: [10402],
+    mystery: [9648],
+    news: [10763],
+    reality: [10764],
+    romance: [10749],
+    sci_fi: [878, 10765],
+    soap: [10766],
+    talk: [10767],
+    thriller: [53],
+    tv_movie: [10770],
+    war: [10752, 10768],
+    western: [37],
+  };
+
+  var GENRE_ORDER = [
+    'action',
+    'adventure',
+    'animation',
+    'comedy',
+    'crime',
+    'documentary',
+    'drama',
+    'family',
+    'kids',
+    'fantasy',
+    'history',
+    'horror',
+    'music',
+    'mystery',
+    'news',
+    'reality',
+    'romance',
+    'sci_fi',
+    'soap',
+    'talk',
+    'thriller',
+    'tv_movie',
+    'war',
+    'western',
+  ];
+
   var MANIFEST = {
     type: 'other',
     version: VERSION,
     name: 'TMDB Content Filter',
-    description: 'Hide TMDB catalog rows by country or original language',
+    description: 'Hide TMDB catalog rows by region, genre, or original language',
     author: '@pavelpikta',
     component: COMPONENT,
     icon:
@@ -115,9 +170,41 @@
         ru: 'Включить фильтр контента',
       },
       tmdb_cf_enabled_desc: {
-        en: 'Hide catalog titles by region — each region matches on its production country or its original language',
-        ru: 'Скрывать тайтлы по региону — регион срабатывает по стране производства или по оригинальному языку',
+        en: 'Hide catalog titles by region (country / language) or by TMDB genre',
+        ru: 'Скрывать тайтлы по региону (страна / язык) или по жанру TMDB',
       },
+      tmdb_cf_genres: {
+        en: 'Genres to hide',
+        ru: 'Жанры для скрытия',
+      },
+      tmdb_cf_genres_desc: {
+        en: 'Titles with any selected genre are hidden from catalog rows and search',
+        ru: 'Тайтлы с любым из выбранных жанров скрываются в каталоге и поиске',
+      },
+      tmdb_cf_genre_action: { en: 'Action / Action & Adventure', ru: 'Боевик' },
+      tmdb_cf_genre_adventure: { en: 'Adventure', ru: 'Приключения' },
+      tmdb_cf_genre_animation: { en: 'Anime / Animation', ru: 'Аниме / Анимация' },
+      tmdb_cf_genre_comedy: { en: 'Comedy', ru: 'Комедия' },
+      tmdb_cf_genre_crime: { en: 'Crime', ru: 'Криминал' },
+      tmdb_cf_genre_documentary: { en: 'Documentary', ru: 'Документальный' },
+      tmdb_cf_genre_drama: { en: 'Drama', ru: 'Драма' },
+      tmdb_cf_genre_family: { en: 'Family', ru: 'Семейный' },
+      tmdb_cf_genre_kids: { en: 'Kids', ru: 'Детский' },
+      tmdb_cf_genre_fantasy: { en: 'Fantasy', ru: 'Фэнтези' },
+      tmdb_cf_genre_history: { en: 'History', ru: 'Исторический' },
+      tmdb_cf_genre_horror: { en: 'Horror', ru: 'Ужасы' },
+      tmdb_cf_genre_music: { en: 'Music', ru: 'Музыка' },
+      tmdb_cf_genre_mystery: { en: 'Mystery', ru: 'Детектив' },
+      tmdb_cf_genre_news: { en: 'News', ru: 'Новости' },
+      tmdb_cf_genre_reality: { en: 'Reality', ru: 'Реалити' },
+      tmdb_cf_genre_romance: { en: 'Romance', ru: 'Мелодрама' },
+      tmdb_cf_genre_sci_fi: { en: 'Sci-Fi & Fantasy', ru: 'Фантастика' },
+      tmdb_cf_genre_soap: { en: 'Soap', ru: 'Мыльная опера' },
+      tmdb_cf_genre_talk: { en: 'Talk', ru: 'Ток-шоу' },
+      tmdb_cf_genre_thriller: { en: 'Thriller', ru: 'Триллер' },
+      tmdb_cf_genre_tv_movie: { en: 'TV Movie', ru: 'Телефильм' },
+      tmdb_cf_genre_war: { en: 'War / War & Politics', ru: 'Военный' },
+      tmdb_cf_genre_western: { en: 'Western', ru: 'Вестерн' },
       tmdb_cf_regions: {
         en: 'Regions to hide',
         ru: 'Регионы для скрытия',
@@ -231,11 +318,26 @@
     Lampa.Storage.set(regionStorageKey(key), value);
   }
 
+  function genreStorageKey(key) {
+    return COMPONENT + '_genre_' + key;
+  }
+
+  function genreEnabled(key) {
+    return !!Lampa.Storage.get(genreStorageKey(key), false);
+  }
+
+  function setGenreEnabled(key, value) {
+    Lampa.Storage.set(genreStorageKey(key), value);
+  }
+
   function getBlockedSets() {
     var countries = {};
     var languages = {};
+    var genres = {};
     var i;
     var key;
+    var j;
+    var ids;
 
     for (i = 0; i < GROUP_ORDER.length; i++) {
       key = GROUP_ORDER[i];
@@ -255,12 +357,27 @@
       }
     }
 
-    return { countries: countries, languages: languages };
+    for (i = 0; i < GENRE_ORDER.length; i++) {
+      key = GENRE_ORDER[i];
+
+      if (!genreEnabled(key)) continue;
+
+      ids = GENRE_GROUPS[key];
+      if (!Array.isArray(ids)) continue;
+
+      for (j = 0; j < ids.length; j++) {
+        genres[ids[j]] = true;
+      }
+    }
+
+    return { countries: countries, languages: languages, genres: genres };
   }
 
   function hasActiveBlocks(blocked) {
     return (
-      Object.keys(blocked.countries).length > 0 || Object.keys(blocked.languages).length > 0
+      Object.keys(blocked.countries).length > 0 ||
+      Object.keys(blocked.languages).length > 0 ||
+      Object.keys(blocked.genres).length > 0
     );
   }
 
@@ -302,6 +419,30 @@
     return normalizeLanguage(item.original_language);
   }
 
+  function getItemGenreIds(item) {
+    var ids = [];
+    var seen = {};
+
+    function add(id) {
+      var num = Number(id);
+      if (!num || seen[num]) return;
+      seen[num] = true;
+      ids.push(num);
+    }
+
+    if (Array.isArray(item.genre_ids)) {
+      item.genre_ids.forEach(add);
+    }
+
+    if (Array.isArray(item.genres)) {
+      item.genres.forEach(function (genre) {
+        if (genre && genre.id != null) add(genre.id);
+      });
+    }
+
+    return ids;
+  }
+
   function shouldBlockItem(item, blocked) {
     if (!isCatalogItem(item)) return false;
     blocked = blocked || getBlockedSets();
@@ -319,6 +460,13 @@
 
     if (Object.keys(blocked.languages).length > 0 && lang) {
       if (blocked.languages[lang]) return true;
+    }
+
+    if (Object.keys(blocked.genres).length > 0) {
+      var genreIds = getItemGenreIds(item);
+      for (i = 0; i < genreIds.length; i++) {
+        if (blocked.genres[genreIds[i]]) return true;
+      }
     }
 
     return false;
@@ -567,8 +715,63 @@
       onRender: function (item) {
         item.toggleClass('hide', !isEnabled());
         item.find('.settings-param__descr').text(selectedRegionSummary());
-        item.off('hover:enter.tmdb_cf').on('hover:enter.tmdb_cf', function () {
+        item.off('hover:enter.tmdb_cf_regions').on('hover:enter.tmdb_cf_regions', function () {
           openRegionSelect();
+        });
+      },
+    });
+  }
+
+  function genreSelectItems() {
+    return GENRE_ORDER.map(function (key) {
+      return {
+        title: t('tmdb_cf_genre_' + key),
+        key: key,
+        checkbox: true,
+        checked: genreEnabled(key),
+      };
+    });
+  }
+
+  function selectedGenreSummary() {
+    var names = [];
+
+    GENRE_ORDER.forEach(function (key) {
+      if (genreEnabled(key)) names.push(t('tmdb_cf_genre_' + key));
+    });
+
+    if (!names.length) return t('tmdb_cf_none');
+    return names.join(', ');
+  }
+
+  function openGenreSelect() {
+    Lampa.Select.show({
+      title: t('tmdb_cf_genres'),
+      items: genreSelectItems(),
+      onCheck: function (item) {
+        var next = !genreEnabled(item.key);
+        setGenreEnabled(item.key, next);
+        item.checked = next;
+      },
+      onBack: function () {
+        Lampa.Controller.toggle('settings');
+      },
+    });
+  }
+
+  function addGenreSelect() {
+    Lampa.SettingsApi.addParam({
+      component: SETTINGS_COMPONENT,
+      param: { name: COMPONENT + '_genres_btn', type: 'button' },
+      field: {
+        name: t('tmdb_cf_genres'),
+        description: t('tmdb_cf_genres_desc'),
+      },
+      onRender: function (item) {
+        item.toggleClass('hide', !isEnabled());
+        item.find('.settings-param__descr').text(selectedGenreSummary());
+        item.off('hover:enter.tmdb_cf_genres').on('hover:enter.tmdb_cf_genres', function () {
+          openGenreSelect();
         });
       },
     });
@@ -586,6 +789,7 @@
     });
 
     addRegionSelect();
+    addGenreSelect();
   }
 
   function init() {
