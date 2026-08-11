@@ -1,12 +1,22 @@
 (function () {
   'use strict';
 
+  if (window.__torrent_styles_mod_loaded) return;
+  window.__torrent_styles_mod_loaded = true;
+
   var config = {
     author: '@pavelpikta',
-    version: '3.1.0',
+    version: '3.2.0',
     name: 'Torrent Styles MOD',
     pluginId: 'torrent_styles_mod'
   };
+
+  // Hosts where torrent search returns empty Results (exact + subdomains)
+  var BLOCKED_HOSTS = [
+    'bylampa.online',
+    'my.bylampa.online',
+    'zerkalo.bylampa.online'
+  ];
 
   // Apple HIG system colors (dark mode)
   var APPLE = {
@@ -17,7 +27,7 @@
     blue: '#007AFF'
   };
 
-  // Thresholds â€” keep in sync with color matrix comments below
+  // Thresholds — keep in sync with color matrix comments below
   var TH = {
     seeds: {
       danger_below: 5,
@@ -56,16 +66,86 @@
 
   // Color matrix (Apple HIG heat scale):
   //
-  // Seeds (more is better):  RED â†’ ORANGE â†’ YELLOW â†’ GREEN
+  // Seeds (more is better):  RED → ORANGE → YELLOW → GREEN
   //   - <5: red | 5..9: orange | 10..19: yellow | >=20: green
   //
   // Peers (info only): BLUE (stronger fill when >10)
   //
-  // Size (bigger is worse): GREEN â†’ YELLOW â†’ ORANGE â†’ RED
+  // Size (bigger is worse): GREEN → YELLOW → ORANGE → RED
   //   - <50 GB | 50..<100 | 100..200 | >200
   //
-  // Bitrate (heavier is worse): GREEN â†’ YELLOW â†’ ORANGE â†’ RED
+  // Bitrate (heavier is worse): GREEN → YELLOW → ORANGE → RED
   //   - <50 | 50..<75 | 75..100 | >100 Mbps
+
+  function normalizeHost(host) {
+    return String(host || '')
+      .toLowerCase()
+      .replace(/:\d+$/, '')
+      .replace(/\.$/, '');
+  }
+
+  function hostMatches(hostname, blocked) {
+    var host = normalizeHost(hostname);
+    var needle = normalizeHost(blocked);
+    if (!host || !needle) return false;
+    return host === needle || host.slice(-(needle.length + 1)) === '.' + needle;
+  }
+
+  function currentHostname() {
+    try {
+      return (window.location && window.location.hostname) || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function isBlockedHost() {
+    var hostname = currentHostname();
+    for (var i = 0; i < BLOCKED_HOSTS.length; i++) {
+      if (hostMatches(hostname, BLOCKED_HOSTS[i])) return true;
+    }
+    return false;
+  }
+
+  function emptyResults(oncomplite) {
+    try {
+      if (typeof oncomplite === 'function') oncomplite({ Results: [] });
+    } catch (e) {
+      console.error(config.name, 'empty results error:', e);
+    }
+  }
+
+  function patchParser() {
+    if (typeof Lampa === 'undefined' || !Lampa.Parser || typeof Lampa.Parser.get !== 'function') {
+      return false;
+    }
+    if (Lampa.Parser.__torrent_styles_mod_block_patched) return true;
+
+    var originalGet = Lampa.Parser.get.bind(Lampa.Parser);
+
+    Lampa.Parser.get = function (params, oncomplite, onerror) {
+      if (isBlockedHost()) {
+        emptyResults(oncomplite);
+        return;
+      }
+      return originalGet(params, oncomplite, onerror);
+    };
+
+    Lampa.Parser.__torrent_styles_mod_block_patched = true;
+    return true;
+  }
+
+  function attachParserBlock() {
+    if (!isBlockedHost()) return;
+
+    if (!patchParser()) {
+      var tries = 0;
+      var timer = setInterval(function () {
+        tries++;
+        if (patchParser() || tries > 40) clearInterval(timer);
+      }, 250);
+    }
+  }
 
   function appleBadge(hex, opts) {
     opts = opts || {};
@@ -141,13 +221,13 @@
       'margin-right': '0.55em'
     });
 
-    // Seeds (Ñ€Ð°Ð·Ð´Ð°ÑŽÑ‚)
+    // Seeds (раздают)
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds', appleBadge(APPLE.orange));
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.low-seeds', appleBadge(APPLE.red));
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.good-seeds', appleBadge(APPLE.yellow, { bg: 0.16 }));
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.high-seeds', appleBadge(APPLE.green, { bg: 0.18 }));
 
-    // Peers (ÐºÐ°Ñ‡Ð°ÑŽÑ‚) â€” solid blue border matches text
+    // Peers (качают) — solid blue border matches text
     tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs', appleBadge(APPLE.blue, { bg: 0.12 }));
     tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs.high-grabs', appleBadge(APPLE.blue, { bg: 0.18 }));
 
@@ -165,7 +245,7 @@
     tsSetRule(styles, '.torrent-item__size.ts-size.high-size', appleBadge(APPLE.orange, { bg: 0.18 }));
     tsSetRule(styles, '.torrent-item__size.ts-size.top-size', appleBadge(APPLE.red, { bg: 0.18 }));
 
-    // Focus â€” single neutral ring + subtle zoom (no accent color, no double border)
+    // Focus — single neutral ring + subtle zoom (no accent color, no double border)
     var focusRing = 'rgba(255, 255, 255, 0.2)';
 
     styles['.torrent-item'] = {
@@ -268,16 +348,16 @@
   function tsParseSizeToGb(text) {
     try {
       var t = ((text || '') + '').replace(/\u00A0/g, ' ').trim();
-      var m = t.match(/(\d+(?:[.,]\d+)?)\s*(kb|mb|gb|tb|ÐºÐ±|Ð¼Ð±|Ð³Ð±|Ñ‚Ð±)/i);
+      var m = t.match(/(\d+(?:[.,]\d+)?)\s*(kb|mb|gb|tb|кб|мб|гб|тб)/i);
       if (!m) return null;
 
       var num = parseFloat((m[1] || '0').replace(',', '.')) || 0;
       var unit = (m[2] || '').toLowerCase();
 
-      if (unit === 'tb' || unit === 'Ñ‚Ð±') return num * 1024;
-      if (unit === 'gb' || unit === 'Ð³Ð±') return num;
-      if (unit === 'mb' || unit === 'Ð¼Ð±') return num / 1024;
-      if (unit === 'kb' || unit === 'ÐºÐ±') return num / (1024 * 1024);
+      if (unit === 'tb' || unit === 'тб') return num * 1024;
+      if (unit === 'gb' || unit === 'гб') return num;
+      if (unit === 'mb' || unit === 'мб') return num / 1024;
+      if (unit === 'kb' || unit === 'кб') return num / (1024 * 1024);
       return 0;
     } catch (e) {
       return null;
@@ -380,7 +460,7 @@
           type: 'other',
           name: config.name,
           version: config.version,
-          description: 'Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑÑ‚Ð¸Ð»Ð¸ Ð´Ð»Ñ ÐºÐ°Ñ€Ñ‚Ð¾Ñ‡ÐµÐº Ñ‚Ð¾Ñ€Ñ€ÐµÐ½Ñ‚Ð¾Ð².'
+          description: 'Дополнительные стили для карточек торрентов.'
         };
       }
     } catch (e) {
@@ -391,13 +471,22 @@
   }
 
   function onAppReady() {
-    attachTorrentRenderHook();
+    attachParserBlock();
+
+    if (!isBlockedHost()) {
+      attachTorrentRenderHook();
+      scheduleUpdate(200);
+    }
+
     registerPlugin();
-    scheduleUpdate(200);
   }
 
   function init() {
-    injectStyles();
+    if (isBlockedHost()) {
+      attachParserBlock();
+    } else {
+      injectStyles();
+    }
 
     if (window.appready) {
       onAppReady();
@@ -409,9 +498,13 @@
       setTimeout(onAppReady, 500);
     }
 
-    console.log(config.name, 'loaded, version:', config.version);
+    console.log(
+      config.name,
+      'loaded, version:',
+      config.version,
+      isBlockedHost() ? '(blocked host: ' + currentHostname() + ')' : '(normal)'
+    );
   }
 
   init();
-
 })();
