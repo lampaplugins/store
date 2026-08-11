@@ -6,7 +6,7 @@
 
   var config = {
     author: '@pavelpikta',
-    version: '3.2.0',
+    version: '3.2.1',
     name: 'Torrent Styles MOD',
     pluginId: 'torrent_styles_mod'
   };
@@ -93,18 +93,19 @@
 
   function currentHostname() {
     try {
-      return (window.location && window.location.hostname) || '';
+      return (window.location && (window.location.hostname || window.location.host)) || '';
     } catch (e) {
       return '';
     }
   }
 
+  // Manifest.origin is unreliable on ByLampa — use hostname only.
   function isBlockedHost() {
     var hostname = currentHostname();
     for (var i = 0; i < BLOCKED_HOSTS.length; i++) {
       if (hostMatches(hostname, BLOCKED_HOSTS[i])) return true;
     }
-    return false;
+    return /(^|\.)bylampa\.online$/i.test(normalizeHost(hostname));
   }
 
   function emptyResults(oncomplite) {
@@ -115,36 +116,62 @@
     }
   }
 
-  function patchParser() {
-    if (typeof Lampa === 'undefined' || !Lampa.Parser || typeof Lampa.Parser.get !== 'function') {
+  function wrapParserMethod(name) {
+    if (typeof Lampa === 'undefined' || !Lampa.Parser || typeof Lampa.Parser[name] !== 'function') {
       return false;
     }
-    if (Lampa.Parser.__torrent_styles_mod_block_patched) return true;
 
-    var originalGet = Lampa.Parser.get.bind(Lampa.Parser);
+    var flag = '__torrent_styles_mod_block_' + name;
+    var current = Lampa.Parser[name];
+    if (current && current[flag]) return true;
 
-    Lampa.Parser.get = function (params, oncomplite, onerror) {
-      if (isBlockedHost()) {
-        emptyResults(oncomplite);
-        return;
-      }
-      return originalGet(params, oncomplite, onerror);
+    var original = current.bind(Lampa.Parser);
+
+    function blocked() {
+      var args = arguments;
+      var oncomplite = null;
+
+      // Parser.get(params, oncomplite, onerror)
+      // Parser.jackett(params, base, key, rank, oncomplite, onerror)
+      if (name === 'get') oncomplite = args[1];
+      else if (name === 'jackett') oncomplite = args[4];
+      else oncomplite = args[args.length - 2];
+
+      emptyResults(oncomplite);
+    }
+
+    blocked[flag] = true;
+    blocked.__original = original;
+
+    Lampa.Parser[name] = function () {
+      if (isBlockedHost()) return blocked.apply(this, arguments);
+      return original.apply(this, arguments);
     };
+    Lampa.Parser[name][flag] = true;
 
-    Lampa.Parser.__torrent_styles_mod_block_patched = true;
     return true;
+  }
+
+  function patchParser() {
+    if (typeof Lampa === 'undefined' || !Lampa.Parser) return false;
+
+    var okGet = wrapParserMethod('get');
+    wrapParserMethod('jackett');
+    return okGet;
   }
 
   function attachParserBlock() {
     if (!isBlockedHost()) return;
 
-    if (!patchParser()) {
-      var tries = 0;
-      var timer = setInterval(function () {
-        tries++;
-        if (patchParser() || tries > 40) clearInterval(timer);
-      }, 250);
-    }
+    // Re-apply: ByLampa jackett.js may overwrite Parser.get after us
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries++;
+      patchParser();
+      if (tries > 80) clearInterval(timer);
+    }, 250);
+
+    patchParser();
   }
 
   function appleBadge(hex, opts) {
