@@ -293,6 +293,13 @@
     {
       "title": "Разное",
       "results": [
+         {
+          "name": "Скрытие элементов карточки",
+          "author": "@elenatv1",
+          "link": "http://skaz.tv/meta.js",
+          "descr": "Можно скрыть метаданные, комментарии и другое",
+          "available_lampa": 1
+        },
         {
           "name": "Игры",
           "author": "@elenatv1",
