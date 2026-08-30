@@ -50,6 +50,8 @@
 | `lg.js` | LG TV: режим виджета и зеркала |
 | `cardify.js` | Другая карточка фильма (Cardify) |
 | `pavelpikta/jellyfin.js` | Библиотека Jellyfin в Lampa |
+| `pavelpikta/tmdb-content-filter.js` | Скрытие контента TMDB и CUB по стране и языку |
+| `pavelpikta/torrserver-settings.js` | Настройки TorrServer (BTSets) из Lampa |
 | `a.js` | Служебные настройки (см. файл) |
 | `o.js` | Заготовка |
 
