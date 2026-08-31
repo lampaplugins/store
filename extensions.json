@@ -119,7 +119,14 @@
           "author": "@pavelpikta",
           "link": "https://lampaplugins.github.io/store/pavelpikta/jellyfin.js",
           "descr": "Библиотека Jellyfin в Lampa: фильмы и сериалы, продолжить просмотр, постеры TMDB, выбор пользователя.",
-          "version": "1.0.0"
+          "version": "1.4.0"
+        },
+        {
+          "name": "Jellyfin Extended",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/wmajiug3e/jellyfin.js",
+          "descr": "Расширенная версия Jellyfin: выбор пользователя, сезоны и эпизоды, HLS-транскодинг с выбором качества, синхронизация прогресса просмотра, постеры TMDB.",
+          "version": "1.4.0"
         },
         {
           "name": "TMDB Content Filter",
@@ -175,6 +182,13 @@
           "author": "@pavelpikta",
           "link": "https://lampaplugins.github.io/store/lg.js",
           "descr": "Для телевизоров LG: режим ТВ-платформы и запись в localStorage списка зеркал для виджета (lampa.mx, lampa.byskaz.ru).",
+          "version": "1.0.0"
+        },
+        {
+          "name": "Cardify",
+          "author": "@pavelpikta",
+          "link": "https://lampaplugins.github.io/store/cardify.js",
+          "descr": "Альтернативная карточка фильма с трейлерами и новым оформлением.",
           "version": "1.0.0"
         }
       ],

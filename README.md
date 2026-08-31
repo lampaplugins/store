@@ -48,8 +48,10 @@
 | `logo.js` | Логотипы на карточках |
 | `record.js` | Радио «Рекорд» |
 | `lg.js` | LG TV: режим виджета и зеркала |
+| `p.js` | Подборки от онлайн-кинотеатров |
 | `cardify.js` | Другая карточка фильма (Cardify) |
 | `pavelpikta/jellyfin.js` | Библиотека Jellyfin в Lampa |
+| `wmajiug3e/jellyfin.js` | Jellyfin Extended: пользователь, сезоны, HLS, прогресс |
 | `pavelpikta/tmdb-content-filter.js` | Скрытие контента TMDB и CUB по стране и языку |
 | `pavelpikta/torrserver-settings.js` | Настройки TorrServer (BTSets) из Lampa |
 | `a.js` | Служебные настройки (см. файл) |
