@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <meta name="description"
     content="Каталог расширений для Lampa — плагины, магазин и быстрое подключение одной строкой.">
   <title>Lampa Plugins Store — каталог расширений</title>
@@ -24,6 +25,8 @@
       --accent: #f5a623;
       --accent-soft: rgba(245, 166, 35, 0.15);
       --accent-glow: rgba(245, 166, 35, 0.35);
+      --error: #f87171;
+      --error-bg: rgba(248, 113, 113, 0.12);
       --radius: 16px;
       --font: "DM Sans", system-ui, -apple-system, sans-serif;
       --mono: "JetBrains Mono", ui-monospace, monospace;
@@ -103,16 +106,12 @@
       animation: fadeUp 0.7s ease both;
     }
 
-    section:nth-child(2) {
+    section:nth-of-type(1) {
       animation-delay: 0.1s;
     }
 
-    section:nth-child(3) {
+    section:nth-of-type(2) {
       animation-delay: 0.2s;
-    }
-
-    section:nth-child(4) {
-      animation-delay: 0.3s;
     }
 
     .card {
@@ -121,6 +120,7 @@
       border-radius: var(--radius);
       padding: 1.5rem;
       margin-bottom: 1.25rem;
+      -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px);
     }
 
@@ -173,7 +173,7 @@
     .copy-row {
       display: flex;
       gap: 0.5rem;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
     }
 
     .url-box {
@@ -187,6 +187,7 @@
       color: var(--text);
       overflow-x: auto;
       white-space: nowrap;
+      cursor: text;
     }
 
     .btn {
@@ -199,6 +200,14 @@
       border-radius: 10px;
       cursor: pointer;
       transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:focus-visible,
+    .btn-copy-sm:focus-visible,
+    .plugin-name:focus-visible,
+    footer a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .btn-primary {
@@ -215,53 +224,60 @@
       transform: translateY(0);
     }
 
-    .btn-primary.copied {
+    .btn-primary.copied,
+    .btn-copy-sm.copied {
       background: #3dd68c;
       color: #0a1a12;
     }
 
-    .links {
-      display: grid;
-      gap: 0.5rem;
+    .btn-copy-sm.copied {
+      border-color: rgba(61, 214, 140, 0.35);
+      background: rgba(61, 214, 140, 0.12);
+      color: #3dd68c;
     }
 
-    .link-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.85rem 1rem;
-      border-radius: 10px;
-      background: var(--bg-soft);
-      border: 1px solid transparent;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.15s, background 0.15s;
+    .btn-primary.copy-error {
+      background: var(--error);
+      color: #1a0808;
     }
 
-    .link-item:hover {
-      background: var(--surface-hover);
-      border-color: var(--border);
+    .btn-copy-sm.copy-error {
+      color: var(--error);
+      border-color: rgba(248, 113, 113, 0.35);
+      background: var(--error-bg);
     }
 
-    .link-item span:first-child {
-      font-weight: 500;
-    }
-
-    .link-item span:last-child {
-      font-family: var(--mono);
-      font-size: 0.72rem;
+    .plugins-status {
+      font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    .plugins-status.is-error {
+      color: var(--error);
+    }
+
+    .plugins-status a {
+      color: var(--accent);
     }
 
     .plugins {
       display: flex;
       flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    .plugin-group__title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
     }
 
     .plugin {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.75rem;
       padding: 0.85rem 0;
       border-bottom: 1px solid var(--border);
@@ -279,20 +295,27 @@
 
     .plugin-name {
       display: block;
-      font-family: var(--mono);
-      font-size: 0.84rem;
-      font-weight: 500;
+      font-size: 0.92rem;
+      font-weight: 600;
       color: var(--text);
       text-decoration: none;
-      word-break: break-word;
     }
 
     .plugin-name:hover {
       color: var(--accent);
     }
 
+    .plugin-path {
+      display: block;
+      margin-top: 0.15rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      word-break: break-all;
+    }
+
     .plugin-desc {
-      margin-top: 0.2rem;
+      margin-top: 0.35rem;
       font-size: 0.82rem;
       color: var(--text-muted);
       line-height: 1.45;
@@ -319,12 +342,6 @@
       background: var(--accent-soft);
     }
 
-    .btn-copy-sm.copied {
-      color: #3dd68c;
-      border-color: rgba(61, 214, 140, 0.35);
-      background: rgba(61, 214, 140, 0.12);
-    }
-
     footer {
       text-align: center;
       margin-top: 2.5rem;
@@ -332,7 +349,7 @@
       border-top: 1px solid var(--border);
       color: var(--text-muted);
       font-size: 0.85rem;
-      animation: fadeUp 0.7s ease 0.4s both;
+      animation: fadeUp 0.7s ease 0.35s both;
     }
 
     footer a {
@@ -347,6 +364,10 @@
       border-color: var(--border);
     }
 
+    noscript .card {
+      margin-top: 1.25rem;
+    }
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -359,9 +380,32 @@
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     @media (max-width: 520px) {
       .copy-row {
         flex-direction: column;
+      }
+
+      .plugin {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-copy-sm {
+        align-self: flex-start;
       }
     }
   </style>
@@ -386,199 +430,268 @@
         <li>Выберите нужное расширение из каталога.</li>
       </ol>
       <div class="copy-row">
-        <code class="url-box" id="store-url">https://lampaplugins.github.io/store/store.js</code>
-        <button class="btn btn-primary" id="copy-btn" type="button">Копировать</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Ссылки</h2>
-      <div class="links">
-        <a class="link-item" href="store.js">
-          <span>store.js</span>
-          <span>магазин</span>
-        </a>
-        <a class="link-item" href="extensions.json">
-          <span>extensions.json</span>
-          <span>каталог</span>
-        </a>
-        <a class="link-item" href="https://github.com/lampaplugins/store" target="_blank" rel="noopener noreferrer">
-          <span>GitHub</span>
-          <span>исходники</span>
-        </a>
+        <code class="url-box" id="store-url"
+          title="Нажмите, чтобы выделить">https://lampaplugins.github.io/store/store.js</code>
+        <button class="btn btn-primary" id="copy-btn" type="button"
+          aria-label="Скопировать URL store.js">Копировать</button>
       </div>
     </section>
 
     <section class="card">
       <h2>Локальные плагины</h2>
-      <div class="plugins" id="plugins">
-        <div class="plugin" data-file="store.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="store.js">store.js</a>
-            <p class="plugin-desc">Запуск магазина из настроек</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="torrent_styles_v2.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="torrent_styles_v2.js">torrent_styles_v2.js</a>
-            <p class="plugin-desc">Красивый список торрентов</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="navigation_bar.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="navigation_bar.js">navigation_bar.js</a>
-            <p class="plugin-desc">Нижняя панель на телефоне</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="interface_mod.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="interface_mod.js">interface_mod.js</a>
-            <p class="plugin-desc">Темы, карточка, торренты</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="fx.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="fx.js">fx.js</a>
-            <p class="plugin-desc">Filmix онлайн</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="logo.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="logo.js">logo.js</a>
-            <p class="plugin-desc">Логотипы на карточках</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="record.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="record.js">record.js</a>
-            <p class="plugin-desc">Радио «Рекорд»</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="lg.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="lg.js">lg.js</a>
-            <p class="plugin-desc">LG TV: виджет и зеркало</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="no-autostart.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="no-autostart.js">no-autostart.js</a>
-            <p class="plugin-desc">Без автозапуска торрента</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="no-mic.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="no-mic.js">no-mic.js</a>
-            <p class="plugin-desc">Клавиатура без микрофона</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="p.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="p.js">p.js</a>
-            <p class="plugin-desc">Подборки от онлайн-кинотеатров</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="cardify.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="cardify.js">cardify.js</a>
-            <p class="plugin-desc">Альтернативная карточка фильма (Cardify)</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="pavelpikta/jellyfin.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="pavelpikta/jellyfin.js">pavelpikta/jellyfin.js</a>
-            <p class="plugin-desc">Библиотека Jellyfin в Lampa</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="wmajiug3e/jellyfin.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="wmajiug3e/jellyfin.js">wmajiug3e/jellyfin.js</a>
-            <p class="plugin-desc">Jellyfin Extended: пользователь, сезоны, HLS, прогресс</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="pavelpikta/tmdb-content-filter.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="pavelpikta/tmdb-content-filter.js">pavelpikta/tmdb-content-filter.js</a>
-            <p class="plugin-desc">Скрытие контента TMDB и CUB по стране и языку</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-        <div class="plugin" data-file="pavelpikta/torrserver-settings.js">
-          <div class="plugin-info">
-            <a class="plugin-name" href="pavelpikta/torrserver-settings.js">pavelpikta/torrserver-settings.js</a>
-            <p class="plugin-desc">Настройки TorrServer (BTSets) из Lampa</p>
-          </div>
-          <button class="btn-copy-sm" type="button">Копировать</button>
-        </div>
-      </div>
+      <div id="plugins-status" class="plugins-status" role="status">Загрузка каталога…</div>
+      <div class="plugins" id="plugins" hidden></div>
     </section>
 
+    <noscript>
+      <section class="card">
+        <h2>Без JavaScript</h2>
+        <p class="plugins-status">Добавьте в Lampa:
+          <code>https://lampaplugins.github.io/store/store.js</code>
+        </p>
+      </section>
+    </noscript>
+
     <footer>
-      <p>Сообщество вокруг <a href="https://github.com/lampaplugins/store">Lampa</a></p>
+      <p>
+        <a href="https://github.com/lampaplugins/store" target="_blank" rel="noopener noreferrer">GitHub</a>
+        · сообщество вокруг Lampa
+      </p>
     </footer>
   </div>
 
   <script>
-    const base = new URL('./', window.location.href).href;
+    (function () {
+      'use strict';
 
-    async function copyText(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return;
-      }
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    }
+      var base = new URL('./', window.location.href).href;
+      var CANONICAL_HOST = 'lampaplugins.github.io';
+      var SECTION_ORDER = ['Магазин', '@pavelpikta', 'Онлайн видео', 'Управление', 'Разное'];
 
-    function markCopied(btn) {
-      const prev = btn.textContent;
-      btn.textContent = 'Скопировано';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = prev;
-        btn.classList.remove('copied');
-      }, 2000);
-    }
+      var storeUrlEl = document.getElementById('store-url');
+      var pluginsEl = document.getElementById('plugins');
+      var statusEl = document.getElementById('plugins-status');
+      var copyBtn = document.getElementById('copy-btn');
 
-    document.getElementById('copy-btn').addEventListener('click', async () => {
-      const url = document.getElementById('store-url').textContent.trim();
-      try {
-        await copyText(url);
-        markCopied(document.getElementById('copy-btn'));
-      } catch (_) { }
-    });
+      var storeUrl = new URL('store.js', base).href;
+      storeUrlEl.textContent = storeUrl;
 
-    document.querySelectorAll('.plugin').forEach(row => {
-      const btn = row.querySelector('.btn-copy-sm');
-      const url = new URL(row.dataset.file, base).href;
-      btn.addEventListener('click', async () => {
+      function extractStorePath(link) {
         try {
-          await copyText(url);
-          markCopied(btn);
-        } catch (_) { }
+          var match = new URL(link).pathname.match(/\/store\/(.+)$/);
+          return match ? match[1] : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function isLocalPlugin(link) {
+        try {
+          var url = new URL(link);
+          if (!extractStorePath(link)) return false;
+          if (url.origin === new URL(base).origin) return true;
+          return url.hostname === CANONICAL_HOST && url.pathname.indexOf('/store/') === 0;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            if (!document.execCommand('copy')) throw new Error('copy failed');
+            resolve();
+          } catch (err) {
+            reject(err);
+          } finally {
+            document.body.removeChild(ta);
+          }
+        });
+      }
+
+      function flashButton(btn, ok) {
+        var prev = btn.textContent;
+        var cls = ok ? 'copied' : 'copy-error';
+        btn.textContent = ok ? 'Скопировано' : 'Ошибка';
+        btn.classList.remove('copied', 'copy-error');
+        btn.classList.add(cls);
+        setTimeout(function () {
+          btn.textContent = prev;
+          btn.classList.remove(cls);
+        }, 2000);
+      }
+
+      function handleCopy(btn, text) {
+        copyText(text).then(function () {
+          flashButton(btn, true);
+        }).catch(function () {
+          flashButton(btn, false);
+        });
+      }
+
+      function createPluginRow(plugin) {
+        var url = new URL(plugin.path, base).href;
+        var row = document.createElement('div');
+        row.className = 'plugin';
+
+        var info = document.createElement('div');
+        info.className = 'plugin-info';
+
+        var name = document.createElement('a');
+        name.className = 'plugin-name';
+        name.href = plugin.path;
+        name.textContent = plugin.name;
+
+        var path = document.createElement('span');
+        path.className = 'plugin-path';
+        path.textContent = plugin.path;
+
+        var descr = document.createElement('p');
+        descr.className = 'plugin-desc';
+        descr.textContent = plugin.descr;
+
+        info.appendChild(name);
+        info.appendChild(path);
+        info.appendChild(descr);
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-copy-sm';
+        btn.textContent = 'Копировать';
+        btn.setAttribute('aria-label', 'Скопировать URL ' + plugin.path);
+        btn.addEventListener('click', function () {
+          handleCopy(btn, url);
+        });
+
+        row.appendChild(info);
+        row.appendChild(btn);
+        return row;
+      }
+
+      function orderedSections(map) {
+        var titles = SECTION_ORDER.filter(function (t) {
+          return map.has(t);
+        });
+        map.forEach(function (_v, key) {
+          if (titles.indexOf(key) < 0) titles.push(key);
+        });
+        return titles;
+      }
+
+      function renderPlugins(plugins) {
+        var grouped = new Map();
+        plugins.forEach(function (plugin) {
+          var key = plugin.section || 'Разное';
+          if (!grouped.has(key)) grouped.set(key, []);
+          grouped.get(key).push(plugin);
+        });
+
+        pluginsEl.replaceChildren();
+        orderedSections(grouped).forEach(function (title) {
+          var group = document.createElement('div');
+          group.className = 'plugin-group';
+
+          var heading = document.createElement('h3');
+          heading.className = 'plugin-group__title';
+          heading.textContent = title;
+          group.appendChild(heading);
+
+          grouped.get(title).forEach(function (plugin) {
+            group.appendChild(createPluginRow(plugin));
+          });
+
+          pluginsEl.appendChild(group);
+        });
+
+        pluginsEl.hidden = false;
+        statusEl.hidden = true;
+      }
+
+      function collectLocalPlugins(data) {
+        var seen = Object.create(null);
+        var list = [];
+
+        (data.results || []).forEach(function (section) {
+          (section.results || []).forEach(function (item) {
+            if (!item.link || !isLocalPlugin(item.link)) return;
+            var path = extractStorePath(item.link);
+            if (!path || seen[path]) return;
+            seen[path] = true;
+            list.push({
+              path: path,
+              name: item.name || path,
+              descr: item.descr || '',
+              section: section.title || 'Разное',
+            });
+          });
+        });
+
+        return list;
+      }
+
+      function showLoadError() {
+        var isFile = window.location.protocol === 'file:';
+        statusEl.classList.add('is-error');
+        statusEl.replaceChildren();
+
+        var text = document.createTextNode(
+          isFile
+            ? 'Локальный просмотр через file:// не загружает каталог. Откройте через GitHub Pages или локальный сервер. '
+            : 'Не удалось загрузить каталог. '
+        );
+        statusEl.appendChild(text);
+
+        var link = document.createElement('a');
+        link.href = 'extensions.json';
+        link.textContent = 'extensions.json';
+        statusEl.appendChild(link);
+      }
+
+      function loadPlugins() {
+        fetch(new URL('extensions.json', base).href)
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            renderPlugins(
+              [
+                {
+                  path: 'store.js',
+                  name: 'store.js',
+                  descr: 'Запуск магазина из настроек Lampa',
+                  section: 'Магазин',
+                },
+              ].concat(collectLocalPlugins(data))
+            );
+          })
+          .catch(showLoadError);
+      }
+
+      copyBtn.addEventListener('click', function () {
+        handleCopy(copyBtn, storeUrlEl.textContent.trim());
       });
-    });
+
+      storeUrlEl.addEventListener('click', function () {
+        var range = document.createRange();
+        range.selectNodeContents(storeUrlEl);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+
+      loadPlugins();
+    })();
   </script>
 </body>
 
