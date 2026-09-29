@@ -1,22 +1,68 @@
 (function () {
   'use strict';
 
-  if (window.__torrent_styles_mod_loaded) return;
-  window.__torrent_styles_mod_loaded = true;
+  if (window.__dso_torrent_styles_loaded) return;
+  window.__dso_torrent_styles_loaded = true;
+
+  var LOG_TAG = 'DSO Torrent Styles';
 
   var config = {
-    author: '@pavelpikta',
-    version: '3.2.1',
-    name: 'Torrent Styles MOD',
-    pluginId: 'torrent_styles_mod'
+    version: '1.2.1',
+    name: 'Torrent Styles',
+    pluginId: 'dso_torrent_styles',
+    settingsComponent: 'dso_torrent_styles_settings'
   };
 
-  // Hosts where torrent search returns empty Results (exact + subdomains)
-  var BLOCKED_HOSTS = [
-    'bylampa.online',
-    'my.bylampa.online',
-    'zerkalo.bylampa.online'
+  var defaults = {
+    coloredBadges: true,
+    enhancedFocus: true,
+    metricStyle: 'both'
+  };
+
+  var translations = {
+    settings_title: { ru: 'Torrent Styles', en: 'Torrent Styles' },
+    settings_colored_badges: { ru: 'Цветные метки', en: 'Colored badges' },
+    settings_colored_badges_desc: {
+      ru: 'Apple HIG бейджи для сидов, битрейта, размера и пиров',
+      en: 'Apple HIG tier badges for seeds, bitrate, size, and peers'
+    },
+    settings_metric_style: { ru: 'Подписи метрик', en: 'Metric labels' },
+    settings_metric_style_desc: {
+      ru: 'Текст, иконки с текстом или только иконки для битрейта, сидов и пиров',
+      en: 'Text, icons with text, or icons only for bitrate, seeds, and peers'
+    },
+    settings_metric_text: { ru: 'Текст', en: 'Text' },
+    settings_metric_both: { ru: 'Иконки и текст', en: 'Icons and text' },
+    settings_metric_icons: { ru: 'Иконки', en: 'Icons' },
+    settings_enhanced_focus: { ru: 'Усиленный фокус карточек', en: 'Enhanced card focus' },
+    settings_enhanced_focus_desc: {
+      ru: 'Лёгкий zoom на карточках; обводка — нативная белая Lampa',
+      en: 'Subtle zoom on cards; focus ring stays native Lampa white'
+    }
+  };
+
+  // Lucide (ISC). circle-gauge fills the box; the semicircle gauge sinks to the bottom at 1em.
+  function lucideIcon(paths) {
+    return (
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="ts-ico" aria-hidden="true">' +
+      paths +
+      '</svg>'
+    );
+  }
+
+  var METRIC_FIELDS = [
+    { suffix: '__seeds', icon: 'seeds' },
+    { suffix: '__grabs', icon: 'grabs' },
+    { suffix: '__bitrate', icon: 'bitrate' }
   ];
+
+  var METRIC_SVGS = {
+    seeds: lucideIcon('<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>'),
+    grabs: lucideIcon('<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>'),
+    bitrate: lucideIcon(
+      '<path d="M15.6 2.7a10 10 0 1 0 5.7 5.7"/><circle cx="12" cy="12" r="2"/><path d="M13.4 10.6 19 5"/>'
+    )
+  };
 
   // Apple HIG system colors (dark mode)
   var APPLE = {
@@ -24,7 +70,8 @@
     orange: '#FF9500',
     yellow: '#FFCC00',
     green: '#34C759',
-    blue: '#007AFF'
+    blue: '#007AFF',
+    white: '#EBEBF5'
   };
 
   // Thresholds — keep in sync with color matrix comments below
@@ -57,121 +104,84 @@
     size: ['mid-size', 'high-size', 'top-size']
   };
 
+  var BADGE_MARKER_CLASSES = ['ts-seeds', 'ts-bitrate', 'ts-grabs', 'ts-size'];
+
   var FOCUS_SCOPES = [
-    '.torrent-item ',
-    '.torrent-item.focus ',
-    '.torrent-item.selector.focus ',
-    '.torrent-item.selector.hover '
+    '.torrent-list .torrent-item ',
+    '.torrent-list .torrent-item.focus ',
+    '.torrent-list .torrent-item.selector.focus ',
+    '.torrent-list .torrent-item.selector.hover '
   ];
 
-  // Color matrix (Apple HIG heat scale):
-  //
-  // Seeds (more is better):  RED → ORANGE → YELLOW → GREEN
-  //   - <5: red | 5..9: orange | 10..19: yellow | >=20: green
-  //
-  // Peers (info only): BLUE (stronger fill when >10)
-  //
-  // Size (bigger is worse): GREEN → YELLOW → ORANGE → RED
-  //   - <50 GB | 50..<100 | 100..200 | >200
-  //
-  // Bitrate (heavier is worse): GREEN → YELLOW → ORANGE → RED
-  //   - <50 | 50..<75 | 75..100 | >100 Mbps
+  var tsUpdateTimer = null;
+  var applySettingsTimer = null;
+  var torrentRenderHooked = false;
+  var settingsRegistered = false;
 
-  function normalizeHost(host) {
-    return String(host || '')
-      .toLowerCase()
-      .replace(/:\d+$/, '')
-      .replace(/\.$/, '');
+  function t(key) {
+    var lang =
+      typeof Lampa !== 'undefined' && Lampa.Storage
+        ? Lampa.Storage.get('language', 'ru')
+        : 'ru';
+    var entry = translations[key];
+    return (entry && (entry[lang] || entry.ru)) || key;
   }
 
-  function hostMatches(hostname, blocked) {
-    var host = normalizeHost(hostname);
-    var needle = normalizeHost(blocked);
-    if (!host || !needle) return false;
-    return host === needle || host.slice(-(needle.length + 1)) === '.' + needle;
-  }
-
-  function currentHostname() {
-    try {
-      return (window.location && (window.location.hostname || window.location.host)) || '';
-    } catch (e) {
-      return '';
+  function translate(key) {
+    if (typeof Lampa !== 'undefined' && Lampa.Lang && typeof Lampa.Lang.translate === 'function') {
+      return Lampa.Lang.translate(config.pluginId + '_' + key) || t(key);
     }
+    return t(key);
   }
 
-  // Manifest.origin is unreliable on ByLampa — use hostname only.
-  function isBlockedHost() {
-    var hostname = currentHostname();
-    for (var i = 0; i < BLOCKED_HOSTS.length; i++) {
-      if (hostMatches(hostname, BLOCKED_HOSTS[i])) return true;
-    }
-    return /(^|\.)bylampa\.online$/i.test(normalizeHost(hostname));
+  function settingKey(name) {
+    return config.pluginId + '_' + name;
   }
 
-  function emptyResults(oncomplite) {
-    try {
-      if (typeof oncomplite === 'function') oncomplite({ Results: [] });
-    } catch (e) {
-      console.error(config.name, 'empty results error:', e);
-    }
-  }
+  function readSetting(name) {
+    var key = settingKey(name);
+    var fallback = defaults[name];
 
-  function wrapParserMethod(name) {
-    if (typeof Lampa === 'undefined' || !Lampa.Parser || typeof Lampa.Parser[name] !== 'function') {
-      return false;
+    if (!settingsRegistered) return fallback;
+
+    if (typeof Lampa !== 'undefined' && Lampa.Storage && typeof Lampa.Storage.field === 'function') {
+      return Lampa.Storage.field(key);
     }
 
-    var flag = '__torrent_styles_mod_block_' + name;
-    var current = Lampa.Parser[name];
-    if (current && current[flag]) return true;
-
-    var original = current.bind(Lampa.Parser);
-
-    function blocked() {
-      var args = arguments;
-      var oncomplite = null;
-
-      // Parser.get(params, oncomplite, onerror)
-      // Parser.jackett(params, base, key, rank, oncomplite, onerror)
-      if (name === 'get') oncomplite = args[1];
-      else if (name === 'jackett') oncomplite = args[4];
-      else oncomplite = args[args.length - 2];
-
-      emptyResults(oncomplite);
+    if (typeof Lampa !== 'undefined' && Lampa.Storage && typeof Lampa.Storage.get === 'function') {
+      return Lampa.Storage.get(key, fallback);
     }
 
-    blocked[flag] = true;
-    blocked.__original = original;
-
-    Lampa.Parser[name] = function () {
-      if (isBlockedHost()) return blocked.apply(this, arguments);
-      return original.apply(this, arguments);
-    };
-    Lampa.Parser[name][flag] = true;
-
-    return true;
+    return fallback;
   }
 
-  function patchParser() {
-    if (typeof Lampa === 'undefined' || !Lampa.Parser) return false;
-
-    var okGet = wrapParserMethod('get');
-    wrapParserMethod('jackett');
-    return okGet;
+  function isColoredBadges() {
+    return readSetting('coloredBadges') !== false;
   }
 
-  function attachParserBlock() {
-    if (!isBlockedHost()) return;
+  function isEnhancedFocus() {
+    return readSetting('enhancedFocus') !== false;
+  }
 
-    // Re-apply: ByLampa jackett.js may overwrite Parser.get after us
-    var tries = 0;
-    var timer = setInterval(function () {
-      tries++;
-      patchParser();
-      if (tries > 80) clearInterval(timer);
-    }, 250);
+  function metricStyle() {
+    var value = readSetting('metricStyle');
+    if (value === 'both' || value === 'icons') return value;
+    return 'text';
+  }
 
-    patchParser();
+  function isTorrentItemNode(node) {
+    return !!(node && node.nodeType === 1 && node.classList && node.classList.contains('torrent-item'));
+  }
+
+  function metricSelector(suffix, root) {
+    if (isTorrentItemNode(root)) return '.torrent-item' + suffix;
+    return '.torrent-list .torrent-item' + suffix;
+  }
+
+  function queryMetrics(root, suffix) {
+    var scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+    var selector = metricSelector(suffix, scope === document ? document : scope);
+    return scope.querySelectorAll(selector);
   }
 
   function appleBadge(hex, opts) {
@@ -179,13 +189,13 @@
     var r = parseInt(hex.slice(1, 3), 16);
     var g = parseInt(hex.slice(3, 5), 16);
     var b = parseInt(hex.slice(5, 7), 16);
-    var bgA = opts.bg != null ? opts.bg : 0.14;
+    var bgA = opts.bg != null ? opts.bg : 0.12;
     return {
       color: hex,
       '-webkit-text-fill-color': hex,
       opacity: '1',
       'background-color': 'rgba(' + r + ', ' + g + ', ' + b + ', ' + bgA + ')',
-      border: '0.15em solid ' + hex,
+      border: '0.1em solid ' + hex,
       'box-shadow': 'none',
       'text-shadow': 'none'
     };
@@ -203,24 +213,29 @@
 
   function tsBitrateSelector(tierClass) {
     var suffix = tierClass ? '.' + tierClass : '';
-    return '.torrent-item__bitrate > span.ts-bitrate' + suffix + ', .torrent-item__bitrate.bitrate > span.ts-bitrate' + suffix;
+    return (
+      '.torrent-item__bitrate > span.ts-bitrate' +
+      suffix +
+      ', .torrent-item__bitrate.bitrate > span.ts-bitrate' +
+      suffix
+    );
   }
 
   function tsSetBitrateBadge(styles, tierClass, hex, opts) {
     tsSetRule(styles, tsBitrateSelector(tierClass), appleBadge(hex, opts));
   }
 
-  function buildStyles() {
-    var styles = {};
+  function buildBadgeStyles(styles) {
     var badgeBase = tsExpandSelectors(
-      tsBitrateSelector('') + ', ' +
+      tsBitrateSelector('') +
+      ', ' +
       '.torrent-item__seeds > span.ts-seeds, ' +
       '.torrent-item__grabs > span.ts-grabs, ' +
       '.torrent-item__size.ts-size'
     );
 
     styles[badgeBase] = {
-      'display': 'inline-flex',
+      display: 'inline-flex',
       '-webkit-box-align': 'center',
       '-webkit-align-items': 'center',
       '-moz-box-align': 'center',
@@ -233,7 +248,7 @@
       'justify-content': 'center',
       'box-sizing': 'border-box',
       'min-height': '1.7em',
-      'padding': '0.15em 0.45em',
+      padding: '0.15em 0.45em',
       'border-radius': '0.5em',
       'font-weight': '700',
       'font-size': '0.9em',
@@ -248,92 +263,190 @@
       'margin-right': '0.55em'
     });
 
-    // Seeds (раздают)
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds', appleBadge(APPLE.orange));
     tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.low-seeds', appleBadge(APPLE.red));
-    tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.good-seeds', appleBadge(APPLE.yellow, { bg: 0.16 }));
-    tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.high-seeds', appleBadge(APPLE.green, { bg: 0.18 }));
+    tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.good-seeds', appleBadge(APPLE.yellow, { bg: 0.14 }));
+    tsSetRule(styles, '.torrent-item__seeds > span.ts-seeds.high-seeds', appleBadge(APPLE.green, { bg: 0.16 }));
 
-    // Peers (качают) — solid blue border matches text
-    tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs', appleBadge(APPLE.blue, { bg: 0.12 }));
-    tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs.high-grabs', appleBadge(APPLE.blue, { bg: 0.18 }));
+    tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs', appleBadge(APPLE.blue, { bg: 0.1 }));
+    tsSetRule(styles, '.torrent-item__grabs > span.ts-grabs.high-grabs', appleBadge(APPLE.blue, { bg: 0.16 }));
 
-    // Bitrate
-    tsSetBitrateBadge(styles, '', APPLE.green, { bg: 0.12 });
-    tsSetBitrateBadge(styles, 'high-bitrate', APPLE.yellow, { bg: 0.16 });
-    tsSetBitrateBadge(styles, 'mid-bitrate', APPLE.orange, { bg: 0.18 });
-    tsSetBitrateBadge(styles, 'very-high-bitrate', APPLE.red, { bg: 0.18 });
+    tsSetBitrateBadge(styles, '', APPLE.green, { bg: 0.1 });
+    tsSetBitrateBadge(styles, 'high-bitrate', APPLE.yellow, { bg: 0.14 });
+    tsSetBitrateBadge(styles, 'mid-bitrate', APPLE.orange, { bg: 0.16 });
+    tsSetBitrateBadge(styles, 'very-high-bitrate', APPLE.red, { bg: 0.16 });
 
-    // Size
-    tsSetRule(styles, '.torrent-item__size.ts-size', Object.assign(appleBadge(APPLE.green, { bg: 0.12 }), {
-      'font-weight': '700'
-    }));
-    tsSetRule(styles, '.torrent-item__size.ts-size.mid-size', appleBadge(APPLE.yellow, { bg: 0.16 }));
-    tsSetRule(styles, '.torrent-item__size.ts-size.high-size', appleBadge(APPLE.orange, { bg: 0.18 }));
-    tsSetRule(styles, '.torrent-item__size.ts-size.top-size', appleBadge(APPLE.red, { bg: 0.18 }));
+    tsSetRule(
+      styles,
+      '.torrent-item__size.ts-size',
+      Object.assign(appleBadge(APPLE.green, { bg: 0.1 }), {
+        'font-weight': '700'
+      })
+    );
+    tsSetRule(styles, '.torrent-item__size.ts-size.mid-size', appleBadge(APPLE.yellow, { bg: 0.14 }));
+    tsSetRule(styles, '.torrent-item__size.ts-size.high-size', appleBadge(APPLE.orange, { bg: 0.16 }));
+    tsSetRule(styles, '.torrent-item__size.ts-size.top-size', appleBadge(APPLE.red, { bg: 0.16 }));
+  }
 
-    // Focus — single neutral ring + subtle zoom (no accent color, no double border)
-    var focusRing = 'rgba(255, 255, 255, 0.2)';
-
-    styles['.torrent-item'] = {
+  function buildFocusStyles(styles) {
+    // Zoom + brightness only — ::after ring stays Lampa native (0.3em solid #fff)
+    styles['.torrent-list .torrent-item'] = {
       transform: 'scale(1)',
       transition: 'transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.28s ease',
       'transform-origin': 'center center'
     };
-    styles['.torrent-item.selector.focus'] = {
-      outline: 'none',
-      'box-shadow': 'none',
-      transform: 'scale(1.025)',
+    styles['.torrent-list .torrent-item.selector.focus'] = {
+      transform: 'scale(1.02)',
       position: 'relative',
       'z-index': '2',
-      filter: 'brightness(1.02)'
+      filter: 'brightness(1.04)'
     };
-    styles['.torrent-serial.selector.focus'] = {
-      outline: 'none',
-      'box-shadow': 'inset 0 0 0 0.16em ' + focusRing
+  }
+
+  function iconColor(styles, selector, hex) {
+    styles[selector] = {
+      color: hex,
+      '-webkit-text-fill-color': hex
     };
-    styles['.torrent-file.selector.focus'] = {
-      outline: 'none',
-      'box-shadow': 'inset 0 0 0 0.16em ' + focusRing
+  }
+
+  function buildIconStyles(styles) {
+    // Icons-only: glyph stays inside the number pill.
+    styles['.ts-metric--icons .ts-ico'] = {
+      display: 'block',
+      width: '1em',
+      height: '1em',
+      'margin-right': '0.28em',
+      flex: 'none'
     };
-    styles['.torrent-item.focus::after'] = {
-      border: '0.16em solid ' + focusRing,
+    styles['.ts-metric--icons > .ts-label'] = {
+      display: 'none'
+    };
+
+    // Text + icons: colored glyph, then the label, then the number pill.
+    styles[
+      '.torrent-item__bitrate.ts-metric--both, .torrent-item__grabs.ts-metric--both, .torrent-item__seeds.ts-metric--both'
+    ] = {
+      display: 'inline-flex',
+      '-webkit-box-align': 'center',
+      '-webkit-align-items': 'center',
+      'align-items': 'center',
+      'vertical-align': 'middle'
+    };
+    styles['.ts-metric--both > .ts-ico'] = {
+      display: 'block',
+      width: '1.15em',
+      height: '1.15em',
+      margin: '0 0.4em 0 0',
+      flex: 'none'
+    };
+    styles['.ts-metric--both > .ts-label'] = {
+      'line-height': '1',
+      'margin-right': '0.35em'
+    };
+    // Lampa paints every direct span in the metric as a chip. The label must stay plain text.
+    styles[
+      '.torrent-item__bitrate > .ts-label, .torrent-item__grabs > .ts-label, .torrent-item__seeds > .ts-label'
+    ] = {
+      background: 'none',
+      'background-color': 'transparent',
+      border: '0',
+      padding: '0',
+      'min-width': '0',
+      'border-radius': '0',
       'box-shadow': 'none',
-      'border-radius': '0.9em'
+      color: 'inherit',
+      '-webkit-text-fill-color': 'inherit',
+      'text-align': 'left'
     };
-    styles['.scroll__body'] = {
-      margin: '5px'
-    };
+
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-seeds', APPLE.orange);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-seeds.low-seeds', APPLE.red);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-seeds.good-seeds', APPLE.yellow);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-seeds.high-seeds', APPLE.green);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-grabs', APPLE.blue);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-grabs.high-grabs', APPLE.blue);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-bitrate', APPLE.green);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-bitrate.high-bitrate', APPLE.yellow);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-bitrate.mid-bitrate', APPLE.orange);
+    iconColor(styles, '.ts-metric--both > .ts-ico.ts-bitrate.very-high-bitrate', APPLE.red);
+  }
+
+  function buildStyles(options) {
+    options = options || {};
+    var styles = {};
+
+    if (options.badges) buildBadgeStyles(styles);
+    if (options.focus) buildFocusStyles(styles);
+    if (options.icons) buildIconStyles(styles);
 
     return styles;
   }
 
-  var styles = buildStyles();
-  var tsUpdateTimer = null;
-  var torrentRenderHooked = false;
+  function stylesToCss(styles) {
+    return Object.keys(styles)
+      .map(function (selector) {
+        var props = styles[selector];
+        var rules = Object.keys(props)
+          .map(function (prop) {
+            return prop + ': ' + props[prop] + ' !important';
+          })
+          .join('; ');
+        return selector + ' { ' + rules + ' }';
+      })
+      .join('\n');
+  }
 
   function injectStyles() {
     try {
-      if (document.querySelector('[data-' + config.pluginId + '-styles="true"]')) return;
+      var attr = 'data-' + config.pluginId + '-styles';
+      var existing = document.querySelector('[' + attr + '="true"]');
+      if (existing) existing.remove();
+
+      var styles = buildStyles({
+        badges: isColoredBadges(),
+        focus: isEnhancedFocus(),
+        icons: metricStyle() !== 'text'
+      });
+
+      if (!Object.keys(styles).length) return;
 
       var style = document.createElement('style');
-      var css = Object.keys(styles)
-        .map(function (selector) {
-          var props = styles[selector];
-          var rules = Object.keys(props)
-            .map(function (prop) {
-              return prop + ': ' + props[prop] + ' !important';
-            })
-            .join('; ');
-          return selector + ' { ' + rules + ' }';
-        })
-        .join('\n');
-
-      style.setAttribute('data-' + config.pluginId + '-styles', 'true');
-      style.innerHTML = css;
+      style.setAttribute(attr, 'true');
+      style.innerHTML = stylesToCss(styles);
       document.head.appendChild(style);
     } catch (e) {
-      console.error(config.name, 'style injection error:', e);
+      console.error(LOG_TAG, 'style injection error:', e);
+    }
+  }
+
+  function allTierClasses() {
+    var out = [];
+    Object.keys(TIER_CLASSES).forEach(function (key) {
+      out = out.concat(TIER_CLASSES[key]);
+    });
+    return out;
+  }
+
+  function stripClassesFromNodes(nodes, tierClasses) {
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var j;
+      for (j = 0; j < BADGE_MARKER_CLASSES.length; j++) el.classList.remove(BADGE_MARKER_CLASSES[j]);
+      for (j = 0; j < tierClasses.length; j++) el.classList.remove(tierClasses[j]);
+    }
+  }
+
+  function stripBadgeClasses(root) {
+    try {
+      var tierClasses = allTierClasses();
+
+      stripClassesFromNodes(queryMetrics(root, '__seeds span'), tierClasses);
+      stripClassesFromNodes(queryMetrics(root, '__bitrate span'), tierClasses);
+      stripClassesFromNodes(queryMetrics(root, '__grabs span'), tierClasses);
+      stripClassesFromNodes(queryMetrics(root, '__size'), tierClasses);
+    } catch (e) {
+      console.error(LOG_TAG, 'strip badges error:', e);
     }
   }
 
@@ -352,7 +465,7 @@
   function tsParseFloat(text) {
     var t = ((text || '') + '').trim();
     var m = t.match(/(\d+(?:[.,]\d+)?)/);
-    return m ? (parseFloat(m[1].replace(',', '.')) || 0) : 0;
+    return m ? parseFloat(m[1].replace(',', '.')) || 0 : 0;
   }
 
   function tsParseInt(text) {
@@ -422,23 +535,153 @@
     return '';
   }
 
+  function directLabel(container) {
+    var child = container.firstChild;
+    while (child) {
+      if (child.nodeType === 1 && child.classList && child.classList.contains('ts-label')) return child;
+      child = child.nextSibling;
+    }
+    return null;
+  }
+
+  function valueSpan(container) {
+    var spans = container.getElementsByTagName('span');
+    for (var i = 0; i < spans.length; i++) {
+      if (!spans[i].classList.contains('ts-label')) return spans[i];
+    }
+    return null;
+  }
+
+  function wrapLabel(container) {
+    if (directLabel(container)) return;
+    var child = container.firstChild;
+    while (child) {
+      var next = child.nextSibling;
+      if (child.nodeType === 3 && ((child.textContent || '').replace(/\u00A0/g, ' ').trim())) {
+        var wrap = document.createElement('span');
+        wrap.className = 'ts-label';
+        container.insertBefore(wrap, child);
+        wrap.appendChild(child);
+      }
+      child = next;
+    }
+  }
+
+  function unwrapLabel(container) {
+    var label = directLabel(container);
+    if (!label || !label.parentNode) return;
+    var parent = label.parentNode;
+    while (label.firstChild) parent.insertBefore(label.firstChild, label);
+    parent.removeChild(label);
+  }
+
+  function ensureIcon(parent, svgHtml) {
+    var existing = null;
+    var child = parent.firstChild;
+    while (child) {
+      if (child.nodeType === 1 && child.classList && child.classList.contains('ts-ico')) {
+        existing = child;
+        break;
+      }
+      child = child.nextSibling;
+    }
+    if (existing) return existing;
+    parent.insertAdjacentHTML('afterbegin', svgHtml);
+    return parent.firstChild;
+  }
+
+  function removeIcons(el) {
+    if (!el || !el.querySelectorAll) return;
+    var icons = el.querySelectorAll('.ts-ico');
+    for (var i = icons.length - 1; i >= 0; i--) {
+      if (icons[i].parentNode) icons[i].parentNode.removeChild(icons[i]);
+    }
+  }
+
+  function clearMetricMode(container) {
+    container.classList.remove('ts-metric--both', 'ts-metric--icons');
+  }
+
+  function iconPaintClasses() {
+    return ['ts-seeds', 'ts-bitrate', 'ts-grabs'].concat(allTierClasses());
+  }
+
+  function clearIconPaint(ico) {
+    var classes = iconPaintClasses();
+    for (var i = 0; i < classes.length; i++) ico.classList.remove(classes[i]);
+  }
+
+  function directIcon(container) {
+    var child = container.firstChild;
+    while (child) {
+      if (child.nodeType === 1 && child.classList && child.classList.contains('ts-ico')) return child;
+      child = child.nextSibling;
+    }
+    return null;
+  }
+
+  function syncBothIcon(container, span, marker) {
+    var ico = directIcon(container);
+    if (!ico) return;
+    clearIconPaint(ico);
+    if (!span || !isColoredBadges()) return;
+    ico.classList.add(marker);
+    var tiers = allTierClasses();
+    for (var i = 0; i < tiers.length; i++) {
+      if (span.classList.contains(tiers[i])) ico.classList.add(tiers[i]);
+    }
+  }
+
+  function applyMetricIcons(root, mode) {
+    METRIC_FIELDS.forEach(function (field) {
+      queryMetrics(root, field.suffix).forEach(function (container) {
+        var span = valueSpan(container);
+        if (mode === 'text') {
+          removeIcons(container);
+          unwrapLabel(container);
+          clearMetricMode(container);
+          return;
+        }
+        wrapLabel(container);
+        removeIcons(container);
+        if (mode === 'icons') {
+          if (span) ensureIcon(span, METRIC_SVGS[field.icon]);
+        } else {
+          ensureIcon(container, METRIC_SVGS[field.icon]);
+        }
+        clearMetricMode(container);
+        container.classList.add(mode === 'icons' ? 'ts-metric--icons' : 'ts-metric--both');
+      });
+    });
+  }
+
   function updateTorrentStyles(root) {
     try {
-      var scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+      applyMetricIcons(root, metricStyle());
 
-      scope.querySelectorAll('.torrent-item__seeds span').forEach(function (span) {
+      if (!isColoredBadges()) {
+        stripBadgeClasses(root);
+        return;
+      }
+
+      queryMetrics(root, '__seeds span').forEach(function (span) {
+        if (span.classList.contains('ts-label')) return;
         if (!tsHasNumber(span.textContent)) return;
         span.classList.add('ts-seeds');
         tsApplyTier(span, TIER_CLASSES.seeds, tsSeedTier(tsParseInt(span.textContent)));
+        syncBothIcon(span.parentNode, span, 'ts-seeds');
       });
 
-      scope.querySelectorAll('.torrent-item__bitrate span').forEach(function (span) {
+      queryMetrics(root, '__bitrate span').forEach(function (span) {
+        if (span.classList.contains('ts-label')) return;
         if (!tsHasNumber(span.textContent)) return;
         span.classList.add('ts-bitrate');
         tsApplyTier(span, TIER_CLASSES.bitrate, tsBitrateTier(tsParseFloat(span.textContent)));
+        syncBothIcon(span.parentNode, span, 'ts-bitrate');
       });
 
-      scope.querySelectorAll('.torrent-item__grabs span').forEach(function (span) {
+      queryMetrics(root, '__grabs span').forEach(function (span) {
+        if (span.classList.contains('ts-label')) return;
         if (!tsHasNumber(span.textContent)) return;
         span.classList.add('ts-grabs');
         tsApplyTier(
@@ -446,22 +689,120 @@
           TIER_CLASSES.grabs,
           tsParseInt(span.textContent) > TH.peers.high_from ? 'high-grabs' : ''
         );
+        syncBothIcon(span.parentNode, span, 'ts-grabs');
       });
 
-      scope.querySelectorAll('.torrent-item__size').forEach(function (el) {
+      queryMetrics(root, '__size').forEach(function (el) {
         el.classList.add('ts-size');
         var gb = tsParseSizeToGb(el.textContent || '');
         tsApplyTier(el, TIER_CLASSES.size, gb === null ? '' : tsSizeTier(gb));
       });
     } catch (e) {
-      console.error(config.name, 'torrent update error:', e);
+      console.error(LOG_TAG, 'torrent update error:', e);
     }
   }
 
-  /**
-   * Lampa: Listener.send('torrent', { type: 'render', element, item })
-   * from src/components/torrents.js
-   */
+  function applySettingsNow() {
+    injectStyles();
+    scheduleUpdate(0);
+  }
+
+  function applySettings() {
+    try {
+      if (applySettingsTimer) clearTimeout(applySettingsTimer);
+    } catch (e) { }
+
+    applySettingsTimer = setTimeout(function () {
+      applySettingsTimer = null;
+      applySettingsNow();
+    }, 0);
+  }
+
+  function onSettingChange() {
+    applySettings();
+  }
+
+  function addTranslations() {
+    if (typeof Lampa === 'undefined' || !Lampa.Lang || typeof Lampa.Lang.add !== 'function') return;
+
+    var payload = {};
+    Object.keys(translations).forEach(function (key) {
+      payload[config.pluginId + '_' + key] = translations[key];
+    });
+    Lampa.Lang.add(payload);
+  }
+
+  function addSettings() {
+    if (settingsRegistered) return;
+    if (typeof Lampa === 'undefined' || !Lampa.SettingsApi) return;
+
+    settingsRegistered = true;
+
+    Lampa.SettingsApi.addComponent({
+      component: config.settingsComponent,
+      name: 'Torrent Styles',
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
+        '<rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>' +
+        '<path d="M7 10h6M7 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
+        '<circle cx="17" cy="12" r="2" stroke="currentColor" stroke-width="1.5"/>' +
+        '</svg>'
+    });
+
+    Lampa.SettingsApi.addParam({
+      component: config.settingsComponent,
+      param: { name: config.pluginId + '_title', type: 'title' },
+      field: { name: translate('settings_title') }
+    });
+
+    Lampa.SettingsApi.addParam({
+      component: config.settingsComponent,
+      param: {
+        name: settingKey('coloredBadges'),
+        type: 'trigger',
+        default: defaults.coloredBadges
+      },
+      field: {
+        name: translate('settings_colored_badges'),
+        description: translate('settings_colored_badges_desc')
+      },
+      onChange: onSettingChange
+    });
+
+    Lampa.SettingsApi.addParam({
+      component: config.settingsComponent,
+      param: {
+        name: settingKey('metricStyle'),
+        type: 'select',
+        default: defaults.metricStyle,
+        values: {
+          text: translate('settings_metric_text'),
+          both: translate('settings_metric_both'),
+          icons: translate('settings_metric_icons')
+        }
+      },
+      field: {
+        name: translate('settings_metric_style'),
+        description: translate('settings_metric_style_desc')
+      },
+      onChange: onSettingChange
+    });
+
+    Lampa.SettingsApi.addParam({
+      component: config.settingsComponent,
+      param: {
+        name: settingKey('enhancedFocus'),
+        type: 'trigger',
+        default: defaults.enhancedFocus
+      },
+      field: {
+        name: translate('settings_enhanced_focus'),
+        description: translate('settings_enhanced_focus_desc')
+      },
+      onChange: onSettingChange
+    });
+  }
+
   function attachTorrentRenderHook() {
     if (torrentRenderHooked) return;
     if (typeof Lampa === 'undefined' || !Lampa.Listener || typeof Lampa.Listener.follow !== 'function') return;
@@ -487,34 +828,25 @@
           type: 'other',
           name: config.name,
           version: config.version,
-          description: 'Дополнительные стили для карточек торрентов.'
+          component: config.settingsComponent,
+          description:
+            'Стили списка торрентов: цветовые бейджи, иконки метрик и фокус карточек. Модалка «Файлы» — нативный фокус Lampa.'
         };
       }
     } catch (e) {
-      console.error(config.name, 'register error:', e);
-    } finally {
-      window['plugin_' + config.pluginId + '_ready'] = true;
+      console.error(LOG_TAG, 'register error:', e);
     }
   }
 
   function onAppReady() {
-    attachParserBlock();
-
-    if (!isBlockedHost()) {
-      attachTorrentRenderHook();
-      scheduleUpdate(200);
-    }
-
+    addTranslations();
+    addSettings();
+    attachTorrentRenderHook();
     registerPlugin();
+    applySettingsNow();
   }
 
   function init() {
-    if (isBlockedHost()) {
-      attachParserBlock();
-    } else {
-      injectStyles();
-    }
-
     if (window.appready) {
       onAppReady();
     } else if (typeof Lampa !== 'undefined' && Lampa.Listener && typeof Lampa.Listener.follow === 'function') {
@@ -525,12 +857,7 @@
       setTimeout(onAppReady, 500);
     }
 
-    console.log(
-      config.name,
-      'loaded, version:',
-      config.version,
-      isBlockedHost() ? '(blocked host: ' + currentHostname() + ')' : '(normal)'
-    );
+    console.log(LOG_TAG, 'loaded, version:', config.version);
   }
 
   init();
