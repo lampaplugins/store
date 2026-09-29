@@ -1,0 +1,15 @@
+.DS_Store
+
+# Global ~/.gitignore ignores /site — keep this Astro app tracked
+!site/
+!site/**
+
+# Still ignore build artifacts inside site/ (also listed in site/.gitignore)
+site/node_modules/
+site/dist/
+site/.astro/
+site/public/extensions.json
+site/public/*.js
+site/public/pavelpikta/
+site/public/wmajiug3e/
+site/src/data/extensions.json

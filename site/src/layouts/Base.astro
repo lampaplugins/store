@@ -1,0 +1,47 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const title = Astro.props.title ?? "Lampa Plugins Store — каталог расширений";
+const description =
+  Astro.props.description ??
+  "Каталог расширений для Lampa — плагины, магазин и быстрое подключение одной строкой.";
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(`${import.meta.env.BASE_URL}og-preview.svg`, Astro.site).href;
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0c0e14" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-mono" preload />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержимому</a>
+    <div class="bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <slot />
+    </div>
+  </body>
+</html>

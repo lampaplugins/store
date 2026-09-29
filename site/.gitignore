@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+
+# Synced from repo root on every build/dev
+public/extensions.json
+public/*.js
+public/pavelpikta/
+public/wmajiug3e/
+src/data/extensions.json

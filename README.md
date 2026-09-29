@@ -6,8 +6,11 @@
 
 Часть плагинов лежит **здесь** и раздаётся с GitHub Pages; остальные записи в JSON просто указывают на чужие URL.
 
+Веб-страница каталога — Astro-сайт в папке [`site/`](site/) (поиск, фильтр по категориям). Публикация: GitHub Actions → Pages из `site/dist` (см. [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). В настройках репозитория **Pages → Source** должен быть **GitHub Actions**.
+
 **Ссылки после публикации на Pages:**
 
+- Сайт: `https://lampaplugins.github.io/store/`
 - Каталог (то, что читает магазин): `https://lampaplugins.github.io/store/extensions.json`
 - Подключить магазин в Lampa одной строкой: `https://lampaplugins.github.io/store/store.js`
 
@@ -29,6 +32,7 @@
 |------|------|
 | [`extensions.json`](extensions.json) | Каталог: что показывает магазин в Lampa |
 | [`store.js`](store.js) | Плагин входа в настройки → открыть этот каталог |
+| [`site/`](site/) | Веб-каталог (Astro), деплой на Pages |
 
 Локальные плагины из корня доступны как  
 `https://lampaplugins.github.io/store/имя-файла.js`
@@ -58,6 +62,26 @@
 | `o.js` | Заготовка |
 
 </details>
+
+---
+
+### Сайт (`site/`)
+
+Локально:
+
+```bash
+cd site
+npm install
+npm run dev
+```
+
+Сборка (копирует `extensions.json` и `.js` в `public/`, затем Astro):
+
+```bash
+cd site && npm run build
+```
+
+Плагины и JSON остаются в **корне репозитория** — `site/scripts/sync-public.mjs` подтягивает их в билд перед каждым `dev`/`build`.
 
 ---
 

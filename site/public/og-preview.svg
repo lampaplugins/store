@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0c0e14"/>
+  <circle cx="600" cy="-40" r="420" fill="#f5a623" fill-opacity="0.12"/>
+  <rect x="520" y="200" width="160" height="160" rx="36" fill="#f5a623"/>
+  <path d="M575 245v70l56-35-56-35z" fill="#1a1200"/>
+  <text x="600" y="430" text-anchor="middle" fill="#e8eaef" font-family="system-ui,sans-serif" font-size="48" font-weight="700">Lampa Store</text>
+  <text x="600" y="480" text-anchor="middle" fill="#8b92a8" font-family="system-ui,sans-serif" font-size="24">0B0;>3 @0AH8@5=89 4;O Lampa</text>
+</svg>

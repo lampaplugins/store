@@ -1,0 +1,43 @@
+---
+import { GITHUB, STORE_JS, countPlugins, type Section } from "../lib/catalog";
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+const total = countPlugins(sections);
+---
+
+<header class="hero">
+  <div class="hero-mark" aria-hidden="true">▶</div>
+  <h1>Lampa Store</h1>
+  <p class="hero-lead">
+    Каталог расширений для Lampa — подключите магазин одной строкой и выбирайте плагины прямо в
+    приложении.
+  </p>
+  <p class="hero-meta">
+    <span>{total} плагинов · {sections.length} категорий</span>
+    <a href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub</a>
+  </p>
+</header>
+
+<section class="card" aria-labelledby="start-title">
+  <h2 id="start-title">Быстрый старт</h2>
+  <ol class="steps">
+    <li>Добавьте плагином ссылку на <strong>store.js</strong> в настройках Lampa.</li>
+    <li>Откройте появившийся пункт магазина в настройках.</li>
+    <li>Выберите нужное расширение из каталога.</li>
+  </ol>
+  <div class="copy-row">
+    <code class="url-box" id="store-url" title="Нажмите, чтобы выделить">{STORE_JS}</code>
+    <button
+      class="btn btn-primary"
+      type="button"
+      data-copy={STORE_JS}
+      aria-label="Скопировать URL store.js"
+    >
+      Копировать
+    </button>
+  </div>
+</section>

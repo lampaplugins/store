@@ -1,0 +1,100 @@
+---
+import type { Section } from "../lib/catalog";
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+const total = sections.reduce((n, s) => n + s.plugins.length, 0);
+---
+
+<section class="card" aria-labelledby="catalog-title" id="catalog">
+  <h2 id="catalog-title">Каталог</h2>
+
+  <div class="catalog-toolbar">
+    <label class="visually-hidden" for="catalog-q">Поиск плагинов</label>
+    <input
+      id="catalog-q"
+      class="catalog-search"
+      type="search"
+      placeholder="Поиск по названию, автору, описанию…"
+      autocomplete="off"
+    />
+    <div class="catalog-chips" role="group" aria-label="Категории">
+      <button type="button" class="chip" data-hpu="all" aria-pressed="true">Все</button>
+      {
+        sections.map((s) => (
+          <button type="button" class="chip" data-hpu={s.hpu} aria-pressed="false">
+            {s.title}
+          </button>
+        ))
+      }
+    </div>
+    <p class="catalog-count" id="catalog-count" role="status" aria-live="polite">
+      Показано {total} из {total}
+    </p>
+  </div>
+
+  <div id="catalog-list">
+    {
+      sections.map((section) => (
+        <div class="plugin-group" data-hpu={section.hpu} data-section>
+          <h3 class="plugin-group__title">{section.title}</h3>
+          {section.plugins.map((plugin) => {
+            const hay = [plugin.name, plugin.author, plugin.descr, plugin.link]
+              .join(" ")
+              .toLowerCase();
+            return (
+              <article
+                class="plugin"
+                data-plugin
+                data-hpu={section.hpu}
+                data-hay={hay}
+              >
+                <div class="plugin-info">
+                  <div class="plugin-top">
+                    <a class="plugin-name" href={plugin.link} target="_blank" rel="noopener noreferrer">
+                      {plugin.name}
+                    </a>
+                    {plugin.author && <span class="plugin-author">{plugin.author}</span>}
+                    {plugin.local && <span class="badge">здесь</span>}
+                  </div>
+                  <div class="plugin-meta">
+                    {plugin.version && <span>v{plugin.version}</span>}
+                    <span>{plugin.link}</span>
+                  </div>
+                  {plugin.descr && <p class="plugin-desc">{plugin.descr}</p>}
+                </div>
+                <button
+                  type="button"
+                  class="btn-copy"
+                  data-copy={plugin.link}
+                  aria-label={`Скопировать URL ${plugin.name}`}
+                >
+                  Копировать
+                </button>
+              </article>
+            );
+          })}
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="catalog-empty" id="catalog-empty" hidden>Ничего не найдено.</p>
+</section>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

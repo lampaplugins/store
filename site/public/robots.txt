@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lampaplugins.github.io/store/sitemap-index.xml
