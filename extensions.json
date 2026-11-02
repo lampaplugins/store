@@ -242,7 +242,7 @@
         {
           "name": "Shikimori by WaterFAQ",
           "author": "WaterFAQ",
-          "link": "https://water-faq.github.io/lampa-plugins/Shikimori.js",
+          "link": "https://water-faq.github.io/lampa-plugins/shikimori.js",
           "descr": "Каталог аниме Shikimori с русским интерфейсом, подборками и фильтрами. Открытие карточек TMDB, рейтинг Shikimori и студии анимации.",
           "version": "1.0.0"
         },
