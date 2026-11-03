@@ -414,6 +414,791 @@
         }
       ],
       "hpu": "other"
+    },
+    {
+      "title": "Онлайн-просмотр (tvigl)",
+      "results": [
+        {
+          "name": "LAMPA.CLICK — онлайн и торренты",
+          "author": "@lampaclick",
+          "link": "http://lampa.click/",
+          "descr": "Онлайн-кинотеатр и торренты в одном плагине (вход платный).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Спортивные и киберспортивные трансляции",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/sp.js",
+          "descr": "Прямые трансляции спорта и киберспорта с Maincast (Lampa 3.0+).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Трейлеры с Rutube",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/rutube.js",
+          "descr": "Трейлеры фильмов с Rutube вместо YouTube.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Управление онлайн-источниками",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/source_sort.js",
+          "descr": "Сортировка и управление онлайн-источниками в карточке фильма.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Top Bar — смена плеера в шапке",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/top_bar.js",
+          "descr": "Меняет плеер в шапке приложения Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Автопилот — кнопка «Смотреть»",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/alc_auto/v2.1.44/plugin.js",
+          "descr": "Одна кнопка «Смотреть». Требует свой Lampac / Alpac или онлайн-плагин.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Пропуск заставки и титров",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/skip_segments/v1.0.2/plugin.js",
+          "descr": "Автоматический пропуск заставок и титров в плеере.",
+          "available_lampa": 1
+        },
+        {
+          "name": "OpenSubtitles — субтитры в плеере",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/opensubs_menu/v1.2.9/plugin.js",
+          "descr": "Субтитры OpenSubtitles прямо в плеере Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Anti DMCA — обход блокировок",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/anti-dmca.js",
+          "descr": "Обход блокировок DMCA в онлайн-источниках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Bandera 2.0 — онлайн-источники",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/bo.js",
+          "descr": "Онлайн-источники для фильмов и сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "IMDb Trailers — трендовые трейлеры",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/timdb.js",
+          "descr": "Трендовые трейлеры из IMDb.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Lampac Source Filter",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/lampac-src-filter.js",
+          "descr": "Скрытие лишних источников на серверах Lampac.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Balancer Sanitizer",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/balancer-sanitizer.js",
+          "descr": "Чистые рабочие ссылки балансеров.",
+          "available_lampa": 1
+        },
+        {
+          "name": "TryzubTV — украинское ТВ",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/ttv.js",
+          "descr": "Украинские телеканалы в Lampa.",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-онлайн-просмотр"
+    },
+    {
+      "title": "Оформление (tvigl)",
+      "results": [
+        {
+          "name": "Рейтинги IMDb, TMDB, Metacritic, Rotten Tomatoes",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/rating_omdb.js",
+          "descr": "Рейтинги IMDb, TMDB, Metacritic и Rotten Tomatoes на карточках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Цветной рейтинг на карточках",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/vote_colour.js",
+          "descr": "Цветное оформление рейтинга на карточках фильмов и сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Подборки стримингов",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/collections.js",
+          "descr": "Подборки контента Netflix, Prime Video, Apple TV+, HBO, Hulu, Disney+.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Стилизованные кнопки Онлайн/Торрент/Трейлеры",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/3buttons.js",
+          "descr": "Кнопки Онлайн, Торрент, Трейлеры в стиле карточек (вероятно, только Lampac).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Цветные кнопки и очистка кэша в шапке",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/cache.js",
+          "descr": "Цветные кнопки управления и кнопка очистки кэша в шапке приложения.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Кнопка «Выход» в меню",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/exit.js",
+          "descr": "Добавляет пункт «Выход» в главное меню Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Логотипы фильмов вместо названий",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/logo.js",
+          "descr": "Отображает логотипы фильмов вместо текстовых названий на карточках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Метки максимального качества",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/quality.js",
+          "descr": "Метки качества (4K и др.) на карточках фильмов и сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Сезон и серия на карточках сериалов",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/seasons.js",
+          "descr": "Номер сезона и серии на карточках сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Убрать кнопку «Трейлеры» из карточек",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/notrailers.js",
+          "descr": "Скрывает кнопку «Трейлеры» с карточек фильмов и сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Рейтинг в карточке от Макса",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/maxsm_ratings.js",
+          "descr": "Рейтинг на карточке фильма (требуются API-ключи TMDB и Кинопоиска).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Анимация загрузки (25 вариантов)",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/aloader.js",
+          "descr": "Набор из 25 вариантов анимации загрузки приложения.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Рейтинг в правом верхнем углу карточки",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/ratingup.js",
+          "descr": "Рейтинг фильма в правом верхнем углу карточки.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Качество внутри карточек",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/surs_quality.js",
+          "descr": "Информация о качестве контента внутри карточек.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Балансеры в фильтре переводов и сезонов",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/src-filter.js",
+          "descr": "Добавление балансеров в фильтр переводов и сезонов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Интерфейс в стиле Apple TV",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/appleTV.js",
+          "descr": "Оформление интерфейса Lampa в стиле Apple TV.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Управление кнопками на странице фильма",
+          "author": "@mylampa1",
+          "link": "https://mylampa1.github.io/buttons.js",
+          "descr": "Настройка и управление кнопками на странице фильма.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Настройка значков в шапке",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/head_filter.js",
+          "descr": "Набор опций для настройки значков в шапке приложения.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Стильный рейтинг",
+          "author": "@maxsmeller",
+          "link": "https://maxsmeller.github.io/lampa-plugins/rat.js",
+          "descr": "Стильный рейтинг карточек (нужны ключи OMDb и Кинопоиска).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Главная страница UA",
+          "author": "@lampalampa",
+          "link": "http://lampalampa.free.nf/ymain.js",
+          "descr": "Замена главной страницы на украинский вариант.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Flixio — оформление главной и карточки",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/Flixio.js",
+          "descr": "Оформление главной страницы и карточки фильма в стиле Flixio.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Рейтинг с гибкими настройками",
+          "author": "@amikdn",
+          "link": "https://amikdn.github.io/rate.js",
+          "descr": "Рейтинг с настраиваемыми источниками (Кинопоиск и др.).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Новые релизы",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/new_released.js",
+          "descr": "Блок новых релизов на главной странице Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Стриминги на главной",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/streamings.js",
+          "descr": "Кнопки стриминговых сервисов на главной странице.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Качество, рейтинг и год на карточке",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/rating-quality.js",
+          "descr": "Совместный вывод качества, рейтинга и года на карточке.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Favorite Refresh — свежие постеры в Избранном",
+          "author": "@anclaver",
+          "link": "https://anclaver.github.io/Lampa/plugins/favoriteRefresh.js",
+          "descr": "Обновление постеров в разделе Избранное.",
+          "available_lampa": 1
+        },
+        {
+          "name": "UI Badge — метки на карточках",
+          "author": "@anclaver",
+          "link": "https://anclaver.github.io/Lampa/plugins/interfaceBadge.js",
+          "descr": "Информативные бейджи и метки на карточках фильмов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "UI Style — улучшения страницы фильма",
+          "author": "@anclaver",
+          "link": "https://anclaver.github.io/Lampa/plugins/interfaceStyle.js",
+          "descr": "Комплексные улучшения страницы фильма и интерфейса.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Закусь TV — Lampa в стиле Apple TV",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/snack_tv/v0.8.11/plugin.js",
+          "descr": "Оформление Lampa в стиле Apple TV (закуска на главной).",
+          "available_lampa": 1
+        },
+        {
+          "name": "AVGRating — рейтинги с 11 сайтов",
+          "author": "@cevamnelampaplagin",
+          "link": "https://cevamnelampaplagin.github.io/tytnemanichogodobrogo/avgrating.js",
+          "descr": "Агрегированный рейтинг с одиннадцати сайтов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Cardify+ — живой фон в карточке",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/cardify+.js",
+          "descr": "Анимированный живой фон внутри карточки фильма.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Interface+ — комплексное улучшение интерфейса",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/interface+.js",
+          "descr": "Комплексное улучшение интерфейса Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Movie Enhancer — улучшенная карточка фильма",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/lme.js",
+          "descr": "Улучшенная карточка фильма с дополнительной информацией.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Networks — кнопки стримингов и студий",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/Networks.js",
+          "descr": "Кнопки стриминговых сервисов и студий на карточках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Nightingale — флажок украинской озвучки",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/n.js",
+          "descr": "Флажок украинской озвучки на карточках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "TV Status Color — цветной статус сериала",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/tv-status-color.js",
+          "descr": "Цветовая индикация статуса сериала (вышел, в эфире и т.д.).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Yarik's Design — редизайн карточек",
+          "author": "@yarikrazor-star",
+          "link": "https://yarikrazor-star.github.io/lmp/ydes.js",
+          "descr": "Авторский редизайн карточек фильмов от Yarik.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Buttons+ — редактор кнопок в карточке",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/buttons+.js",
+          "descr": "Редактор набора и порядка кнопок в карточке фильма.",
+          "available_lampa": 1
+        },
+        {
+          "name": "RTG+ — рейтинги и награды",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/rtg.js",
+          "descr": "Рейтинги и визуальные награды на карточках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "SeasonsInfo — последний сезон и прогресс",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/SeasonsInfo.js",
+          "descr": "Информация о последнем сезоне и прогресс просмотра серий (TMDB).",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-оформление"
+    },
+    {
+      "title": "Темы (tvigl)",
+      "results": [
+        {
+          "name": "Тема от @DrXAOS",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/drxaos_themes.js",
+          "descr": "Авторская тема оформления от @DrXAOS.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Тема AppleTV",
+          "author": "@llowmikee",
+          "link": "https://llowmikee.github.io/AppleTVAGNativeNG/appletv_agnative.js",
+          "descr": "Главная страница в стиле Apple TV.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Netflix — главная в стиле Netflix",
+          "author": "@adambenhassen",
+          "link": "https://adambenhassen.github.io/netflix.js",
+          "descr": "Главная страница Lampa в стиле Netflix.",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-темы"
+    },
+    {
+      "title": "Подборки (tvigl)",
+      "results": [
+        {
+          "name": "Подборки TMDB mod",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/tmdb_mod.js",
+          "descr": "Подборки фильмов и сериалов из TMDB (модифицированная версия).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Подборки от LNUM",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/lnum.js",
+          "descr": "Авторские подборки от LNUM.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Подборки от Levende",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/prisma_collections.js?v=2",
+          "descr": "Подборки контента от Levende (Prisma).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Подборки от NUMParser",
+          "author": "@num",
+          "link": "https://num.jac-red.ru/plugin/nmprs.js",
+          "descr": "Подборки от NUMParser (JacRed).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Каталог MovieTV",
+          "author": "@rugaroo888",
+          "link": "https://rugaroo888.github.io/movietv-plugin/MovieTV.js",
+          "descr": "Дополнительный каталог фильмов и сериалов MovieTV.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Студии",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/studios.js",
+          "descr": "Кнопки студий на карточках фильмов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Источники",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/sources.js",
+          "descr": "Список и управление источниками контента.",
+          "available_lampa": 1
+        },
+        {
+          "name": "CommunityWatches — топ недели и жемчужины",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/cw.js",
+          "descr": "Топ недели и скрытые жемчужины от сообщества.",
+          "available_lampa": 1
+        },
+        {
+          "name": "New Category — новые категории в каталоге",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/newcategory.js",
+          "descr": "Добавление новых категорий в каталог Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Random Scheduled — случайное из «Позже»",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/random-scheduled.js",
+          "descr": "Случайный фильм или сериал из раздела «Позже».",
+          "available_lampa": 1
+        },
+        {
+          "name": "Siaivo Dorama — раздел дорам",
+          "author": "@Lamp1ch-chmuk",
+          "link": "https://cdn.jsdelivr.net/gh/Lamp1ch-chmuk/dorami-Siaivo@main/d.js",
+          "descr": "Раздел дорам от Siaivo.",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-подборки"
+    },
+    {
+      "title": "Торренты (tvigl)",
+      "results": [
+        {
+          "name": "Цветная подсветка торрент-раздач",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/torrents_styles.js",
+          "descr": "Цветная подсветка торрент-раздач по статусу и качеству.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Продолжить просмотр с торрентов",
+          "author": "@arst113",
+          "link": "https://arst113.github.io/log/ContinueWatching.js",
+          "descr": "Возобновление просмотра с остановленной торрент-раздачи.",
+          "available_lampa": 1
+        },
+        {
+          "name": "EasyTorrent — умный подбор раздач",
+          "author": "@darkestclouds",
+          "link": "https://darkestclouds.github.io/plugins/easytorrent/easytorrent.min.js",
+          "descr": "Автоматический подбор подходящих торрент-раздач.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Каталог парсеров",
+          "author": "@ko31k",
+          "link": "https://ko31k.github.io/LMP/plugins/Parsers.js",
+          "descr": "Каталог торрент-парсеров для подбора раздач.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Кнопка «Торренты» рядом с Play",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/torrent_button/v1.0.0/plugin.js",
+          "descr": "Кнопка быстрого доступа к торрентам рядом с кнопкой Play.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Concert Torr Search — поиск концертов",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/cts.js",
+          "descr": "Поиск и просмотр концертов через торрент-раздачи.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Torrent Downloader — торрент-клиент",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/torrentmanager.js",
+          "descr": "Встроенный торрент-клиент для скачивания и просмотра.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Tracks Probe — информация о дорожках",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/tracks.js",
+          "descr": "Техническая информация о аудио- и видеодорожках.",
+          "available_lampa": 1
+        },
+        {
+          "name": "TsTracks — дорожки и субтитры из TorrServer",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/tstracks.js",
+          "descr": "Дорожки и субтитры из TorrServer в проигрывателе.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Infuse Save — отправка торрентов в Infuse",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/infuseSave.js",
+          "descr": "Отправка выбранных торрентов в приложение Infuse.",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-торренты"
+    },
+    {
+      "title": "Разное (tvigl)",
+      "results": [
+        {
+          "name": "Автопоказ трейлеров в карточке (Cardify)",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/cardify.js",
+          "descr": "Автоматический показ трейлера при открытии карточки фильма.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Убрать нумерацию «123» на главной",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/123.js",
+          "descr": "Скрывает порядковую нумерацию элементов на главной странице.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Своё «Избранное»",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/custom-favs.js",
+          "descr": "Отдельный пользовательский раздел Избранное.",
+          "available_lampa": 1
+        },
+        {
+          "name": "AI-поиск №1",
+          "author": "@fovway",
+          "link": "https://fovway.github.io/lampacJS/ai_search/ai_search.js",
+          "descr": "Поиск контента через ИИ (требуется ключ OpenRouter).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Снег №1",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/new_year1.js",
+          "descr": "Анимация падающего снега на главной (вариант 1).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Снег №2",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/new_year2.js",
+          "descr": "Анимация падающего снега на главной (вариант 2).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Снег №3",
+          "author": "@nemiroff",
+          "link": "https://nemiroff.github.io/lampa/snow.js",
+          "descr": "Анимация падающего снега на главной (вариант 3).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Гирлянда",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/new_year3.js",
+          "descr": "Новогодняя гирлянда в оформлении приложения.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Дождь со звуком",
+          "author": "@weritos666",
+          "link": "https://weritos666.github.io/rain_realistic_sound.js",
+          "descr": "Визуальный и звуковой эффект дождя на фоне.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Туман",
+          "author": "@mulumuu",
+          "link": "https://mulumuu.github.io/mulumuu.githib.io/Vanta.js",
+          "descr": "Эффект тумана на фоне приложения (Vanta.js).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Меню для телефонов",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/phone_menu.js",
+          "descr": "Адаптированное меню приложения для телефонов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Отключить Shots",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/shots.js",
+          "descr": "Отключает раздел Shots (короткие вертикальные видео).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Дорамы",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/dorama.js",
+          "descr": "Раздел дорам в каталоге Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Wiki о фильме",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/WikiFind.js",
+          "descr": "Поиск информации о фильме в Википедии.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Загрузка при старте в стиле «Матрицы»",
+          "author": "@tvigl",
+          "link": "https://tvigl.github.io/plugins/lampa-loader.js",
+          "descr": "Экран загрузки при старте Lampa в стиле «Матрицы».",
+          "available_lampa": 1
+        },
+        {
+          "name": "Поиск с подсказками",
+          "author": "@nikitagk22",
+          "link": "https://nikitagk22.github.io/suggest.js",
+          "descr": "Подсказки при вводе в строку поиска Lampa.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Фильтр ленты — убрать лишнее с главной",
+          "author": "@alcopa",
+          "link": "https://hub.alcopa.cc/dl/feed_filter/v1.0.0/plugin.js",
+          "descr": "Фильтрация главной ленты: скрытие лишнего контента.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Favorite Plus — свои категории в Избранном",
+          "author": "@anclaver",
+          "link": "https://anclaver.github.io/Lampa/plugins/favoritePlus.js",
+          "descr": "Дополнительные пользовательские категории в Избранном.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Profiles — профили без CUB",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/profiles.js",
+          "descr": "Пользовательские профили без привязки к CUB (оригинал от @levende).",
+          "available_lampa": 1
+        },
+        {
+          "name": "Bookmarks Sync — синхронизация закладок с CUB",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/bookmarks-sync.js",
+          "descr": "Синхронизация закладок просмотра с CUB.",
+          "available_lampa": 1
+        },
+        {
+          "name": "History Filter — чистка истории просмотров",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/history-filter.js",
+          "descr": "Очистка и фильтрация истории просмотров.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Trash Filter — фильтр мусора в поиске",
+          "author": "@levende",
+          "link": "https://levende.github.io/lampa-plugins/trash-filter.js",
+          "descr": "Фильтрация нерабочего и мусорного контента в поиске.",
+          "available_lampa": 1
+        },
+        {
+          "name": "LParty — совместный просмотр с друзьями",
+          "author": "@nrsua",
+          "link": "https://nrsua.github.io/lampa-nrs/lparty.js",
+          "descr": "Синхронизированный просмотр контента вместе с друзьями.",
+          "available_lampa": 1
+        },
+        {
+          "name": "VoBoost — громкость выше 100%",
+          "author": "@nrsua",
+          "link": "https://nrsua.github.io/lampa-nrs/voboost.js",
+          "descr": "Увеличение громкости видео выше ста процентов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "pipfs — видео в окне (картинка в картинке)",
+          "author": "@cevamnelampaplagin",
+          "link": "https://cevamnelampaplagin.github.io/sharewithothers/pipfs.js",
+          "descr": "Режим картинка-в-картинке для просмотра видео.",
+          "available_lampa": 1
+        },
+        {
+          "name": "TraktTV — интеграция с Trakt",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/trakttv.js",
+          "descr": "Синхронизация просмотров и подборок с Trakt.tv.",
+          "available_lampa": 1
+        },
+        {
+          "name": "NightingaleNotifications — уведомления о сериях",
+          "author": "@lampame",
+          "link": "https://lampame.github.io/main/nn.js",
+          "descr": "Уведомления о выходе новых серий сериалов.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Ytranslate — перевод на украинский",
+          "author": "@yarikrazor-star",
+          "link": "https://yarikrazor-star.github.io/lmp/ytranslate.js",
+          "descr": "Перевод интерфейса Lampa на украинский язык.",
+          "available_lampa": 1
+        },
+        {
+          "name": "Radio — более 50 станций",
+          "author": "@ne3nayskas",
+          "link": "https://ne3nayskas.github.io/plugins/radio.js",
+          "descr": "Более пятидесяти интернет-радиостанций в Lampa.",
+          "available_lampa": 1
+        }
+      ],
+      "hpu": "tvigl-разное"
     }
   ]
 }
