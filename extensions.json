@@ -317,14 +317,28 @@
         {
           "name": "Скрытие элементов карточки",
           "author": "@elenatv1",
-          "link": "http://skaz.tv/meta.js",
+          "link": "http://skaz.team/meta.js",
           "descr": "Можно скрыть метаданные, комментарии и другое",
+          "available_lampa": 1
+        },
+         {
+          "name": "SkazBET",
+          "author": "@helpiptv",
+          "link": "http://skaz.team/bet.js",
+          "descr": "Ставки на спорт",
+          "available_lampa": 1
+        },
+        {
+          "name": "Игры на двоих",
+          "author": "@elenatv1",
+          "link": "http://skaz.team/gg.js",
+          "descr": "Тетрис, змейка, пак-ман и прочее",
           "available_lampa": 1
         },
         {
           "name": "Игры",
           "author": "@elenatv1",
-          "link": "http://skaz.tv/g.js",
+          "link": "http://skaz.team/g.js",
           "descr": "Тетрис, змейка, пак-ман и прочее",
           "available_lampa": 1
         },
