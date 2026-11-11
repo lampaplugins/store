@@ -56,6 +56,7 @@
 | `pavelpikta/torrserver-settings.js` | Настройки TorrServer (BTSets) из Lampa |
 | `a.js` | Служебные настройки (см. файл) |
 | `o.js` | Заготовка |
+| [Shikimori by WaterFAQ](https://water-faq.github.io/lampa-plugins/shikimori.js) (внешний) | Каталог аниме: подборки, фильтры, рейтинг Shikimori и студии анимации |
 
 </details>
 
